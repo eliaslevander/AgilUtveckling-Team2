@@ -1,5 +1,6 @@
 <script setup>
 import HeroImage from "../components/HeroImage.vue";
+import TestFetch from "@/components/TestFetch.vue";
 import About from "../components/AboutText.vue";
 </script>
 

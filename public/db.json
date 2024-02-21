@@ -2,10 +2,8 @@
     {
         "id": 1,
         "name": "Blue 1",
-        "description": "test beskrivning",
-        "image":
-            "../src/assets/images/Blue/Blue_interior_01.jpg"
-        ,
+        "description": "Elegant gråblå nyans, lugnande atmosfär, högkvalitativ färg för tidlös skönhet.",
+        "image": "../src/assets/images/Blue/Blue_interior_01.jpg",
         "price": 100,
         "category": "color",
         "colorType": "blue",
@@ -14,8 +12,8 @@
     {
         "id": 2,
         "name": "Blue 2",
-        "description": "test beskrivning",
-        "image":"../src/assets/images/Blue/Blue_interior_02.jpg" ,
+        "description": "Djupt havsblå nyans, inspirerande och lugnande. Perfekt för att skapa en kreativ och fokuserad atmosfär.",
+        "image": "../src/assets/images/Blue/Blue_interior_02.jpg",
         "price": 100,
         "category": "color",
         "colorType": "blue",
@@ -24,7 +22,7 @@
     {
         "id": 3,
         "name": "Blue 3",
-        "description": "test beskrivning",
+        "description": "Mjuk himmelsblå ton, ger en känsla av ro och klarhet. Idealisk för att skapa en fräsch och luftig atmosfär.",
         "image": "../src/assets/images/Blue/Blue_interior_03.jpg",
         "price": 100,
         "category": "color",
@@ -34,7 +32,7 @@
     {
         "id": 4,
         "name": "Green 1",
-        "description": "test beskrivning",
+        "description": "Jordnära och rik skogsgrön färg, ger en harmonisk koppling till naturen. Perfekt för att skapa ett organiskt och lugnt uttryck. Låt din omgivning omfamna den lugnande kraften av naturens skönhet med denna djupa och tillfredsställande nyans.",
         "image": "../src/assets/images/Green/Green_interior_01.jpg",
         "price": 100,
         "category": "color",
@@ -44,7 +42,7 @@
     {
         "id": 5,
         "name": "Green 2",
-        "description": "test beskrivning",
+        "description": "Mjuk olivgrön-brun nyans, ger en jordnära och avslappnad atmosfär. Idealisk för att skapa en varm och inbjudande känsla. Låt ditt utrymme omfamna den naturliga skönheten med denna harmoniska färg, perfekt för en avslappnad och stilfull atmosfär.",
         "image": "../src/assets/images/Green/Green_interior_02.jpg",
         "price": 100,
         "category": "color",
@@ -54,8 +52,8 @@
     {
         "id": 6,
         "name": "Green 3",
-        "description": "test beskrivning",
-        "image": "../src/assets/images/Green/Green_Interior_03.jpg",
+        "description": "Mjuk salviagrön ton, ger en naturlig och fridfull känsla. Skapar en lugn atmosfär med en subtil touch av elegans. Idealisk för att omfamna naturens skönhet och skapa ett harmoniskt utrymme.",
+        "image": "../src/assets/images/Green/Green_interior_03_.jpg",
         "price": 100,
         "category": "color",
         "colorType": "green",

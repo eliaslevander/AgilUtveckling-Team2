@@ -3,11 +3,12 @@
     <div class="item" v-for="items in data" :key="items.id">
       <div>
         <h1>{{ items.name }}</h1>
-        <h2>{{ items.description }}</h2>
+        <p>{{ items.description }}</p>
         <h3>{{ items.price }}</h3>
-        <h4>{{ items.category.name }}</h4>
+        <h4>{{ items.category }}</h4>
+        <h4>{{ items.colorType }}</h4>
       </div>
-      <div>
+      <div class="container">
         <img :src="items.image" alt="" />
         <div :style="{ backgroundColor: items.colorHex }" class="square"></div>
       </div>
@@ -39,14 +40,18 @@ onMounted(() => {
 .item {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 300px;
 }
 
 img {
-  width: 200px;
+  height: 100px;
 }
 .square {
   width: 100px;
   height: 100px;
+}
+
+.container {
+  display: flex;
 }
 </style>
