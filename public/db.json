@@ -1,0 +1,64 @@
+[
+    {
+        "id": 1,
+        "name": "Blue 1",
+        "description": "test beskrivning",
+        "image":
+            "../src/assets/images/Blue/Blue_interior_01.jpg"
+        ,
+        "price": 100,
+        "category": "color",
+        "colorType": "blue",
+        "colorHex": "#93a1ae"
+    },
+    {
+        "id": 2,
+        "name": "Blue 2",
+        "description": "test beskrivning",
+        "image":"../src/assets/images/Blue/Blue_interior_02.jpg" ,
+        "price": 100,
+        "category": "color",
+        "colorType": "blue",
+        "colorHex": "#3b719d"
+    },
+    {
+        "id": 3,
+        "name": "Blue 3",
+        "description": "test beskrivning",
+        "image": "../src/assets/images/Blue/Blue_interior_03.jpg",
+        "price": 100,
+        "category": "color",
+        "colorType": "blue",
+        "colorHex": "#88a3be"
+    },
+    {
+        "id": 4,
+        "name": "Green 1",
+        "description": "test beskrivning",
+        "image": "../src/assets/images/Green/Green_interior_01.jpg",
+        "price": 100,
+        "category": "color",
+        "colorType": "green",
+        "colorHex": "#516858"
+    },
+    {
+        "id": 5,
+        "name": "Green 2",
+        "description": "test beskrivning",
+        "image": "../src/assets/images/Green/Green_interior_02.jpg",
+        "price": 100,
+        "category": "color",
+        "colorType": "green",
+        "colorHex": "#5d5c3d"
+    },
+    {
+        "id": 6,
+        "name": "Green 3",
+        "description": "test beskrivning",
+        "image": "../src/assets/images/Green/Green_Interior_03.jpg",
+        "price": 100,
+        "category": "color",
+        "colorType": "green",
+        "colorHex": "#9fb1a1"
+    }
+]
