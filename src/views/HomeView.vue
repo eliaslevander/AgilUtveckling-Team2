@@ -1,9 +1,9 @@
 <script setup>
-import HeroImage from '../components/Prisma_HeroImage.vue'
+    import HeroImage from '../components/HeroImage.vue'
 </script>
 
 <template>
-  <main>
-    <HeroImage />
-  </main>
+    <main>
+        <HeroImage />
+    </main>
 </template>
