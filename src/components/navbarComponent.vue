@@ -60,3 +60,27 @@
     text-decoration: underline;
   }
 </style>
+
+<script>
+  import { RouterLink } from 'vue-router'
+
+  /* Ikoner */
+  import SvgIcon from '@jamescoyle/vue-icon'
+  import { mdiMagnify } from '@mdi/js'
+  import { mdiHeartOutline } from '@mdi/js'
+  import { mdiShoppingOutline } from '@mdi/js'
+
+  export default {
+    name: 'my-component',
+    components: {
+      SvgIcon
+    },
+    data() {
+      return {
+        magnifyPath: mdiMagnify,
+        heartPath: mdiHeartOutline,
+        shoppingPath: mdiShoppingOutline
+      }
+    }
+  }
+</script>
