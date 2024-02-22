@@ -8,13 +8,12 @@
 <script setup>
 const props = defineProps({
   color: String,
-  size: String,
 });
 </script>
 
 <style scoped>
 #blob {
-  width: 100px;
+  width: inherit;
   aspect-ratio: 1;
   border-radius: 60% 40% 44% 56% / 55% 43% 57% 45%;
   box-shadow: inset 5px -5px 10px rgba(0, 0, 0, 0.2);

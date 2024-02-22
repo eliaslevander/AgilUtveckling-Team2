@@ -1,17 +1,11 @@
 <template>
-  <div id="grid">
-    <div class="item" v-for="items in data" :key="items.id">
-      <div>
-        <h1>{{ items.name }}</h1>
-        <p>{{ items.description }}</p>
-        <h3>{{ items.price }}</h3>
-        <h4>{{ items.category }}</h4>
-        <h4>{{ items.colorType }}</h4>
+  <div class="product-grid">
+    <div class="card" v-for="items in data" :key="items.id" :title="items.name">
+      <div class="blob-container">
+        <BlobComponent :color="items.colorHex" />
       </div>
-      <BlobComponent :color="items.colorHex" size="150px" />
-      <div class="container">
-        <img :src="items.image" alt="" />
-        <div :style="{ backgroundColor: items.colorHex }" class="square"></div>
+      <div class="name-container">
+        <h3 class="name">{{ items.name }}</h3>
       </div>
     </div>
   </div>
@@ -35,25 +29,40 @@ onMounted(() => {
 </script>
 
 <style scoped>
-#grid {
-  display: flex;
-  flex-wrap: wrap;
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 16px;
 }
-.item {
+.card {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
 }
 
-img {
-  height: 100px;
-}
-.square {
-  width: 100px;
-  height: 100px;
-}
-
-.container {
+.blob-container {
+  width: 100%;
+  aspect-ratio: 1;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.name {
+  text-transform: uppercase;
+  display: block;
+  text-align: center;
+  max-width: 85%;
+}
+
+.name-container {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
