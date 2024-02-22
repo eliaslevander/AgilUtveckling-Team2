@@ -16,8 +16,9 @@ const props = defineProps({
   width: inherit;
   aspect-ratio: 1;
   border-radius: 60% 40% 44% 56% / 55% 43% 57% 45%;
-  box-shadow: inset 5px -5px 10px rgba(0, 0, 0, 0.2);
-  filter: drop-shadow(-6px 10px 5px rgba(0, 0, 0, 0.5));
+  /* box-shadow: ; */
+  box-shadow: -4px 3px 5px rgba(0, 0, 0, 0.5),
+    inset 5px -5px 10px rgba(0, 0, 0, 0.2);
   position: relative;
 }
 

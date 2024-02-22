@@ -5,7 +5,7 @@
         <BlobComponent :color="items.colorHex" />
       </div>
       <div class="name-container">
-        <h3 class="name">{{ items.name }}</h3>
+        <h2 class="name">{{ items.name }}</h2>
       </div>
     </div>
   </div>
@@ -57,6 +57,7 @@ onMounted(() => {
   display: block;
   text-align: center;
   max-width: 85%;
+  font-size: 1.125rem;
 }
 
 .name-container {
