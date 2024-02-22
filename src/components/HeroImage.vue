@@ -2,19 +2,16 @@
 </script>
 
 <template>
-<div id ="HeroImage">
-<img src="../assets/images/Prisma_HeroImage.jpg" alt="">
+    <v-container class="HeroImage">
 
-</div>
+    </v-container>
+
 </template>
 
 <style scoped>
-#HeroImage {
-    margin: 0;
-    display: flex;
-    align-items:center;
-    justify-content:center;
-    width: 100%;
-    position: relative;
+.HeroImage {
+    background-image: url(../assets/images/Prisma_HeroImage.jpg);
+    background-size:cover;
+    height: 90vh;
 }
 </style>

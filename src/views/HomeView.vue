@@ -19,11 +19,3 @@ main {
   overflow-x: hidden;
 }
 </style>
-
-<style scoped>
-main {
-  width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
-</style>
