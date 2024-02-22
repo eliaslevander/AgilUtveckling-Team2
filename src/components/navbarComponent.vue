@@ -1,7 +1,8 @@
+<script setup></script>
 <template>
   <v-app-bar>
     <!-- Brand -->
-    <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
+    <RouterLink :to="{ name: 'home' }" id="brand">PRISMA</RouterLink>
 
     <!-- länkar -->
     <v-spacer></v-spacer>
@@ -9,22 +10,22 @@
       <v-list-item-group class="d-flex">
         <v-list-item>
           <v-list-item-content>
-            <router-link :to="{ name: '' }" class="navigation-link"
-              >Måla</router-link
+            <RouterLink :to="{ name: '' }" class="navigation-link"
+              >Måla</RouterLink
             >
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
-            <router-link :to="{ name: '' }" class="navigation-link"
-              >Inspiration</router-link
+            <RouterLink :to="{ name: '' }" class="navigation-link"
+              >Inspiration</RouterLink
             >
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
-            <router-link :to="{ name: '' }" class="navigation-link"
-              >Guide</router-link
+            <RouterLink :to="{ name: '' }" class="navigation-link"
+              >Guide</RouterLink
             >
           </v-list-item-content>
         </v-list-item>
