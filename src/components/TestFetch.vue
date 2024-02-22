@@ -8,6 +8,7 @@
         <h4>{{ items.category }}</h4>
         <h4>{{ items.colorType }}</h4>
       </div>
+      <BlobComponent :color="items.colorHex" size="150px" />
       <div class="container">
         <img :src="items.image" alt="" />
         <div :style="{ backgroundColor: items.colorHex }" class="square"></div>
@@ -18,6 +19,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import BlobComponent from "./BlobComponent.vue";
 
 const data = ref(null);
 
