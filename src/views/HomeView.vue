@@ -1,6 +1,6 @@
 <script setup>
-import HeroImage from '../components/HeroImage.vue'
-import About from '../components/AboutText.vue'
+  import HeroImage from '../components/HeroImage.vue'
+  import About from '../components/AboutText.vue'
 </script>
 
 <template>
@@ -11,11 +11,9 @@ import About from '../components/AboutText.vue'
 </template>
 
 <style scoped>
-main {
-  width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-
-
-
-}</style>
+  main {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+</style>
