@@ -31,9 +31,9 @@ onMounted(() => {
 <style scoped>
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 16px;
-  padding: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 8px;
+  padding: 8px;
 }
 .card {
   display: flex;
