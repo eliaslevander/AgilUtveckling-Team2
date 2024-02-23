@@ -16,12 +16,6 @@ export const productsStore = defineStore("products", {
       } catch (error) {
         console.error("Fel:", error);
       }
-    },
-    loadFromLocalStorage() {
-      const storedProducts = localStorage.getItem("products");
-      if (storedProducts) {
-        this.products = JSON.parse(storedProducts);
-      }
-    },
+    }
   },
 });
