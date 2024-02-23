@@ -1,6 +1,12 @@
 <template>
   <div class="product-grid">
-    <div class="card" v-for="items in data" :key="items.id" :title="items.name">
+    <div
+      class="card"
+      v-for="items in store.products"
+      :key="items.id"
+      :title="items.name"
+      @click="goToProduct(items.name)"
+    >
       <div class="blob-container">
         <BlobComponent :color="items.colorHex" />
       </div>
@@ -12,20 +18,17 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { productsStore } from "../stores/products";
+// import { ref } from "vue";
+
 import BlobComponent from "./BlobComponent.vue";
+import router from "@/router";
 
-const data = ref(null);
+const store = productsStore();
 
-const fetchData = () => {
-  fetch("./db.json")
-    .then((response) => response.json())
-    .then((result) => (data.value = result));
+const goToProduct = (itemName) => {
+  router.push({ name: "product", params: { name: itemName } });
 };
-
-onMounted(() => {
-  fetchData();
-});
 </script>
 
 <style scoped>
