@@ -46,7 +46,7 @@
       <v-list-item-group class="d-flex">
         <v-list-item>
           <v-list-item-content>
-            <router-link :to="{ name: '' }" class="navigation-link"
+            <router-link :to="{ name: 'about' }" class="navigation-link"
               >Måla</router-link
             >
           </v-list-item-content>
