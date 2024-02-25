@@ -1,46 +1,59 @@
+<script>
+
+</script>
+
 <template>
-    <v-container id="wheel">
-<v-carousel hide-delimiters :show-arrows="false">
-  <v-carousel-item id="wheelItem">
-<img src="../assets/images/testcat.jpg" alt=""
-cover>
-  </v-carousel-item>
-</v-carousel>
-
-<v-carousel hide-delimiters :show-arrows="false">
-  <v-carousel-item id="wheelItem">
-<img src="../assets/images/testcat.jpg" alt=""
-cover>
-  </v-carousel-item>
-</v-carousel>
-
-<v-carousel hide-delimiters :show-arrows="false">
-  <v-carousel-item id="wheelItem">
-<img src="../assets/images/testcat.jpg" alt=""
-cover>
-  </v-carousel-item>
-</v-carousel>
-
-<v-carousel hide-delimiters :show-arrows="false">
-  <v-carousel-item id="wheelItem">
-<img src="../assets/images/testcat.jpg" alt=""
-cover>
-  </v-carousel-item>
-</v-carousel>
-    </v-container>
-
+  <v-container id="wheel">
+<v-card id="card"
+  elevation="16">
+  <img src="../assets/images/White/White_Interior_01.jpg" alt="white Room">
+  </v-card>
+  <v-card id="card"
+  elevation="16">
+    <img src="../assets/images/Carousel/blueroom2.jpg" alt="blue room">
+  </v-card>
+  <v-card id="card"
+  elevation="16">
+    <img src="../assets/images/Carousel/galleryroom.jpg" alt="beige room">
+  </v-card>
+  <v-card id="card"
+  elevation="16">
+    <img src="../assets/images/Carousel/yellowwall.jpg" alt="yellow room">
+  </v-card>
+  <v-card id="card"
+  elevation="16">
+    <img src="../assets/images/Green/Green_Interior_03_.jpg" alt="">
+  </v-card>
+</v-container>
 </template>
 
-<style scoped>
+<style>
 #wheel {
-  margin:2vh;
+
+  overflow:auto;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
+}
+#card {margin: 1vh;
 }
 
-img{
-  margin:3vh;
-  width: 100%;
+img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding:1vh;
+  object-fit: contain;
   height: 100%;
+  width: 100%;
+  min-height: 240px;
+  max-height: 600px;
+  min-height: 240px;
+  max-width: 750px;
+}
+img:hover {
+  opacity: 50%;
 }
 </style>
+

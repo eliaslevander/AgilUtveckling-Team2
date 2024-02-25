@@ -16,6 +16,8 @@ import Carousel from "../components/ImgWheel.vue"
 
 <style scoped>
 main {
+  padding: 0%;
+  margin: 0%;
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
