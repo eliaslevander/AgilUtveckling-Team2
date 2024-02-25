@@ -2,7 +2,7 @@
 import HeroImage from "../components/HeroImage.vue";
 import TestFetch from "@/components/TestFetch.vue";
 import About from "../components/AboutText.vue";
-import Carousel from "../components/ImgWheel.vue"
+import Carousel from "../components/ImgWheel.vue";
 </script>
 
 <template>
@@ -22,5 +22,4 @@ main {
   box-sizing: border-box;
   overflow-x: hidden;
 }
-
 </style>
