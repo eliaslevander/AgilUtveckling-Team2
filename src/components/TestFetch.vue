@@ -5,7 +5,7 @@
       v-for="items in store.products"
       :key="items.id"
       :title="items.name"
-      @click="goToProduct(items.name)"
+      @click="goToProduct(items.id)"
     >
       <div class="blob-container">
         <BlobComponent :color="items.colorHex" />
@@ -26,8 +26,8 @@ import router from "@/router";
 
 const store = productsStore();
 
-const goToProduct = (itemName) => {
-  router.push({ name: "product", params: { name: itemName } });
+const goToProduct = (id) => {
+  router.push({ name: "product", params: { id: id } });
 };
 </script>
 

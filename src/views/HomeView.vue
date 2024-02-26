@@ -8,6 +8,7 @@ import Carousel from "../components/ImgWheel.vue";
 <template>
   <main>
     <TestFetch />
+    <SearchResults />
     <HeroImage />
     <Carousel />
     <About />

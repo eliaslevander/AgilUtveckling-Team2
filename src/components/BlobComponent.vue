@@ -1,13 +1,19 @@
 <template>
   <div
     id="blob"
-    :style="{ backgroundColor: props.color, width: props.size }"
+    :style="{
+      backgroundColor: props.color,
+      width: props.width,
+      margin: props.margin,
+    }"
   ></div>
 </template>
 
 <script setup>
 const props = defineProps({
   color: String,
+  width: String,
+  margin: String,
 });
 </script>
 
