@@ -1,7 +1,10 @@
 <template>
   <div id="container">
-    <span id="go-back" @click="router.go(-1)">Tillbaka </span>
-    <v-icon>mdi-home</v-icon>
+    <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
+      ><v-icon>mdi-chevron-left</v-icon>
+      <p>Tillbaka</p>
+    </span>
+
     <Swiper
       :modules="[Pagination, Navigation, A11y]"
       :navigation="true"
@@ -35,18 +38,16 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { productsStore } from "../stores/products.js";
-import { useRoute, useRouter, RouterLink } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Pagination, Navigation, A11y } from "swiper/modules";
 import "swiper/css/bundle";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import BlobComponent from "@/components/BlobComponent.vue";
 
 const route = useRoute();
 const router = useRouter();
-
 const store = productsStore();
 
 const product = ref({});
@@ -63,6 +64,18 @@ onMounted(() => {
 #container {
   /* Quick fix, problem med navbar height */
   margin-top: 64px;
+}
+
+#go-back {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+}
+
+#go-back p {
+  text-decoration: underline;
+  font-weight: 600;
 }
 
 #image-container {
@@ -97,6 +110,6 @@ img {
 
 #swiper {
   position: relative;
-  width: 100%;
+  max-width: 600px;
 }
 </style>
