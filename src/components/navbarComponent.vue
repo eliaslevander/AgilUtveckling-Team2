@@ -1,22 +1,18 @@
 <template>
-    <!-- drawer för mobile -->
-    <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
-        <v-toolbar flat>
-            <v-toolbar-title>Meny</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn icon @click="drawer = false">
-                <svg-icon type="mdi" :path="closePath"></svg-icon>
-            </v-btn>
-        </v-toolbar>
+  <!-- drawer för mobile -->
+  <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
+    <v-toolbar flat>
+      <v-toolbar-title>Meny</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon @click="drawer = false">
+        <svg-icon type="mdi" :path="closePath"></svg-icon>
+      </v-btn>
+    </v-toolbar>
 
-        <!-- Search -->
-        <v-form>
-            <v-text-field
-                v-model="search"
-                label="Sök..."
-                hide-details
-            ></v-text-field>
-        </v-form>
+    <!-- Search -->
+    <v-form>
+      <v-text-field v-model="search" label="Sök..." hide-details></v-text-field>
+    </v-form>
 
         <!-- Rendera länkarna -->
         <v-list class="navigation-list">
@@ -81,12 +77,12 @@
         </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar>
-        <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-sm-none"
-            ><svg-icon type="mdi" :path="menuPath"></svg-icon
-        ></v-app-bar-nav-icon>
-        <!-- Brand -->
-        <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
+  <v-app-bar>
+    <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-sm-none"
+      ><svg-icon type="mdi" :path="menuPath"></svg-icon
+    ></v-app-bar-nav-icon>
+    <!-- Brand -->
+    <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
 
         <!-- länkar -->
         <v-spacer></v-spacer>
@@ -104,22 +100,18 @@
             </v-list-item>
         </v-list>
 
-        <!-- Ikoner -->
-        <v-spacer></v-spacer>
-        <v-btn icon>
-            <v-icon
-                ><svg-icon type="mdi" :path="magnifyPath"></svg-icon
-            ></v-icon>
-        </v-btn>
-        <v-btn icon>
-            <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
-        </v-btn>
-        <v-btn icon>
-            <v-icon
-                ><svg-icon type="mdi" :path="shoppingPath"></svg-icon
-            ></v-icon>
-        </v-btn>
-    </v-app-bar>
+    <!-- Ikoner -->
+    <v-spacer></v-spacer>
+    <v-btn icon>
+      <v-icon><svg-icon type="mdi" :path="magnifyPath"></svg-icon></v-icon>
+    </v-btn>
+    <v-btn icon>
+      <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
+    </v-btn>
+    <v-btn icon>
+      <v-icon><svg-icon type="mdi" :path="shoppingPath"></svg-icon></v-icon>
+    </v-btn>
+  </v-app-bar>
 </template>
 
 <style scoped>
@@ -144,11 +136,11 @@
         justify-content: center;
     }
 
-    @media (max-width: 380px) {
-        #brand {
-            font-size: 1rem;
-        }
-    }
+@media (max-width: 380px) {
+  #brand {
+    font-size: 1rem;
+  }
+}
 </style>
 
 <script>
