@@ -1,18 +1,22 @@
 <template>
-  <!-- drawer för mobile -->
-  <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
-    <v-toolbar flat>
-      <v-toolbar-title>Meny</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon @click="drawer = false">
-        <svg-icon type="mdi" :path="closePath"></svg-icon>
-      </v-btn>
-    </v-toolbar>
+    <!-- drawer för mobile -->
+    <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
+        <v-toolbar flat>
+            <v-toolbar-title>Meny</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon @click="drawer = false">
+                <svg-icon type="mdi" :path="closePath"></svg-icon>
+            </v-btn>
+        </v-toolbar>
 
-    <!-- Search -->
-    <v-form>
-      <v-text-field v-model="search" label="Sök..." hide-details></v-text-field>
-    </v-form>
+        <!-- Search -->
+        <v-form>
+            <v-text-field
+                v-model="search"
+                label="Sök..."
+                hide-details
+            ></v-text-field>
+        </v-form>
 
         <!-- Rendera länkarna -->
         <v-list class="navigation-list">
@@ -77,20 +81,23 @@
         </v-list>
     </v-navigation-drawer>
 
-  <v-app-bar>
-    <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-sm-none"
-      ><svg-icon type="mdi" :path="menuPath"></svg-icon
-    ></v-app-bar-nav-icon>
-    <!-- Brand -->
-    <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
+    <v-app-bar>
+        <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-sm-none"
+            ><svg-icon type="mdi" :path="menuPath"></svg-icon
+        ></v-app-bar-nav-icon>
+        <!-- Brand -->
+        <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
 
         <!-- länkar -->
         <v-spacer></v-spacer>
         <v-list class="navigation-links d-none d-sm-flex">
-            <v-list-item link>
-                <router-link to="#" class="navigation-link">Måla</router-link>
+            <v-list-item class="navigation-item" @click="toggleDropdownMenu">
+                Måla
+                <v-icon
+                    ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
+                ></v-icon>
             </v-list-item>
-            <v-list-item link>
+            <v-list-item class="navigation-item" link>
                 <router-link to="#" class="navigation-link"
                     >Inspiration</router-link
                 >
@@ -100,21 +107,65 @@
             </v-list-item>
         </v-list>
 
-    <!-- Ikoner -->
-    <v-spacer></v-spacer>
-    <v-btn icon>
-      <v-icon><svg-icon type="mdi" :path="magnifyPath"></svg-icon></v-icon>
-    </v-btn>
-    <v-btn icon>
-      <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
-    </v-btn>
-    <v-btn icon>
-      <v-icon><svg-icon type="mdi" :path="shoppingPath"></svg-icon></v-icon>
-    </v-btn>
-  </v-app-bar>
+        <!-- Ikoner -->
+        <v-spacer></v-spacer>
+        <v-btn icon>
+            <v-icon
+                ><svg-icon type="mdi" :path="magnifyPath"></svg-icon
+            ></v-icon>
+        </v-btn>
+        <v-btn icon>
+            <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
+        </v-btn>
+        <v-btn icon>
+            <v-icon
+                ><svg-icon type="mdi" :path="shoppingPath"></svg-icon
+            ></v-icon>
+        </v-btn>
+    </v-app-bar>
+
+    <!-- Dold div som visas när 'showDropdownMenu' är true -->
+    <div v-if="showDropdownMenu" class="dropdown-content show-dropdown">
+        <v-list-item class="navigation-link" @click="toggleColorsDropdown">
+            Färger
+            <v-icon
+                ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
+            ></v-icon>
+        </v-list-item>
+        <div v-if="showColorsDropdown">
+            <v-list-item link>
+                <router-link to="#" class="navigation-link"
+                    >Gråskala</router-link
+                >
+            </v-list-item>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link">Röd</router-link>
+            </v-list-item>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link">Blå</router-link>
+            </v-list-item>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link">Grön</router-link>
+            </v-list-item>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link">Gul</router-link>
+            </v-list-item>
+        </div>
+        <v-list-item link>
+            <router-link to="#" class="navigation-link">Utrustning</router-link>
+        </v-list-item>
+    </div>
 </template>
 
 <style scoped>
+    .dropdown-content {
+        position: absolute;
+        top: 64px;
+        width: 100%;
+        background-color: #ffffff;
+        z-index: 1;
+    }
+
     #brand {
         color: #000000;
         text-decoration: none;
@@ -136,11 +187,11 @@
         justify-content: center;
     }
 
-@media (max-width: 380px) {
-  #brand {
-    font-size: 1rem;
-  }
-}
+    @media (max-width: 380px) {
+        #brand {
+            font-size: 1rem;
+        }
+    }
 </style>
 
 <script>
