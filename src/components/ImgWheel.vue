@@ -27,7 +27,7 @@
 </v-container>
 </template>
 
-<style>
+<style scoped>
 #wheel {
 
   overflow:auto;
