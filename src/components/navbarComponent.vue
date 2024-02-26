@@ -20,10 +20,63 @@
 
         <!-- Rendera länkarna -->
         <v-list class="navigation-list">
-            <v-list-item v-for="item in menuItems" :key="item.title" link>
-                <router-link :to="item.link" class="navigation-link">{{
-                    item.title
-                }}</router-link>
+            <v-list-item class="navigation-item" @click="toggleDropdownMenu">
+                Måla
+                <v-icon
+                    ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
+                ></v-icon>
+            </v-list-item>
+            <!-- Dold div som visas när 'showDropdownMenu' är true -->
+            <div v-if="showDropdownMenu">
+                <v-list-item
+                    class="navigation-link"
+                    @click="toggleColorsDropdown"
+                >
+                    Färger
+                    <v-icon
+                        ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
+                    ></v-icon>
+                </v-list-item>
+                <div v-if="showColorsDropdown">
+                    <v-list-item link>
+                        <router-link to="#" class="navigation-link"
+                            >Gråskala</router-link
+                        >
+                    </v-list-item>
+                    <v-list-item link>
+                        <router-link to="#" class="navigation-link"
+                            >Röd</router-link
+                        >
+                    </v-list-item>
+                    <v-list-item link>
+                        <router-link to="#" class="navigation-link"
+                            >Blå</router-link
+                        >
+                    </v-list-item>
+                    <v-list-item link>
+                        <router-link to="#" class="navigation-link"
+                            >Grön</router-link
+                        >
+                    </v-list-item>
+                    <v-list-item link>
+                        <router-link to="#" class="navigation-link"
+                            >Gul</router-link
+                        >
+                    </v-list-item>
+                </div>
+                <v-list-item link>
+                    <router-link to="#" class="navigation-link"
+                        >Utrustning</router-link
+                    >
+                </v-list-item>
+            </div>
+            <v-list-item class="navigation-item" link>
+                <router-link to="#" class="navigation-link"
+                    >Inspiration</router-link
+                >
+            </v-list-item>
+            <v-list-item class="navigation-item" link>
+                <router-link to="#" class="navigation-link">Guide</router-link>
             </v-list-item>
         </v-list>
     </v-navigation-drawer>
@@ -38,10 +91,16 @@
         <!-- länkar -->
         <v-spacer></v-spacer>
         <v-list class="navigation-links d-none d-sm-flex">
-            <v-list-item v-for="item in menuItems" :key="item.title" link>
-                <router-link :to="item.link" class="navigation-link">{{
-                    item.title
-                }}</router-link>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link">Måla</router-link>
+            </v-list-item>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link"
+                    >Inspiration</router-link
+                >
+            </v-list-item>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link">Guide</router-link>
             </v-list-item>
         </v-list>
 
@@ -77,13 +136,12 @@
     .navigation-link:hover {
         text-decoration: underline;
     }
-
     .navigation-item {
+        text-decoration: none;
+        color: #000000;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        border-bottom: 1px solid #000000;
     }
 
     @media (max-width: 380px) {
@@ -102,6 +160,7 @@
     import { mdiShoppingOutline } from '@mdi/js'
     import { mdiMenu } from '@mdi/js'
     import { mdiClose } from '@mdi/js'
+    import { mdiMenuDown } from '@mdi/js'
 
     export default {
         components: {
@@ -114,32 +173,19 @@
                 shoppingPath: mdiShoppingOutline,
                 menuPath: mdiMenu,
                 closePath: mdiClose,
+                menuDownPath: mdiMenuDown,
                 drawer: false,
                 search: '',
-                /* Array för länkarna */
-                menuItems: [
-                    {
-                        title: 'Måla',
-                        link: '#',
-                        /* Undermeny */
-                        items: [
-                            {
-                                title: 'Färger',
-                                /* Undermeny för undermenyn */
-                                items: [
-                                    { title: 'Gråskala', link: '#' },
-                                    { title: 'Röd', link: '#' },
-                                    { title: 'Blå', link: '#' },
-                                    { title: 'Grön', link: '#' },
-                                    { title: 'Gul', link: '#' }
-                                ]
-                            },
-                            { title: 'Utrustning', link: '#' }
-                        ]
-                    },
-                    { title: 'Inspiration', link: '#' },
-                    { title: 'Guide', link: '#' }
-                ]
+                showDropdownMenu: false,
+                showColorsDropdown: false
+            }
+        },
+        methods: {
+            toggleDropdownMenu() {
+                this.showDropdownMenu = !this.showDropdownMenu
+            },
+            toggleColorsDropdown() {
+                this.showColorsDropdown = !this.showColorsDropdown
             }
         }
     }
