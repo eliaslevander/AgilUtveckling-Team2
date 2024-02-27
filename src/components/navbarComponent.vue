@@ -29,7 +29,7 @@
             <!-- Dold div som visas när 'showDropdownMenu' är true -->
             <div v-if="showDropdownMenu">
                 <v-list-item
-                    class="navigation-link"
+                    class="navigation-item"
                     @click="toggleColorsDropdown"
                 >
                     Färger
@@ -38,33 +38,33 @@
                     ></v-icon>
                 </v-list-item>
                 <div v-if="showColorsDropdown">
-                    <v-list-item link>
+                    <v-list-item class="navigation-item" link>
                         <router-link to="#" class="navigation-link"
                             >Gråskala</router-link
                         >
                     </v-list-item>
-                    <v-list-item link>
+                    <v-list-item class="navigation-item" link>
                         <router-link to="#" class="navigation-link"
                             >Röd</router-link
                         >
                     </v-list-item>
-                    <v-list-item link>
+                    <v-list-item class="navigation-item" link>
                         <router-link to="#" class="navigation-link"
                             >Blå</router-link
                         >
                     </v-list-item>
-                    <v-list-item link>
+                    <v-list-item class="navigation-item" link>
                         <router-link to="#" class="navigation-link"
                             >Grön</router-link
                         >
                     </v-list-item>
-                    <v-list-item link>
+                    <v-list-item class="navigation-item" link>
                         <router-link to="#" class="navigation-link"
                             >Gul</router-link
                         >
                     </v-list-item>
                 </div>
-                <v-list-item link>
+                <v-list-item class="navigation-item" link>
                     <router-link to="#" class="navigation-link"
                         >Utrustning</router-link
                     >
@@ -81,7 +81,7 @@
         </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar>
+    <v-app-bar flat>
         <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-sm-none"
             ><svg-icon type="mdi" :path="menuPath"></svg-icon
         ></v-app-bar-nav-icon>
@@ -102,7 +102,7 @@
                     >Inspiration</router-link
                 >
             </v-list-item>
-            <v-list-item link>
+            <v-list-item class="navigation-item" link>
                 <router-link to="#" class="navigation-link">Guide</router-link>
             </v-list-item>
         </v-list>
@@ -126,13 +126,13 @@
 
     <!-- Visas när 'showDropdownMenu' är true -->
     <div v-if="showDropdownMenu" class="dropdown-content show-dropdown">
-        <v-list-item class="navigation-link" @click="toggleColorsDropdown">
+        <v-list-item @click="toggleColorsDropdown">
             Färger
             <v-icon
-                ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
+                ><svg-icon type="mdi" :path="menuRightPath"></svg-icon
             ></v-icon>
         </v-list-item>
-        <div v-if="showColorsDropdown">
+        <div v-if="showColorsDropdown" class="subMenu">
             <v-list-item link>
                 <router-link to="#" class="navigation-link"
                     >Gråskala</router-link
@@ -160,12 +160,12 @@
 <style scoped>
     .dropdown-content {
         position: absolute;
-        top: 64px;
-        width: 100%;
+        margin-top: 64px;
+        width: 100vw;
+        height: 13rem;
         background-color: #ffffff;
         z-index: 1;
     }
-
     #brand {
         color: #000000;
         text-decoration: none;
@@ -186,10 +186,21 @@
         align-items: center;
         justify-content: center;
     }
+    .subMenu {
+        position: absolute;
+        margin-left: 15rem;
+        margin-top: -43px;
+        background-color: #ffffff;
+        z-index: 1;
+        width: 10rem;
+    }
 
     @media (max-width: 380px) {
         #brand {
-            font-size: 1rem;
+            font-size: 1.5rem;
+        }
+        .dropdown-content {
+            display: none;
         }
     }
 </style>
@@ -204,6 +215,7 @@
     import { mdiMenu } from '@mdi/js'
     import { mdiClose } from '@mdi/js'
     import { mdiMenuDown } from '@mdi/js'
+    import { mdiMenuRight } from '@mdi/js'
 
     export default {
         components: {
@@ -217,6 +229,7 @@
                 menuPath: mdiMenu,
                 closePath: mdiClose,
                 menuDownPath: mdiMenuDown,
+                menuRightPath: mdiMenuRight,
                 drawer: false,
                 search: '',
                 showDropdownMenu: false,
