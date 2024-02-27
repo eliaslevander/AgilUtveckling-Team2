@@ -6,7 +6,7 @@
     "image": "../src/assets/images/Blue/Blue_interior_01.jpg",
     "price": 199,
     "category": "color",
-    "colorType": "blue",
+    "colorType": "Blå",
     "colorHex": "#93a1ae"
   },
   {
@@ -16,7 +16,7 @@
     "image": "../src/assets/images/Blue/Blue_interior_02.jpg",
     "price": 100,
     "category": "color",
-    "colorType": "blue",
+    "colorType": "Blå",
     "colorHex": "#3b719d"
   },
   {
@@ -26,7 +26,7 @@
     "image": "../src/assets/images/Blue/Blue_interior_03.jpg",
     "price": 100,
     "category": "color",
-    "colorType": "blue",
+    "colorType": "Blå",
     "colorHex": "#88a3be"
   },
   {
@@ -36,7 +36,7 @@
     "image": "../src/assets/images/Green/Green_interior_01.jpg",
     "price": 100,
     "category": "color",
-    "colorType": "green",
+    "colorType": "Grön",
     "colorHex": "#516858"
   },
   {
@@ -46,7 +46,7 @@
     "image": "../src/assets/images/Green/Green_interior_02.jpg",
     "price": 100,
     "category": "color",
-    "colorType": "green",
+    "colorType": "Grön",
     "colorHex": "#5d5c3d"
   },
   {
@@ -56,7 +56,7 @@
     "image": "../src/assets/images/Green/Green_interior_03_.jpg",
     "price": 100,
     "category": "color",
-    "colorType": "green",
+    "colorType": "Grön",
     "colorHex": "#9fb1a1"
   },
   {
@@ -66,7 +66,7 @@
     "image": "../src/assets/images/White/White_interior_01.jpg",
     "price": 100,
     "category": "color",
-    "colorType": "white",
+    "colorType": "Vit",
     "colorHex": "#f3f5f2"
   },
   {
@@ -76,7 +76,7 @@
     "image": "../src/assets/images/White/White_interior_02.jpg",
     "price": 100,
     "category": "color",
-    "colorType": "white",
+    "colorType": "Vit",
     "colorHex": "#edeee0"
   }
 ]

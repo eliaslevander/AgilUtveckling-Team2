@@ -51,7 +51,8 @@
 
     watch(searchInput, () => {
     filteredProducts.value = store.products.filter((product) =>
-    product.name.toUpperCase().includes(searchInput.value.toUpperCase())
+    product.name.toUpperCase().includes(searchInput.value.toUpperCase())||
+    product.colorType.toUpperCase().includes(searchInput.value.toUpperCase())
   );
 });
     function searchResults() {
