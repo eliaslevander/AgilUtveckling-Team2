@@ -188,7 +188,6 @@ img {
 
 #swiper {
   position: relative;
-  max-width: 500px;
 }
 
 #description {
