@@ -191,6 +191,9 @@
         #brand {
             font-size: 1rem;
         }
+        .dropdown-content {
+            display: none;
+        }
     }
 </style>
 
