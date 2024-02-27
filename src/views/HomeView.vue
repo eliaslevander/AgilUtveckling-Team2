@@ -8,8 +8,8 @@ import SearchBar from "../components/SearchComponent.vue"
 
 <template>
   <main>
-
-    <SearchBar />
+    <TestFetch />
+    <SearchResults />
     <HeroImage />
     <Carousel />
     <About />
