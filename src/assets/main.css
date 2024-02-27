@@ -1,6 +1,21 @@
-
 * {
-    margin: 0%;
-    padding: 0%;
-    overflow-x: hidden;
+  margin: 0%;
+  padding: 0%;
+  font-family: "Jura", sans-serif;
+  font-optical-sizing: auto;
 }
+
+/* Swiper JS settings */
+
+.swiper-pagination-bullet-active {
+  background-color: orange !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  color: white;
+  padding: 6px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* ------------------ */
