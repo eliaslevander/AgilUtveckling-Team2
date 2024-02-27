@@ -15,7 +15,7 @@
 <template>
     <v-app>
         <NavbarComponent />
-        <div class="content" style="padding-top: 64px">
+        <div class="content" style="margin-top: 64px">
             <RouterView />
         </div>
         <FooterComponent />

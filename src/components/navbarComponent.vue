@@ -124,7 +124,7 @@
         </v-btn>
     </v-app-bar>
 
-    <!-- Dold div som visas när 'showDropdownMenu' är true -->
+    <!-- Visas när 'showDropdownMenu' är true -->
     <div v-if="showDropdownMenu" class="dropdown-content show-dropdown">
         <v-list-item class="navigation-link" @click="toggleColorsDropdown">
             Färger
