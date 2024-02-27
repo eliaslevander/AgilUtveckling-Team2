@@ -81,7 +81,7 @@
         </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar>
+    <v-app-bar flat>
         <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-sm-none"
             ><svg-icon type="mdi" :path="menuPath"></svg-icon
         ></v-app-bar-nav-icon>
@@ -160,7 +160,7 @@
 <style scoped>
     .dropdown-content {
         position: absolute;
-        top: 64px;
+        margin-top: 64px;
         width: 100vw;
         height: 13rem;
         background-color: #ffffff;
@@ -188,8 +188,8 @@
     }
     .subMenu {
         position: absolute;
-        left: 15rem;
-        top: 0;
+        margin-left: 15rem;
+        margin-top: -43px;
         background-color: #ffffff;
         z-index: 1;
         width: 10rem;
@@ -197,7 +197,7 @@
 
     @media (max-width: 380px) {
         #brand {
-            font-size: 1rem;
+            font-size: 1.5rem;
         }
         .dropdown-content {
             display: none;
