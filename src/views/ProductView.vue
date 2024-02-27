@@ -1,34 +1,38 @@
 <template>
+  <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
+    ><v-icon>mdi-chevron-left</v-icon>
+    <p>Tillbaka</p>
+  </span>
   <div id="container">
-    <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
-      ><v-icon>mdi-chevron-left</v-icon>
-      <p>Tillbaka</p>
-    </span>
+    <div id="swiper-container">
+      <Swiper
+        :modules="[Pagination, Navigation, A11y]"
+        navigation
+        pagination
+        :loop="true"
+        id="swiper"
+      >
+        <SwiperSlide>
+          <div id="image-container">
+            <img
+              :src="product.image"
+              :alt="`Ett rum med färgen ${product.name}`"
+            />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div id="blob-container">
+            <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
+            <BlobComponent :color="product.colorHex" margin="48px" />
+          </div>
+        </SwiperSlide>
+      </Swiper>
+    </div>
 
-    <Swiper
-      :modules="[Pagination, Navigation, A11y]"
-      :navigation="true"
-      :pagination="true"
-      :loop="true"
-      id="swiper"
-    >
-      <SwiperSlide>
-        <div id="image-container">
-          <img
-            :src="product.image"
-            :alt="`Ett rum med färgen ${product.name}`"
-          />
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div id="blob-container">
-          <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
-          <BlobComponent :color="product.colorHex" margin="48px" />
-        </div>
-      </SwiperSlide>
-    </Swiper>
-    <h2 id="product-name">{{ product.name }}</h2>
-    <div id="bottom-container">
+    <v-divider class="vertical-divider" vertical></v-divider>
+
+    <div id="content-container">
+      <h2 id="product-name">{{ product.name }}</h2>
       <p id="description">{{ product.description }}</p>
       <v-divider class="divider"></v-divider>
       <p class="select-text">Välj mängd:</p>
@@ -64,13 +68,16 @@
       <p class="select-text">Välj färgtyp:</p>
       <div id="color-type-selector-container">
         <v-btn-toggle
+          light
           rounded="0"
           v-model="toggle"
           mandatory
+          :ripple="false"
           :color="product.colorHex"
         >
           <v-btn
             :ripple="false"
+            flat
             value="helmatt"
             height="48"
             class="color-type-button"
@@ -140,11 +147,6 @@ const info = () => {
 </script>
 
 <style scoped>
-#container {
-  /* Quick fix, problem med navbar height */
-  margin-top: 64px;
-}
-
 #go-back {
   display: flex;
   align-items: center;
@@ -178,22 +180,23 @@ img {
 }
 
 #product-name {
-  padding: 16px 16px 0 16px;
+  padding: 0 16px;
+  margin-bottom: 16px;
   text-align: center;
   font-size: 2rem;
 }
 
 #swiper {
   position: relative;
-  max-width: 600px;
+  max-width: 500px;
 }
 
 #description {
   font-size: 1rem;
 }
 
-#bottom-container {
-  padding: 16px;
+#content-container {
+  padding: 0 16px 16px 16px;
 }
 
 .select-text {
@@ -259,5 +262,38 @@ img {
 .cart-button {
   font-size: 1.25rem;
   width: 100%;
+}
+
+@media screen and (min-width: 769px) {
+  #swiper-container {
+    width: 50%;
+  }
+
+  #content-container {
+    width: 50%;
+  }
+
+  #container {
+    width: 90vw;
+    display: flex;
+    margin: auto;
+    /* grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr); */
+  }
+
+  .vertical-divider {
+    margin: 16px;
+  }
+
+  #swiper {
+    min-width: 0;
+    grid-area: swiper;
+    margin: 0;
+    width: 40vw;
+  }
+
+  #product-name {
+    padding: 0;
+  }
 }
 </style>
