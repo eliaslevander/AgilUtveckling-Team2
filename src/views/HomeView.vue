@@ -23,6 +23,5 @@ main {
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
-  margin-top: 64px;
 }
 </style>
