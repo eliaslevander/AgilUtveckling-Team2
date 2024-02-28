@@ -15,47 +15,62 @@
             quantity.value--
         }
     }
+
+    function removeFromCart(productId, colorType) {
+        cartStore.removeFromCart(productId, colorType)
+    }
 </script>
 
 <template>
-    <div class="backdrop" v-show="cartStore.isCartVisible" @click="cartStore.closeCart"></div>
+    <div
+        class="backdrop"
+        v-show="cartStore.isCartVisible"
+        @click="cartStore.closeCart"
+    ></div>
     <div class="cart-container">
-        <div class="cart-modal" :class="{ 'cart-visible': cartStore.isCartVisible }">
+        <div
+            class="cart-modal"
+            :class="{ 'cart-visible': cartStore.isCartVisible }"
+        >
             <div class="cart-header">
                 <h3>Din Kundvagn</h3>
                 <button @click="cartStore.closeCart">X</button>
             </div>
-            <hr>
-            <div class="cart-main">
+            <hr />
+            <div
+                v-for="(item, index) in cartStore.items"
+                :key="index"
+                class="cart-main"
+            >
                 <div id="preview-header">
-                    <h4>Produkt-titel</h4>
+                    <h4>{{ item.product.name }}</h4>
+                    <h3>{{ item.colorType }}</h3>
                 </div>
                 <div id="cart-content">
-                    <img src="/images/testcat.jpg" alt="" />
+                    <img :src="item.product.image" alt="" />
                     <div class="quantity-selector">
                         <button @click="decrement">-</button>
                         <input v-model="quantity" readonly />
                         <button @click="increment">+</button>
                     </div>
-                    <p>Pris: 100kr</p>
+                    <button @click="removeFromCart(item.product.id, item.colorType)">Ta bort</button>
+                    <p>{{ item.product.price }}kr</p>
                 </div>
-                <hr id="total-line">
+                <hr id="total-line" />
                 <div id="cart-total">
                     <h3>Summa</h3>
-                    <h3>123 kr</h3>
+                    <h3>{{ item.product.price * item.quantity }}kr</h3>
                 </div>
                 <div id="cart-checkout">
                     <button id="to-checkout-btn">TILL KASSAN</button>
                 </div>
-                <hr>
+                <hr />
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-
-
     .backdrop {
         position: fixed;
         top: 0;
@@ -85,13 +100,13 @@
         transform: translateX(100%);
     }
 
-    .cart-modal h3{
+    .cart-modal h3 {
         font-weight: bold;
     }
 
     .cart-visible {
-    transform: translateX(0);
-}
+        transform: translateX(0);
+    }
 
     hr {
         width: 93%;
@@ -163,7 +178,7 @@
 
     #to-checkout-btn {
         font-size: 20px;
-        letter-spacing: .1rem;
+        letter-spacing: 0.1rem;
         width: 100%;
         margin: auto;
         padding: 1rem;
@@ -172,9 +187,9 @@
         border: 1px solid black;
     }
 
-    @media screen and (max-width: 375px){
-    .cart-modal{
-        width: 20rem;
+    @media screen and (max-width: 375px) {
+        .cart-modal {
+            width: 20rem;
+        }
     }
-}
 </style>

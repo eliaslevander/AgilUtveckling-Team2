@@ -107,7 +107,7 @@
       </div>
       <v-divider class="divider"></v-divider>
       <v-btn
-        @click="info"
+        @click="addToCartHandler"
         class="cart-button"
         :color="product.colorHex"
         height="48"
@@ -124,6 +124,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { productsStore } from "../stores/products.js";
+import { useCartStore } from '../stores/cart';
 import { useRoute, useRouter } from "vue-router";
 /* För att kunna använda Swiper så måste dom även importeras här  */
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -137,10 +138,12 @@ import BlobComponent from "@/components/BlobComponent.vue";
 const route = useRoute();
 const router = useRouter();
 const store = productsStore();
+const cartStore = useCartStore();
 
 const product = ref({});
 const amount = ref(1);
 const toggle = ref("");
+
 
 onMounted(() => {
   // Här letar funktionen efter den första produkten med det id som är == route.params.id
@@ -150,6 +153,11 @@ onMounted(() => {
     (product) => product.id == route.params.id
   );
 });
+
+const addToCartHandler = () => {
+  cartStore.addToCart(product.value, amount.value, toggle.value);
+  alert(`${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`);
+};
 
 const info = () => {
   //Används för att logga aktiva värden vid tryck på "Lägg till i varukorgen"
