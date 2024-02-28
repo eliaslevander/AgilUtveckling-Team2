@@ -1,9 +1,9 @@
 <template>
   <!-- SÖKRUTA -->
     <div id="searchbox">
-        <v-text-field id="searchbar" label="Sök" 
-        variant="outlined" 
-        v-model="searchInput" 
+        <v-text-field id="searchbar" label="Sök"
+        variant="outlined"
+        v-model="searchInput"
         placeholder="Sök produkter..."
         ></v-text-field>
   <!------->
@@ -14,10 +14,10 @@
   <!------->
 
   <!-- SÖKRESULTAT -->
-        <span v-if="filteredProducts.length > 0"> </span>
+        <span v-if="filteredProducts.length > 0"></span>
         <v-list class="blobcontainer">
       <v-list-item-group>
-        <v-list-item 
+        <v-list-item
           v-for="items in filteredProducts"
         :key="items.id">
         <RouterLink id="searchLink" to="/">
@@ -27,15 +27,15 @@
       </v-list-item>
       </v-list-item-group>
     </v-list>
-  <!------->  
+  <!------->
       </template>
-   
+
 
 
 
   <script setup>
       // Composition api
-   
+
       import { productsStore } from '../stores/products'
       import BlobComponent from "./BlobComponent.vue";
       import { ref, watch } from 'vue'
@@ -43,8 +43,8 @@
       // importera ref
       // importera computed (beräkande egenskap)
       // importera watch
-   
-   
+
+
     let searchInput = ref('');
     const store = productsStore()
     const filteredProducts = ref([]);
@@ -60,14 +60,14 @@
     product.name.toUpperCase().includes(searchInput.value.toUpperCase())
   );
 }
-   
+
       //  const searchResults = itemName => {
       //    router.push({ name: 'product', params: { name: itemName } })
       //  }
-   
+
       // value används för att komma år variabler
   </script>
-   
+
 
 <style scoped>
 
@@ -87,7 +87,7 @@ button {
   text-decoration: none;
   width: 300px;
   margin: auto;
-  padding: 2vh;
+  padding: 1vh;
   color: black;
   display: flex;
   align-items: center;
