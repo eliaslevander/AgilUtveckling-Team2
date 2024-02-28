@@ -19,6 +19,7 @@ const props = defineProps({
 
 <style scoped>
 #blob {
+  /*https://stackoverflow.com/questions/14061104/css3-box-shadow-size-percent-units*/
   width: inherit;
   aspect-ratio: 1;
   border-radius: 60% 40% 44% 56% / 55% 43% 57% 45%;
