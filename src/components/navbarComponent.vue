@@ -4,7 +4,7 @@
         <v-toolbar flat>
             <v-toolbar-title>Meny</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon @click="drawer = false">
+            <v-btn icon @click="drawer = !drawer">
                 <svg-icon type="mdi" :path="closePath"></svg-icon>
             </v-btn>
         </v-toolbar>
@@ -29,7 +29,7 @@
             <!-- Dold div som visas när 'showDropdownMenu' är true -->
             <div v-if="showDropdownMenu">
                 <v-list-item
-                    class="navigation-item"
+                    class="navigation-link"
                     @click="toggleColorsDropdown"
                 >
                     Färger
@@ -38,70 +38,60 @@
                     ></v-icon>
                 </v-list-item>
                 <div v-if="showColorsDropdown">
-                    <v-list-item class="navigation-item" link>
+                    <v-list-item plain>
                         <router-link to="#" class="navigation-link"
                             >Gråskala</router-link
                         >
                     </v-list-item>
-                    <v-list-item class="navigation-item" link>
+                    <v-list-item plain>
                         <router-link to="#" class="navigation-link"
                             >Röd</router-link
                         >
                     </v-list-item>
-                    <v-list-item class="navigation-item" link>
+                    <v-list-item plain>
                         <router-link to="#" class="navigation-link"
                             >Blå</router-link
                         >
                     </v-list-item>
-                    <v-list-item class="navigation-item" link>
+                    <v-list-item plain>
                         <router-link to="#" class="navigation-link"
                             >Grön</router-link
                         >
                     </v-list-item>
-                    <v-list-item class="navigation-item" link>
+                    <v-list-item plain>
                         <router-link to="#" class="navigation-link"
                             >Gul</router-link
                         >
                     </v-list-item>
                 </div>
-                <v-list-item class="navigation-item" link>
+                <v-list-item plain>
                     <router-link to="#" class="navigation-link"
                         >Utrustning</router-link
                     >
                 </v-list-item>
             </div>
-            <v-list-item class="navigation-item" link>
+            <v-list-item class="navigation-item" plain>
                 <router-link to="#" class="navigation-link"
                     >Inspiration</router-link
                 >
             </v-list-item>
-            <v-list-item class="navigation-item" link>
+            <v-list-item class="navigation-item" plain>
                 <router-link to="#" class="navigation-link">Guide</router-link>
             </v-list-item>
         </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar flat>
-        <v-app-bar-nav-icon @click="drawer = true" class="d-flex d-sm-none"
+    <v-app-bar>
+        <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
             ><svg-icon type="mdi" :path="menuPath"></svg-icon
         ></v-app-bar-nav-icon>
         <!-- Brand -->
         <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
-  <v-app-bar flat>
-    <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
-      ><svg-icon type="mdi" :path="menuPath"></svg-icon
-    ></v-app-bar-nav-icon>
-    <!-- Brand -->
-    <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
 
         <!-- länkar -->
         <v-spacer></v-spacer>
         <v-list class="navigation-links d-none d-sm-flex">
-            <v-list-item
-                class="navigation-item"
-                @click="toggleDropdownMenu"
-                plain
-            >
+            <v-list-item class="navigation-item" @click="toggleDropdownMenu">
                 Måla
                 <v-icon
                     ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
@@ -112,49 +102,36 @@
                     >Inspiration</router-link
                 >
             </v-list-item>
-            <v-list-item class="navigation-item" plain>
+            <v-list-item plain>
                 <router-link to="#" class="navigation-link">Guide</router-link>
             </v-list-item>
         </v-list>
 
         <!-- Ikoner -->
         <v-spacer></v-spacer>
-        <v-btn icon>
+        <v-btn plain>
             <v-icon
                 ><svg-icon type="mdi" :path="magnifyPath"></svg-icon
             ></v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn plain>
             <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn plain>
             <v-icon
                 ><svg-icon type="mdi" :path="shoppingPath"></svg-icon
             ></v-icon>
         </v-btn>
     </v-app-bar>
-    <!-- Ikoner -->
-    <v-spacer></v-spacer>
-    <v-btn icon @click="drawer = !drawer">
-      <v-icon><svg-icon type="mdi" :path="magnifyPath"></svg-icon></v-icon>
-    </v-btn>
-    <v-btn icon>
-      <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
-    </v-btn>
-    <v-btn icon @click="toggleCartVisibility">
-      <v-icon><svg-icon type="mdi" :path="shoppingPath"></svg-icon></v-icon>
-    </v-btn>
-  </v-app-bar>
 
     <!-- Visas när 'showDropdownMenu' är true -->
     <div v-if="showDropdownMenu" class="dropdown-content show-dropdown">
-        <v-list-item @click="toggleColorsDropdown" plain>
+        <v-list-item class="navigation-link" @click="toggleColorsDropdown">
             Färger
             <v-icon
                 ><svg-icon type="mdi" :path="menuRightPath"></svg-icon
             ></v-icon>
         </v-list-item>
-        <!-- Undermeny för undermenyn -->
         <div v-if="showColorsDropdown" class="subMenu">
             <v-list-item plain>
                 <router-link to="#" class="navigation-link"
@@ -174,7 +151,6 @@
                 <router-link to="#" class="navigation-link">Gul</router-link>
             </v-list-item>
         </div>
-        <!-- ----- -->
         <v-list-item plain>
             <router-link to="#" class="navigation-link">Utrustning</router-link>
         </v-list-item>
@@ -184,12 +160,13 @@
 <style scoped>
     .dropdown-content {
         position: absolute;
-        margin-top: 64px;
-        width: 100vw;
+        top: 64px;
+        width: 100%;
         height: 13rem;
         background-color: #ffffff;
         z-index: 1;
     }
+
     #brand {
         color: #000000;
         text-decoration: none;
@@ -199,9 +176,14 @@
     .navigation-link {
         text-decoration: none;
         color: #000000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
     }
     .navigation-link:hover {
         text-decoration: underline;
+        background-color: transparent;
     }
     .navigation-item {
         text-decoration: none;
@@ -212,65 +194,21 @@
     }
     .subMenu {
         position: absolute;
-        margin-left: 15rem;
-        margin-top: -43px;
+        left: 15rem;
+        top: 0;
         background-color: #ffffff;
         z-index: 1;
         width: 100vw;
     }
-  .dropdown-content {
-    position: absolute;
-    margin-top: 64px;
-    width: 100vw;
-    height: 13rem;
-    background-color: #ffffff;
-    z-index: 1;
-  }
-  #brand {
-    color: #000000;
-    text-decoration: none;
-    font-size: 2rem;
-    margin-left: 2rem;
-  }
-  .navigation-link {
-    text-decoration: none;
-    color: #000000;
-  }
-  .navigation-link:hover {
-    text-decoration: underline;
-  }
-  .navigation-item {
-    text-decoration: none;
-    color: #000000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .subMenu {
-    position: absolute;
-    margin-left: 15rem;
-    margin-top: -43px;
-    background-color: #ffffff;
-    z-index: 1;
-    width: 10rem;
-  }
 
     @media (max-width: 380px) {
         #brand {
-            font-size: 1.5rem;
+            font-size: 1rem;
         }
         .dropdown-content {
             display: none;
         }
     }
-  @media (max-width: 380px) {
-    #brand {
-      font-size: 1.5rem;
-    }
-    .dropdown-content {
-      display: none;
-    }
-  }
 </style>
 
 <script>
