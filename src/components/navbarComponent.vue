@@ -234,4 +234,5 @@ export default {
       }
     }
   }
+}
 </script>
