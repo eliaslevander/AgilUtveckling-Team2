@@ -1,4 +1,3 @@
-npmnnpm
 <template>
   <!-- SÖKRUTA -->
     <div id="searchbox">
@@ -18,13 +17,12 @@ npmnnpm
         <span v-if="filteredProducts.length > 0"></span>
         <v-list class="blobcontainer">
       <v-list-item-group>
-        <v-list-item
+        <v-list-item class="searchLink"
           v-for="items in filteredProducts"
-        :key="items.id">
-        <RouterLink id="searchLink" to="/">
+        :key="items.id"
+        @click="goToProduct(items.id)">
           <BlobComponent :color="items.colorHex" />
           <p>{{ items.name }}</p>
-        </RouterLink>
       </v-list-item>
       </v-list-item-group>
     </v-list>
@@ -36,22 +34,14 @@ npmnnpm
 
 import { productsStore } from "../stores/products";
 import BlobComponent from "./BlobComponent.vue";
+import router from "@/router";
 import { ref, watch } from "vue";
 //  import { computed, ref, watch } from 'vue'
 // importera ref
 // importera computed (beräkande egenskap)
 // importera watch
 
-  <script setup>
-      // Composition api
 
-      import { productsStore } from '../stores/products'
-      import BlobComponent from "./BlobComponent.vue";
-      import { ref, watch } from 'vue'
-      //  import { computed, ref, watch } from 'vue'
-      // importera ref
-      // importera computed (beräkande egenskap)
-      // importera watch
 
 
     let searchInput = ref('');
@@ -61,29 +51,24 @@ import { ref, watch } from "vue";
 watch(searchInput, () => {
   if (searchInput.value !== "") {
     filteredProducts.value = store.products.filter((product) =>
-    product.name.toUpperCase().includes(searchInput.value.toUpperCase())||
-    product.colorType.toUpperCase().includes(searchInput.value.toUpperCase())
-  );
-});
+      product.name.toUpperCase().includes(searchInput.value.toUpperCase()) ||
+      product.colorType.toUpperCase().includes(searchInput.value.toUpperCase())
+    );
+  } else {
+    filteredProducts.value = [];
+  }
+  });
+
 function searchResults() {
   filteredProducts.value = store.products.filter((product) =>
     product.name.toUpperCase().includes(searchInput.value.toUpperCase())
   );
 }
 
-      //  const searchResults = itemName => {
-      //    router.push({ name: 'product', params: { name: itemName } })
-      //  }
-
-      // value används för att komma år variabler
+const goToProduct = (id) => {
+  router.push({ name: "product", params: { id: id } });
+};
   </script>
-
-//  const searchResults = itemName => {
-//    router.push({ name: 'product', params: { name: itemName } })
-//  }
-
-// value används för att komma år variabler
-</script>
 
 <style scoped>
 button {
@@ -98,7 +83,7 @@ button {
   position: relative;
 }
 
-#searchLink {
+.searchLink {
   text-decoration: none;
   width: 300px;
   margin: auto;
