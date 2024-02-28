@@ -73,7 +73,7 @@
           v-model="toggle"
           mandatory
           :ripple="false"
-          :color="product.colorHex"
+          color="#eee"
         >
           <v-btn
             :ripple="false"
@@ -183,7 +183,7 @@ img {
   padding: 0 16px;
   margin-bottom: 16px;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 #swiper {
@@ -191,11 +191,14 @@ img {
 }
 
 #description {
-  font-size: 1rem;
+  font-size: 1.25rem;
 }
 
 #content-container {
   padding: 0 16px 16px 16px;
+}
+.vertical-divider {
+  display: none;
 }
 
 .select-text {
@@ -282,6 +285,7 @@ img {
 
   .vertical-divider {
     margin: 16px;
+    display: block;
   }
 
   #swiper {
