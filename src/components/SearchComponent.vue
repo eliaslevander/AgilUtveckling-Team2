@@ -1,15 +1,13 @@
 npmnnpm
 <template>
   <!-- SÖKRUTA -->
-  <div id="searchbox">
-    <v-text-field
-      id="searchbar"
-      label="Sök"
-      variant="outlined"
-      v-model="searchInput"
-      placeholder="Sök produkter..."
-    ></v-text-field>
-    <!------->
+    <div id="searchbox">
+        <v-text-field id="searchbar" label="Sök"
+        variant="outlined"
+        v-model="searchInput"
+        placeholder="Sök produkter..."
+        ></v-text-field>
+  <!------->
 
     <!-- SÖKKNAPP-->
     <v-btn @click="searchResults"> Show </v-btn>
@@ -17,19 +15,21 @@ npmnnpm
   <!------->
 
   <!-- SÖKRESULTAT -->
-  <span v-if="filteredProducts.length > 0"> </span>
-  <v-list class="blobcontainer">
-    <v-list-item-group>
-      <v-list-item v-for="items in filteredProducts" :key="items.id">
+        <span v-if="filteredProducts.length > 0"></span>
+        <v-list class="blobcontainer">
+      <v-list-item-group>
+        <v-list-item
+          v-for="items in filteredProducts"
+        :key="items.id">
         <RouterLink id="searchLink" to="/">
           <BlobComponent :color="items.colorHex" />
           <p>{{ items.name }}</p>
         </RouterLink>
       </v-list-item>
-    </v-list-item-group>
-  </v-list>
+      </v-list-item-group>
+    </v-list>
   <!------->
-</template>
+      </template>
 
 <script setup>
 // Composition api
@@ -42,24 +42,41 @@ import { ref, watch } from "vue";
 // importera computed (beräkande egenskap)
 // importera watch
 
-let searchInput = ref("");
-const store = productsStore();
-const filteredProducts = ref([]);
+  <script setup>
+      // Composition api
+
+      import { productsStore } from '../stores/products'
+      import BlobComponent from "./BlobComponent.vue";
+      import { ref, watch } from 'vue'
+      //  import { computed, ref, watch } from 'vue'
+      // importera ref
+      // importera computed (beräkande egenskap)
+      // importera watch
+
+
+    let searchInput = ref('');
+    const store = productsStore()
+    const filteredProducts = ref([]);
 
 watch(searchInput, () => {
   if (searchInput.value !== "") {
     filteredProducts.value = store.products.filter((product) =>
-      product.name.toUpperCase().includes(searchInput.value.toUpperCase())
-    );
-  } else {
-    filteredProducts.value = [];
-  }
+    product.name.toUpperCase().includes(searchInput.value.toUpperCase())||
+    product.colorType.toUpperCase().includes(searchInput.value.toUpperCase())
+  );
 });
 function searchResults() {
   filteredProducts.value = store.products.filter((product) =>
     product.name.toUpperCase().includes(searchInput.value.toUpperCase())
   );
 }
+
+      //  const searchResults = itemName => {
+      //    router.push({ name: 'product', params: { name: itemName } })
+      //  }
+
+      // value används för att komma år variabler
+  </script>
 
 //  const searchResults = itemName => {
 //    router.push({ name: 'product', params: { name: itemName } })
@@ -85,7 +102,7 @@ button {
   text-decoration: none;
   width: 300px;
   margin: auto;
-  padding: 2vh;
+  padding: 1vh;
   color: black;
   display: flex;
   align-items: center;
