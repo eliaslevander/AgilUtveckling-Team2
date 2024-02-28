@@ -80,6 +80,7 @@
           mandatory
           :ripple="false"
           color="#eee"
+
         >
           <v-btn
             :ripple="false"
