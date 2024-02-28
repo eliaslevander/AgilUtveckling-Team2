@@ -1,54 +1,101 @@
-<script></script>
+<script>
+    import { ref, onMounted } from 'vue'
+    import axios from 'axios'
+    import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules'
+    import { Swiper, SwiperSlide } from 'swiper/vue'
+
+    import 'swiper/css'
+    import 'swiper/css/navigation'
+    import 'swiper/css/pagination'
+    import 'swiper/css/a11y'
+    import 'swiper/css/autoplay'
+
+    export default {
+        components: {
+            Swiper,
+            SwiperSlide
+        },
+        setup() {
+            const images = ref([])
+
+            onMounted(async () => {
+                const response = await axios.get('carousel.json')
+                images.value = [
+                    ...response.data,
+                    ...response.data
+                ]
+            })
+
+            return {
+                images,
+                modules: [Navigation, Pagination, A11y, Autoplay],
+                breakpoints: {
+                    // When window width is >= 320px
+                    320: {
+                        slidesPerView: 2,
+                        spaceBetween: 10,
+                        autoplay: {
+                            delay: 5000, // 5 sekunders fördröjning för autoplay
+                            disableOnInteraction: true // Fortsätt autoplay efter interaktion
+                        },
+                    },
+                    // Add more breakpoints as needed
+                    376: {
+                        slidesPerView: 4,
+                        spaceBetween: 190,
+                        autoplay: false, // Inaktivera autoplay för större skärmar
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev'
+                        },
+                    }
+                }
+            }
+        }
+    }
+</script>
 
 <template>
-  <v-container id="wheel">
-    <v-card id="card" elevation="16">
-      <img
-        src="../assets/images/White/White_Interior_01.jpg"
-        alt="white Room"
-      />
-    </v-card>
-    <v-card id="card" elevation="16">
-      <img src="../assets/images/Carousel/blueroom2.jpg" alt="blue room" />
-    </v-card>
-    <v-card id="card" elevation="16">
-      <img src="../assets/images/Carousel/galleryroom.jpg" alt="beige room" />
-    </v-card>
-    <v-card id="card" elevation="16">
-      <img src="../assets/images/Carousel/yellowwall.jpg" alt="yellow room" />
-    </v-card>
-    <v-card id="card" elevation="16">
-      <img src="../assets/images/Green/Green_Interior_03_.jpg" alt="" />
-    </v-card>
-  </v-container>
+    <div class="carousel">
+        <swiper :modules="modules" :breakpoints="breakpoints" loop>
+            <SwiperSlide v-for="image in images" :key="image.id">
+                <img :src="image.src" :alt="image.alt" />
+            </SwiperSlide>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </swiper>
+    </div>
 </template>
 
 <style scoped>
-#wheel {
-  overflow: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#card {
-  margin: 1vh;
-}
+    .carousel {
+        height: 30rem;
+        margin: 0 3rem 7rem 3rem;
+    }
 
-img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 1vh;
-  object-fit: contain;
-  height: 100%;
-  width: 100%;
-  min-height: 240px;
-  max-height: 600px;
-  min-height: 240px;
-  max-width: 750px;
-}
-img:hover {
-  opacity: 50%;
-}
+    img {
+        display: block;
+        object-fit: cover;
+        height: 60vh;
+        width: 25vw;
+        box-shadow: 1px 1px 8px rgb(0, 0, 0);
+    }
+    img:hover {
+        opacity: 50%;
+    }
+
+    @media screen and (max-width: 375px) {
+        .carousel{
+            margin: 0 2rem 0 2rem;
+            height: auto;
+        }
+
+        img {
+            object-fit: cover;
+            height: 30vh;
+            width: 40vw;
+            box-shadow: 1px 1px 8px rgb(0, 0, 0);
+        }
+    }
 </style>
