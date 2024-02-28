@@ -5,6 +5,12 @@
   </span>
   <div id="container">
     <div id="swiper-container">
+      <!-- Swiper, npm paket ger tillgång till enkel implementation av swipning.
+
+      :modules importerar moduler som ska användas
+      :loop gör så att den är "oändlig", du kan fortsätta scrolla hur mycket som helst
+
+      -->
       <Swiper
         :modules="[Pagination, Navigation, A11y]"
         navigation
@@ -119,11 +125,13 @@
 import { ref, onMounted } from "vue";
 import { productsStore } from "../stores/products.js";
 import { useRoute, useRouter } from "vue-router";
+/* För att kunna använda Swiper så måste dom även importeras här  */
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Pagination, Navigation, A11y } from "swiper/modules";
 import "swiper/css/bundle";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+/* -------------------------------------------------------------- */
 import BlobComponent from "@/components/BlobComponent.vue";
 
 const route = useRoute();
@@ -135,6 +143,8 @@ const amount = ref(1);
 const toggle = ref("");
 
 onMounted(() => {
+  // Här letar funktionen efter den första produkten med det id som är == route.params.id
+
   product.value = store.products.find(
     //Varför i hela friden fungerar detta endast med == istället för === ?!
     (product) => product.id == route.params.id
@@ -142,6 +152,7 @@ onMounted(() => {
 });
 
 const info = () => {
+  //Används för att logga aktiva värden vid tryck på "Lägg till i varukorgen"
   console.log(amount.value, toggle.value, product.value.name);
 };
 </script>
