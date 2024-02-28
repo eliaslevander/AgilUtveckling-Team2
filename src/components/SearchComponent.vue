@@ -2,6 +2,7 @@
   <!-- SÖKRUTA -->
   <div id="searchbox">
     <v-text-field
+      rounded="100"
       id="searchbar"
       label="Sök"
       variant="outlined"
@@ -11,13 +12,15 @@
     <!------->
 
     <!-- SÖKKNAPP-->
-    <v-btn @click="searchResults"> Show </v-btn>
+    <v-btn flat size="48" id="search-button" @click="searchResults"
+      ><v-icon size="x-large">mdi-magnify</v-icon></v-btn
+    >
   </div>
   <!------->
 
   <!-- SÖKRESULTAT -->
-  <span v-if="filteredProducts.length > 0"></span>
-  <v-list>
+  <!-- <span v-if="filteredProducts.length > 0"></span> -->
+  <v-list v-if="filteredProducts">
     <v-list-item-group>
       <v-list-item
         v-for="items in filteredProducts"
@@ -33,82 +36,95 @@
       </v-list-item>
     </v-list-item-group>
   </v-list>
+  <v-divider></v-divider>
   <!------->
 </template>
 
 <script setup>
-  // Composition api
+// Composition api
 
-  import { productsStore } from '../stores/products'
-  import BlobComponent from './BlobComponent.vue'
-  import router from '@/router'
-  import { ref, watch } from 'vue'
-  //  import { computed, ref, watch } from 'vue'
-  // importera ref
-  // importera computed (beräkande egenskap)
-  // importera watch
+import { productsStore } from "../stores/products";
+import BlobComponent from "./BlobComponent.vue";
+import router from "@/router";
+import { ref, watch } from "vue";
+//  import { computed, ref, watch } from 'vue'
+// importera ref
+// importera computed (beräkande egenskap)
+// importera watch
 
-  let searchInput = ref('')
-  const store = productsStore()
-  const filteredProducts = ref([])
+let searchInput = ref("");
+const store = productsStore();
+const filteredProducts = ref([]);
 
-  watch(searchInput, () => {
-    if (searchInput.value !== '') {
-      filteredProducts.value = store.products.filter(
-        product =>
-          product.name
-            .toUpperCase()
-            .includes(searchInput.value.toUpperCase()) ||
-          product.colorType
-            .toUpperCase()
-            .includes(searchInput.value.toUpperCase())
-      )
-    } else {
-      filteredProducts.value = []
-    }
-  })
-
-  function searchResults() {
-    filteredProducts.value = store.products.filter(product =>
-      product.name.toUpperCase().includes(searchInput.value.toUpperCase())
-    )
+watch(searchInput, () => {
+  if (searchInput.value !== "") {
+    filteredProducts.value = store.products.filter(
+      (product) =>
+        product.name.toUpperCase().includes(searchInput.value.toUpperCase()) ||
+        product.colorType
+          .toUpperCase()
+          .includes(searchInput.value.toUpperCase())
+    );
+  } else {
+    filteredProducts.value = [];
   }
+});
 
-  const goToProduct = id => {
-    router.push({ name: 'product', params: { id: id } })
-  }
+function searchResults() {
+  filteredProducts.value = store.products.filter((product) =>
+    product.name.toUpperCase().includes(searchInput.value.toUpperCase())
+  );
+}
+
+const goToProduct = (id) => {
+  router.push({ name: "product", params: { id: id } });
+};
 </script>
 
 <style scoped>
-  button {
-    padding: 1%;
-  }
+button {
+  padding: 1%;
+}
 
-  .blob-container {
-    width: 35px;
-  }
+.blob-container {
+  width: 35px;
+}
 
-  .list-item-text {
-    font-weight: 500;
-  }
+.list-item-text {
+  font-weight: 500;
+}
 
-  .list-item-container {
-    text-decoration: none;
-    width: 100%;
-    margin: auto;
-    padding: 1vh;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  p {
-    margin: 2vh;
-  }
+.list-item-container {
+  text-decoration: none;
+  width: 100%;
+  margin: auto;
+  padding: 1vh;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+}
+p {
+  margin: 2vh;
+}
 
-  #searchbox {
-    width: 200px;
-    margin: auto;
-    margin-top: 5vh;
-  }
+#searchbox {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin: auto;
+  position: relative;
+}
+
+#search-button {
+  position: absolute;
+  right: 12px;
+  border: 1px solid #aaa;
+}
+
+:deep(.v-input__details) {
+  display: none;
+}
 </style>

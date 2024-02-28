@@ -8,11 +8,12 @@
         <svg-icon type="mdi" :path="closePath"></svg-icon>
       </v-btn>
     </v-toolbar>
-
     <!-- Search -->
-    <v-form>
+    <!-- <v-form>
       <v-text-field v-model="search" label="Sök..." hide-details></v-text-field>
-    </v-form>
+    </v-form> -->
+
+    <SearchComponent />
 
     <!-- Rendera länkarna -->
     <v-list class="navigation-list">
@@ -121,91 +122,95 @@
 </template>
 
 <style scoped>
-  .dropdown-content {
-    position: absolute;
-    margin-top: 64px;
-    width: 100vw;
-    height: 13rem;
-    background-color: #ffffff;
-    z-index: 1;
-  }
-  #brand {
-    color: #000000;
-    text-decoration: none;
-    font-size: 2rem;
-    margin-left: 2rem;
-  }
-  .navigation-link {
-    text-decoration: none;
-    color: #000000;
-  }
-  .navigation-link:hover {
-    text-decoration: underline;
-  }
-  .navigation-item {
-    text-decoration: none;
-    color: #000000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .subMenu {
-    position: absolute;
-    margin-left: 15rem;
-    margin-top: -43px;
-    background-color: #ffffff;
-    z-index: 1;
-    width: 10rem;
-  }
+.dropdown-content {
+  position: absolute;
+  margin-top: 64px;
+  width: 100vw;
+  height: 13rem;
+  background-color: #ffffff;
+  z-index: 1;
+}
+#brand {
+  color: #000000;
+  text-decoration: none;
+  font-size: 2rem;
+  margin-left: 2rem;
+}
+.navigation-link {
+  text-decoration: none;
+  color: #000000;
+}
+.navigation-link:hover {
+  text-decoration: underline;
+}
+.navigation-item {
+  text-decoration: none;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.subMenu {
+  position: absolute;
+  margin-left: 15rem;
+  margin-top: -43px;
+  background-color: #ffffff;
+  z-index: 1;
+  width: 10rem;
+}
 
-  @media (max-width: 380px) {
-    #brand {
-      font-size: 1.5rem;
-    }
-    .dropdown-content {
-      display: none;
-    }
+@media (max-width: 380px) {
+  #brand {
+    font-size: 1.5rem;
   }
+  .dropdown-content {
+    display: none;
+  }
+}
 </style>
 
-<script>
-  import { RouterLink } from 'vue-router'
-  /* Ikoner */
-  import SvgIcon from '@jamescoyle/vue-icon'
-  import { mdiMagnify } from '@mdi/js'
-  import { mdiHeartOutline } from '@mdi/js'
-  import { mdiShoppingOutline } from '@mdi/js'
-  import { mdiMenu } from '@mdi/js'
-  import { mdiClose } from '@mdi/js'
-  import { mdiMenuDown } from '@mdi/js'
-  import { mdiMenuRight } from '@mdi/js'
+<script setup>
+import SearchComponent from "./SearchComponent.vue";
+</script>
 
-  export default {
-    components: {
-      SvgIcon
+<script>
+import { RouterLink } from "vue-router";
+/* Ikoner */
+import SvgIcon from "@jamescoyle/vue-icon";
+import { mdiMagnify } from "@mdi/js";
+import { mdiHeartOutline } from "@mdi/js";
+import { mdiShoppingOutline } from "@mdi/js";
+import { mdiMenu } from "@mdi/js";
+import { mdiClose } from "@mdi/js";
+import { mdiMenuDown } from "@mdi/js";
+import { mdiMenuRight } from "@mdi/js";
+
+export default {
+  components: {
+    SvgIcon,
+  },
+  data() {
+    return {
+      magnifyPath: mdiMagnify,
+      heartPath: mdiHeartOutline,
+      shoppingPath: mdiShoppingOutline,
+      menuPath: mdiMenu,
+      closePath: mdiClose,
+      menuDownPath: mdiMenuDown,
+      menuRightPath: mdiMenuRight,
+      drawer: null,
+      search: "",
+      showDropdownMenu: false,
+      showColorsDropdown: false,
+    };
+  },
+  methods: {
+    toggleDropdownMenu() {
+      this.showDropdownMenu = !this.showDropdownMenu;
     },
-    data() {
-      return {
-        magnifyPath: mdiMagnify,
-        heartPath: mdiHeartOutline,
-        shoppingPath: mdiShoppingOutline,
-        menuPath: mdiMenu,
-        closePath: mdiClose,
-        menuDownPath: mdiMenuDown,
-        menuRightPath: mdiMenuRight,
-        drawer: null,
-        search: '',
-        showDropdownMenu: false,
-        showColorsDropdown: false
-      }
+    toggleColorsDropdown() {
+      this.showColorsDropdown = !this.showColorsDropdown;
     },
-    methods: {
-      toggleDropdownMenu() {
-        this.showDropdownMenu = !this.showDropdownMenu
-      },
-      toggleColorsDropdown() {
-        this.showColorsDropdown = !this.showColorsDropdown
-      }
-    }
-  }
+  },
+};
 </script>
