@@ -49,7 +49,7 @@
     <v-btn icon>
       <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
     </v-btn>
-    <v-btn icon>
+    <v-btn icon @click="toggleCartVisibility">
       <v-icon><svg-icon type="mdi" :path="shoppingPath"></svg-icon></v-icon>
     </v-btn>
   </v-app-bar>
@@ -87,6 +87,7 @@
 
 <script>
 import { RouterLink } from "vue-router";
+import { useCartStore } from "@/stores/cart";
 /* Ikoner */
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiMagnify } from "@mdi/js";
@@ -134,5 +135,11 @@ export default {
       ],
     };
   },
+  methods: {
+    toggleCartVisibility() {
+      const cartStore = useCartStore();
+      cartStore.toggleCartVisibility();
+    },
+  }
 };
 </script>
