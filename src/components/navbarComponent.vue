@@ -198,7 +198,7 @@
         margin-top: -43px;
         background-color: #ffffff;
         z-index: 1;
-        width: 10rem;
+        width: 100vw;
     }
 
     @media (max-width: 380px) {
