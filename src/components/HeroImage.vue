@@ -1,5 +1,4 @@
-<script>
-</script>
+<script></script>
 
 <template>
     <div id="HeroImage">
@@ -38,11 +37,11 @@ h1{
     padding: 0;
 }
 
-@media(max-width: 375px) {
-    h1 {
-        bottom: 0;
-        right: 4%;
-        font-size: 4vh;
-    }
+@media (max-width: 375px) {
+  h1 {
+    bottom: 0;
+    right: 4%;
+    font-size: 4vh;
+  }
 }
 </style>
