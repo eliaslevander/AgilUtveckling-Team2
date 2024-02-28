@@ -1,6 +1,6 @@
 <script>
-    import { ref, onMounted } from 'vue'
-    import axios from 'axios'
+    import { computed, onMounted } from 'vue'
+    import { productsStore } from '@/stores/products'
     import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules'
     import { Swiper, SwiperSlide } from 'swiper/vue'
 
@@ -16,38 +16,42 @@
             SwiperSlide
         },
         setup() {
-            const images = ref([])
+            const store = productsStore()
 
-            onMounted(async () => {
-                const response = await axios.get('carousel.json')
-                images.value = [
-                    ...response.data,
-                    ...response.data
-                ]
+            onMounted(() => {
+                if (store.products.length === 0) {
+                    store.fetchData()
+                }
             })
+
+            const images = computed(() =>
+                store.products.map((product) => ({
+                    src: product.image,
+                    alt: product.alt
+                }))
+            )
 
             return {
                 images,
                 modules: [Navigation, Pagination, A11y, Autoplay],
+                autoplay: {
+                    delay: 2000,
+                    disableOnInteraction: false
+                },
+                speed: 1000,
                 breakpoints: {
-                    // When window width is >= 320px
                     320: {
                         slidesPerView: 2,
-                        spaceBetween: 10,
-                        autoplay: {
-                            delay: 5000, // 5 sekunders fördröjning för autoplay
-                            disableOnInteraction: true // Fortsätt autoplay efter interaktion
-                        },
+                        spaceBetween: 10
                     },
-                    // Add more breakpoints as needed
+
                     376: {
                         slidesPerView: 4,
-                        spaceBetween: 190,
-                        autoplay: false, // Inaktivera autoplay för större skärmar
+                        spaceBetween: 250,
                         navigation: {
                             nextEl: '.swiper-button-next',
                             prevEl: '.swiper-button-prev'
-                        },
+                        }
                     }
                 }
             }
@@ -57,7 +61,13 @@
 
 <template>
     <div class="carousel">
-        <swiper :modules="modules" :breakpoints="breakpoints" loop>
+        <swiper
+            :modules="modules"
+            :breakpoints="breakpoints"
+            :autoplay="autoplay"
+            :speed="speed"
+            loop
+        >
             <SwiperSlide v-for="image in images" :key="image.id">
                 <img :src="image.src" :alt="image.alt" />
             </SwiperSlide>
@@ -70,14 +80,13 @@
 
 <style scoped>
     .carousel {
-        height: 30rem;
-        margin: 0 3rem 7rem 3rem;
+        margin: 0 4rem 0rem 4rem;
     }
 
     img {
         display: block;
         object-fit: cover;
-        height: 60vh;
+        height: 50vh;
         width: 25vw;
         box-shadow: 1px 1px 8px rgb(0, 0, 0);
     }
@@ -86,7 +95,7 @@
     }
 
     @media screen and (max-width: 375px) {
-        .carousel{
+        .carousel {
             margin: 0 2rem 0 2rem;
             height: auto;
         }

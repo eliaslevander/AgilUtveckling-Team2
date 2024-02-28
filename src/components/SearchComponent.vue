@@ -1,105 +1,133 @@
 <template>
   <!-- SÖKRUTA -->
-    <div id="searchbox">
-        <v-text-field id="searchbar" label="Sök"
-        variant="outlined"
-        v-model="searchInput"
-        placeholder="Sök produkter..."
-        ></v-text-field>
-  <!------->
+  <div id="searchbox">
+    <v-text-field
+      rounded="100"
+      id="searchbar"
+      label="Sök"
+      variant="outlined"
+      v-model="searchInput"
+      placeholder="Sök produkter..."
+    ></v-text-field>
+    <!------->
 
     <!-- SÖKKNAPP-->
-    <v-btn @click="searchResults"> Show </v-btn>
+    <v-btn flat size="48" id="search-button" @click="searchResults"
+      ><v-icon size="x-large">mdi-magnify</v-icon></v-btn
+    >
   </div>
   <!------->
 
   <!-- SÖKRESULTAT -->
-        <span v-if="filteredProducts.length > 0"></span>
-        <v-list class="blobcontainer">
-      <v-list-item-group>
-        <v-list-item class="searchLink"
-          v-for="items in filteredProducts"
+  <!-- <span v-if="filteredProducts.length > 0"></span> -->
+  <v-list v-if="filteredProducts">
+    <v-list-item-group>
+      <v-list-item
+        v-for="items in filteredProducts"
         :key="items.id"
-        @click="goToProduct(items.id)">
-          <BlobComponent :color="items.colorHex" />
-          <p>{{ items.name }}</p>
+        @click="goToProduct(items.id)"
+      >
+        <div class="list-item-container">
+          <div class="blob-container">
+            <BlobComponent :color="items.colorHex" />
+          </div>
+          <p class="list-item-text">{{ items.name }}</p>
+        </div>
       </v-list-item>
-      </v-list-item-group>
-    </v-list>
+    </v-list-item-group>
+  </v-list>
+  <v-divider></v-divider>
   <!------->
-      </template>
+</template>
 
 <script setup>
-// Composition api
+  // Composition api
 
-import { productsStore } from "../stores/products";
-import BlobComponent from "./BlobComponent.vue";
-import router from "@/router";
-import { ref, watch } from "vue";
-//  import { computed, ref, watch } from 'vue'
-// importera ref
-// importera computed (beräkande egenskap)
-// importera watch
+  import { productsStore } from '../stores/products'
+  import BlobComponent from './BlobComponent.vue'
+  import router from '@/router'
+  import { ref, watch } from 'vue'
+  //  import { computed, ref, watch } from 'vue'
+  // importera ref
+  // importera computed (beräkande egenskap)
+  // importera watch
 
+  let searchInput = ref('')
+  const store = productsStore()
+  const filteredProducts = ref([])
 
+  watch(searchInput, () => {
+    if (searchInput.value !== '') {
+      filteredProducts.value = store.products.filter(
+        product =>
+          product.name
+            .toUpperCase()
+            .includes(searchInput.value.toUpperCase()) ||
+          product.colorType
+            .toUpperCase()
+            .includes(searchInput.value.toUpperCase())
+      )
+    } else {
+      filteredProducts.value = []
+    }
+  })
 
-
-    let searchInput = ref('');
-    const store = productsStore()
-    const filteredProducts = ref([]);
-
-watch(searchInput, () => {
-  if (searchInput.value !== "") {
-    filteredProducts.value = store.products.filter((product) =>
-      product.name.toUpperCase().includes(searchInput.value.toUpperCase()) ||
-      product.colorType.toUpperCase().includes(searchInput.value.toUpperCase())
-    );
-  } else {
-    filteredProducts.value = [];
+  function searchResults() {
+    filteredProducts.value = store.products.filter(product =>
+      product.name.toUpperCase().includes(searchInput.value.toUpperCase())
+    )
   }
-  });
 
-function searchResults() {
-  filteredProducts.value = store.products.filter((product) =>
-    product.name.toUpperCase().includes(searchInput.value.toUpperCase())
-  );
-}
-
-const goToProduct = (id) => {
-  router.push({ name: "product", params: { id: id } });
-};
-  </script>
+  const goToProduct = id => {
+    router.push({ name: 'product', params: { id: id } })
+  }
+</script>
 
 <style scoped>
-button {
-  padding: 1%;
-}
+  button {
+    padding: 1%;
+  }
 
-#blob {
-  width: 4vh;
-  padding: 1vh;
-  aspect-ratio: 1;
-  border-radius: 60% 40% 44% 56% / 55% 43% 57% 45%;
-  position: relative;
-}
+  .blob-container {
+    width: 35px;
+  }
 
-.searchLink {
+  .list-item-text {
+    font-weight: 500;
+  }
+
+.list-item-container {
   text-decoration: none;
-  width: 300px;
+  width: 100%;
   margin: auto;
   padding: 1vh;
   color: black;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
 }
 p {
   margin: 2vh;
 }
 
 #searchbox {
-  width: 200px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
   margin: auto;
-  margin-top: 5vh;
+  position: relative;
 }
+
+#search-button {
+  position: absolute;
+  right: 12px;
+  border: 1px solid #aaa;
+}
+
+:deep(.v-input__details) {
+  display: none;
+}
+
 </style>

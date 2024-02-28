@@ -3,6 +3,7 @@
     import { onMounted } from 'vue'
     import { productsStore } from './stores/products.js'
     import NavbarComponent from './components/navbarComponent.vue'
+    import CartComponent from './components/CartComponent.vue'
     import FooterComponent from './components/FooterComponent.vue'
 
     const store = productsStore()
@@ -15,6 +16,7 @@
 <template>
     <v-app>
         <NavbarComponent />
+        <CartComponent />
         <div class="content" style="margin-top: 64px">
             <RouterView />
         </div>
