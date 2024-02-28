@@ -8,11 +8,12 @@
         <svg-icon type="mdi" :path="closePath"></svg-icon>
       </v-btn>
     </v-toolbar>
-
     <!-- Search -->
-    <v-form>
+    <!-- <v-form>
       <v-text-field v-model="search" label="Sök..." hide-details></v-text-field>
-    </v-form>
+    </v-form> -->
+
+    <SearchComponent />
 
     <!-- Rendera länkarna -->
     <v-list class="navigation-list">
@@ -168,6 +169,10 @@
   }
 </style>
 
+<script setup>
+import SearchComponent from "./SearchComponent.vue";
+</script>
+
 <script>
   import { RouterLink } from 'vue-router'
   /* Ikoner */
@@ -180,9 +185,30 @@
   import { mdiMenuDown } from '@mdi/js'
   import { mdiMenuRight } from '@mdi/js'
 
-  export default {
-    components: {
-      SvgIcon
+
+export default {
+  components: {
+    SvgIcon,
+  },
+  data() {
+    return {
+      magnifyPath: mdiMagnify,
+      heartPath: mdiHeartOutline,
+      shoppingPath: mdiShoppingOutline,
+      menuPath: mdiMenu,
+      closePath: mdiClose,
+      menuDownPath: mdiMenuDown,
+      menuRightPath: mdiMenuRight,
+      drawer: null,
+      search: "",
+      showDropdownMenu: false,
+      showColorsDropdown: false,
+    };
+  },
+  methods: {
+    toggleDropdownMenu() {
+      this.showDropdownMenu = !this.showDropdownMenu;
+
     },
     data() {
       return {

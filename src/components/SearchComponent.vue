@@ -2,6 +2,7 @@
   <!-- SÖKRUTA -->
   <div id="searchbox">
     <v-text-field
+      rounded="100"
       id="searchbar"
       label="Sök"
       variant="outlined"
@@ -11,13 +12,15 @@
     <!------->
 
     <!-- SÖKKNAPP-->
-    <v-btn @click="searchResults"> Show </v-btn>
+    <v-btn flat size="48" id="search-button" @click="searchResults"
+      ><v-icon size="x-large">mdi-magnify</v-icon></v-btn
+    >
   </div>
   <!------->
 
   <!-- SÖKRESULTAT -->
-  <span v-if="filteredProducts.length > 0"></span>
-  <v-list>
+  <!-- <span v-if="filteredProducts.length > 0"></span> -->
+  <v-list v-if="filteredProducts">
     <v-list-item-group>
       <v-list-item
         v-for="items in filteredProducts"
@@ -33,6 +36,7 @@
       </v-list-item>
     </v-list-item-group>
   </v-list>
+  <v-divider></v-divider>
   <!------->
 </template>
 
@@ -92,23 +96,38 @@
     font-weight: 500;
   }
 
-  .list-item-container {
-    text-decoration: none;
-    width: 100%;
-    margin: auto;
-    padding: 1vh;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  p {
-    margin: 2vh;
-  }
+.list-item-container {
+  text-decoration: none;
+  width: 100%;
+  margin: auto;
+  padding: 1vh;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+}
+p {
+  margin: 2vh;
+}
 
-  #searchbox {
-    width: 200px;
-    margin: auto;
-    margin-top: 5vh;
-  }
+#searchbox {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin: auto;
+  position: relative;
+}
+
+#search-button {
+  position: absolute;
+  right: 12px;
+  border: 1px solid #aaa;
+}
+
+:deep(.v-input__details) {
+  display: none;
+}
+
 </style>
