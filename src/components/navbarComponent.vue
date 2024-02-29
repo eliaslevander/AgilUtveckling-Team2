@@ -84,6 +84,15 @@ export default {
 </script>
 
 <template>
+  <!--template desktop-->
+  <v-navigation-drawer
+    v-model="showSearchComponent"
+    location="right"
+    class="desktopSearch"
+  >
+    <SearchComponent />
+  </v-navigation-drawer>
+
   <!-- drawer för mobile -->
   <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
     <v-toolbar flat>
@@ -108,41 +117,41 @@ export default {
       </v-list-item>
       <!-- Dold div som visas när 'showDropdownMenu' är true -->
       <div v-if="showDropdownMenu">
-        <v-list-item class="navigation-item" @click="toggleColorsDropdown">
+        <v-list-item class="navigation-link" @click="toggleColorsDropdown">
           Färger
           <v-icon><svg-icon type="mdi" :path="menuDownPath"></svg-icon></v-icon>
         </v-list-item>
         <div v-if="showColorsDropdown">
-          <v-list-item class="navigation-item" link>
+          <v-list-item plain>
             <router-link to="#" class="navigation-link">Gråskala</router-link>
           </v-list-item>
-          <v-list-item class="navigation-item" link>
+          <v-list-item plain>
             <router-link to="#" class="navigation-link">Röd</router-link>
           </v-list-item>
-          <v-list-item class="navigation-item" link>
+          <v-list-item plain>
             <router-link to="#" class="navigation-link">Blå</router-link>
           </v-list-item>
-          <v-list-item class="navigation-item" link>
+          <v-list-item plain>
             <router-link to="#" class="navigation-link">Grön</router-link>
           </v-list-item>
-          <v-list-item class="navigation-item" link>
+          <v-list-item plain>
             <router-link to="#" class="navigation-link">Gul</router-link>
           </v-list-item>
         </div>
-        <v-list-item class="navigation-item" link>
+        <v-list-item plain>
           <router-link to="#" class="navigation-link">Utrustning</router-link>
         </v-list-item>
       </div>
-      <v-list-item class="navigation-item" link>
+      <v-list-item class="navigation-item" plain>
         <router-link to="#" class="navigation-link">Inspiration</router-link>
       </v-list-item>
-      <v-list-item class="navigation-item" link>
+      <v-list-item class="navigation-item" plain>
         <router-link to="#" class="navigation-link">Guide</router-link>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
 
-  <v-app-bar flat>
+  <v-app-bar>
     <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
       ><svg-icon type="mdi" :path="menuPath"></svg-icon
     ></v-app-bar-nav-icon>
@@ -156,10 +165,10 @@ export default {
         Måla
         <v-icon><svg-icon type="mdi" :path="menuDownPath"></svg-icon></v-icon>
       </v-list-item>
-      <v-list-item class="navigation-item" link>
+      <v-list-item class="navigation-item" plain>
         <router-link to="#" class="navigation-link">Inspiration</router-link>
       </v-list-item>
-      <v-list-item class="navigation-item" link>
+      <v-list-item plain>
         <router-link to="#" class="navigation-link">Guide</router-link>
       </v-list-item>
     </v-list>
@@ -181,28 +190,28 @@ export default {
 
   <!-- Visas när 'showDropdownMenu' är true -->
   <div v-if="showDropdownMenu" class="dropdown-content show-dropdown">
-    <v-list-item @click="toggleColorsDropdown">
+    <v-list-item class="navigation-link" @click="toggleColorsDropdown">
       Färger
       <v-icon><svg-icon type="mdi" :path="menuRightPath"></svg-icon></v-icon>
     </v-list-item>
     <div v-if="showColorsDropdown" class="subMenu">
-      <v-list-item link>
+      <v-list-item plain>
         <router-link to="#" class="navigation-link">Gråskala</router-link>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item plain>
         <router-link to="#" class="navigation-link">Röd</router-link>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item plain>
         <router-link to="#" class="navigation-link">Blå</router-link>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item plain>
         <router-link to="#" class="navigation-link">Grön</router-link>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item plain>
         <router-link to="#" class="navigation-link">Gul</router-link>
       </v-list-item>
     </div>
-    <v-list-item link>
+    <v-list-item plain>
       <router-link to="#" class="navigation-link">Utrustning</router-link>
     </v-list-item>
   </div>
