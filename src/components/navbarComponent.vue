@@ -12,6 +12,18 @@ import { mdiMenuDown } from "@mdi/js";
 import { mdiMenuRight } from "@mdi/js";
 import SearchComponent from "./SearchComponent.vue";
 
+//----------Funktionalitet för sök mobile/desktop--------------
+
+// OBS, reload av sidan krävs för att den ska kunna kolla mobile/dekstop
+
+// Hur vet den om den ska öppna mobil sök eller desktop sök?
+// checkIfMobile kollar om bredden är under 769 px bred, om den är under så sätts
+// this.isMobile till true, annars sätts den till false. Den körs när nav skapas under created.
+
+// Funktionen handleSearchComponent triggas vid click på sökikonen, den kollar värdet på isMobile.
+// Om false (desktopläge) så aktiveras "toggle" funktionalitet på this.showSearchComponent. Annars
+// så aktiveras den mobila menyns "toggle" funktionalitet.
+
 export default {
   components: {
     SvgIcon,
