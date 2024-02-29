@@ -1,6 +1,6 @@
 <script>
-    import { ref, onMounted } from 'vue'
-    import axios from 'axios'
+    import { computed, onMounted } from 'vue'
+    import { productsStore } from '@/stores/products'
     import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules'
     import { Swiper, SwiperSlide } from 'swiper/vue'
 
@@ -16,19 +16,27 @@
             SwiperSlide
         },
         setup() {
-            const images = ref([])
+            const store = productsStore()
 
-            onMounted(async () => {
-                const response = await axios.get('carousel.json')
-                images.value = [...response.data, ...response.data]
+            onMounted(() => {
+                if (store.products.length === 0) {
+                    store.fetchData()
+                }
             })
+
+            const images = computed(() =>
+                store.products.map((product) => ({
+                    src: product.image,
+                    alt: product.alt
+                }))
+            )
 
             return {
                 images,
                 modules: [Navigation, Pagination, A11y, Autoplay],
                 autoplay: {
                     delay: 2000,
-                    disableOnInteraction: false,
+                    disableOnInteraction: false
                 },
                 speed: 1000,
                 breakpoints: {
@@ -72,8 +80,7 @@
 
 <style scoped>
     .carousel {
-        height: 30rem;
-        margin: 0 4rem 7rem 4rem;
+        margin: 0 4rem 0rem 4rem;
     }
 
     img {

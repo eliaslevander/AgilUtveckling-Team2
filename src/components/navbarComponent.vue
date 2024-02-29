@@ -1,3 +1,51 @@
+<script>
+import { RouterLink } from "vue-router";
+import { useCartStore } from "@/stores/cart";
+/* Ikoner */
+import SvgIcon from "@jamescoyle/vue-icon";
+import { mdiMagnify } from "@mdi/js";
+import { mdiHeartOutline } from "@mdi/js";
+import { mdiShoppingOutline } from "@mdi/js";
+import { mdiMenu } from "@mdi/js";
+import { mdiClose } from "@mdi/js";
+import { mdiMenuDown } from "@mdi/js";
+import { mdiMenuRight } from "@mdi/js";
+
+export default {
+  components: {
+    SvgIcon,
+  },
+  data() {
+    return {
+      magnifyPath: mdiMagnify,
+      heartPath: mdiHeartOutline,
+      shoppingPath: mdiShoppingOutline,
+      menuPath: mdiMenu,
+      closePath: mdiClose,
+      menuDownPath: mdiMenuDown,
+      menuRightPath: mdiMenuRight,
+      drawer: false,
+      search: "",
+      showDropdownMenu: false,
+      showColorsDropdown: false,
+    };
+  },
+  methods: {
+    toggleCartVisibility() {
+      const cartStore = useCartStore();
+      cartStore.toggleCartVisibility();
+    },
+    toggleDropdownMenu() {
+      this.showDropdownMenu = !this.showDropdownMenu;
+    },
+    toggleColorsDropdown() {
+      this.showColorsDropdown = !this.showColorsDropdown;
+    },
+  },
+};
+</script>
+
+
 <template>
   <!-- drawer för mobile -->
   <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
@@ -87,7 +135,7 @@
     <v-btn icon>
       <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
     </v-btn>
-    <v-btn icon>
+    <v-btn icon @click="toggleCartVisibility">
       <v-icon><svg-icon type="mdi" :path="shoppingPath"></svg-icon></v-icon>
     </v-btn>
   </v-app-bar>
@@ -168,71 +216,3 @@
     }
   }
 </style>
-
-<script setup>
-import SearchComponent from "./SearchComponent.vue";
-</script>
-
-<script>
-  import { RouterLink } from 'vue-router'
-  /* Ikoner */
-  import SvgIcon from '@jamescoyle/vue-icon'
-  import { mdiMagnify } from '@mdi/js'
-  import { mdiHeartOutline } from '@mdi/js'
-  import { mdiShoppingOutline } from '@mdi/js'
-  import { mdiMenu } from '@mdi/js'
-  import { mdiClose } from '@mdi/js'
-  import { mdiMenuDown } from '@mdi/js'
-  import { mdiMenuRight } from '@mdi/js'
-
-
-export default {
-  components: {
-    SvgIcon,
-  },
-  data() {
-    return {
-      magnifyPath: mdiMagnify,
-      heartPath: mdiHeartOutline,
-      shoppingPath: mdiShoppingOutline,
-      menuPath: mdiMenu,
-      closePath: mdiClose,
-      menuDownPath: mdiMenuDown,
-      menuRightPath: mdiMenuRight,
-      drawer: null,
-      search: "",
-      showDropdownMenu: false,
-      showColorsDropdown: false,
-    };
-  },
-  methods: {
-    toggleDropdownMenu() {
-      this.showDropdownMenu = !this.showDropdownMenu;
-
-    },
-    data() {
-      return {
-        magnifyPath: mdiMagnify,
-        heartPath: mdiHeartOutline,
-        shoppingPath: mdiShoppingOutline,
-        menuPath: mdiMenu,
-        closePath: mdiClose,
-        menuDownPath: mdiMenuDown,
-        menuRightPath: mdiMenuRight,
-        drawer: null,
-        search: '',
-        showDropdownMenu: false,
-        showColorsDropdown: false
-      }
-    },
-    methods: {
-      toggleDropdownMenu() {
-        this.showDropdownMenu = !this.showDropdownMenu
-      },
-      toggleColorsDropdown() {
-        this.showColorsDropdown = !this.showColorsDropdown
-      }
-    }
-  }
-}
-</script>
