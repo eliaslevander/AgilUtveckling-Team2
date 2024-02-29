@@ -40,61 +40,57 @@
                 <h3>Din Kundvagn</h3>
                 <button @click="cartStore.closeCart">X</button>
             </div>
-            <hr />
             <div class="cart-main">
                 <ul
                     v-for="(item, index) in cartStore.items"
                     :key="index"
                     class="cart-item"
                 >
+                    <hr />
                     <li>
-                        <div id="title-quantity-price">
-                            <div id="preview-header">
-                                <h4>{{ item.product.name }}</h4>
-                                <h4>{{ item.colorType }}</h4>
-                            </div>
-                            <h4>Quantity:</h4>
-                            <h4>Price:</h4>
+                        <div id="item-header">
+                            <h4>{{ item.product.name }} {{ item.colorType }}</h4>
+                            <button
+                                @click="
+                                    removeFromCart(
+                                        item.product.id,
+                                        item.colorType
+                                    )
+                                "
+                            >
+                                X
+                            </button>
                         </div>
                         <div id="cart-content">
                             <img :src="item.product.image" alt="" />
-                            <div id="quantity-container">
-                                <div class="quantity-selector">
-                                    <button
-                                        @click="
-                                            decrement(
-                                                item.product.id,
-                                                item.colorType
-                                            )
-                                        "
-                                    >
-                                        -
-                                    </button>
-                                    <input :value="item.quantity" readonly />
-                                    <button
-                                        @click="
-                                            increment(
-                                                item.product.id,
-                                                item.colorType
-                                            )
-                                        "
-                                    >
-                                        +
-                                    </button>
+                            <div id="price-and-quantity">
+                                <div id="quantity-container">
+                                    <div class="quantity-selector">
+                                        <button
+                                            @click="
+                                                decrement(
+                                                    item.product.id,
+                                                    item.colorType
+                                                )
+                                            "
+                                        >
+                                            -
+                                        </button>
+                                        <input :value="item.quantity" readonly />
+                                        <button
+                                            @click="
+                                                increment(
+                                                    item.product.id,
+                                                    item.colorType
+                                                )
+                                            "
+                                        >
+                                            +
+                                        </button>
+                                    </div>
                                 </div>
-                                <button
-                                    @click="
-                                        removeFromCart(
-                                            item.product.id,
-                                            item.colorType
-                                        )
-                                    "
-                                >
-                                    Ta bort
-                                </button>
+                                <p id="item-price">{{ item.product.price }}kr / st</p>
                             </div>
-                            '
-                            <p>{{ item.product.price }}kr</p>
                         </div>
                     </li>
                 </ul>
@@ -133,7 +129,7 @@
     }
     .cart-modal {
         margin-right: 0rem;
-        width: 30rem;
+        width: 25rem;
         height: 93vh;
         background-color: rgb(255, 255, 255);
         border: 1px solid black;
@@ -143,6 +139,12 @@
         z-index: 1050;
         transition: transform 0.3s ease-in-out;
         transform: translateX(100%);
+        overflow: scroll;
+        padding: 1rem
+    }
+
+    .cart-main ul {
+        list-style: none;
     }
 
     .cart-modal h3 {
@@ -172,11 +174,19 @@
         padding: 1rem;
     }
 
+    #price-and-quantity {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     .cart-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 1rem;
+        margin-bottom: 1rem;
     }
 
     .cart-modal .cart-header a {
@@ -184,16 +194,16 @@
         color: black;
     }
 
-    #preview-header {
-        margin-top: 1rem;
+    #item-header {
+        margin: 1rem;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: space-between;
     }
 
     #quantity-container {
-        margin-top: 2rem;
+        /* margin-top: 2rem; */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -205,6 +215,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        /* margin-left: 6rem; */
     }
 
     .quantity-selector button {
@@ -220,11 +231,21 @@
         text-align: center;
     }
 
+    #item-price {
+        /* margin-left: 6rem; */
+        padding: 0;
+    }
+
     #cart-content {
         display: flex;
-        justify-content: space-between;
         align-items: center;
         padding: 1rem;
+    }
+
+    #preview-photo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     #cart-content img {
@@ -233,6 +254,7 @@
     }
 
     #cart-total {
+        margin-top: 1rem;
         display: flex;
         justify-content: space-between;
         padding: 1rem;
@@ -255,6 +277,8 @@
         letter-spacing: 0.1rem;
         width: 100%;
         margin: auto;
+        margin-bottom: 1rem;
+        margin-top: -1rem;
         padding: 1rem;
         background-color: rgba(0, 0, 0, 0);
         color: black;
@@ -264,6 +288,11 @@
     @media screen and (max-width: 375px) {
         .cart-modal {
             width: 20rem;
+        }
+
+        #cart-content img {
+            width: 5rem;
+            height: 5rem;
         }
     }
 </style>
