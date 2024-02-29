@@ -26,7 +26,7 @@
             />
           </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide v-if="product.category === 'color'">
           <div id="blob-container">
             <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
             <BlobComponent :color="product.colorHex" margin="48px" />
@@ -49,37 +49,37 @@
           :ripple="false"
           flat
           icon
-          :color="product.colorHex"
+          :color="isColor ? product.colorHex : 'orange'"
           @click="amount -= 1"
           :disabled="amount === 1"
         >
           <v-icon size="30">mdi-minus</v-icon>
         </v-btn>
-        <p id="amount">{{ amount }} L</p>
+        <p id="amount">{{ amount }} {{ product.value }}</p>
         <v-btn
           class="btn"
           size="48"
           :ripple="false"
           flat
           icon
-          :color="product.colorHex"
+          :color="isColor ? product.colorHex : 'orange'"
           @click="amount += 1"
         >
           <v-icon size="30">mdi-plus</v-icon>
         </v-btn>
       </div>
-      <p id="total-area-text">
+      <p v-if="isColor" id="total-area-text">
         Räcker till ca {{ amount * 5 }} kvadratmeter efter två lager
       </p>
-      <p class="select-text">Välj färgtyp:</p>
-      <div id="color-type-selector-container">
+      <p v-if="isColor" class="select-text">Välj färgtyp:</p>
+      <div v-if="isColor" id="color-type-selector-container">
         <v-btn-toggle
           light
           rounded="0"
           v-model="toggle"
           mandatory
           :ripple="false"
-          color="#eee"
+          :color="product.category === 'color' ? product.colorHex : 'orange'"
         >
           <v-btn
             :ripple="false"
@@ -106,12 +106,16 @@
         </v-btn-toggle>
       </div>
       <v-divider class="divider"></v-divider>
+      <p id="total-sum">
+        Totalsumma: <strong> {{ product.price * amount }}</strong
+        >:-
+      </p>
       <v-btn
         @click="addToCartHandler"
         class="cart-button"
-        :color="product.colorHex"
+        :color="product.category === 'color' ? product.colorHex : 'orange'"
         height="48"
-        :disabled="toggle === '' ? true : false"
+        :disabled="toggle === '' && isColor ? true : false"
         >Lägg till i kundvagn</v-btn
       >
     </div>
@@ -124,7 +128,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { productsStore } from "../stores/products.js";
-import { useCartStore } from '../stores/cart';
+import { useCartStore } from "../stores/cart";
 import { useRoute, useRouter } from "vue-router";
 /* För att kunna använda Swiper så måste dom även importeras här  */
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -143,7 +147,7 @@ const cartStore = useCartStore();
 const product = ref({});
 const amount = ref(1);
 const toggle = ref("");
-
+const isColor = ref(null);
 
 onMounted(() => {
   // Här letar funktionen efter den första produkten med det id som är == route.params.id
@@ -152,11 +156,15 @@ onMounted(() => {
     //Varför i hela friden fungerar detta endast med == istället för === ?!
     (product) => product.id == route.params.id
   );
+
+  isColor.value = product.value.category === "color" ? true : false;
 });
 
 const addToCartHandler = () => {
   cartStore.addToCart(product.value, amount.value, toggle.value);
-  alert(`${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`);
+  alert(
+    `${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`
+  );
 };
 
 const info = () => {
@@ -199,7 +207,6 @@ img {
 }
 
 #product-name {
-  padding: 0 16px;
   margin-bottom: 16px;
   text-align: center;
   font-size: 2.5rem;
@@ -207,6 +214,10 @@ img {
 
 #swiper {
   position: relative;
+}
+
+#swiper-container {
+  margin-bottom: 16px;
 }
 
 #description {
@@ -234,8 +245,9 @@ img {
   background-color: #ddd;
   border-radius: 50px;
   padding: 0;
+  max-width: 400px;
   width: 80%;
-  margin: auto;
+  margin: 0 auto 32px;
   box-shadow: 5px 5px 6px #afafaf, -5px -5px 6px #ffffff;
   overflow: hidden;
 }
@@ -246,6 +258,8 @@ img {
 
 #amount {
   font-size: 1.75rem;
+  width: 80px;
+  text-align: center;
 }
 
 #total-area-text {
@@ -262,6 +276,13 @@ img {
   margin: auto;
   display: flex;
   flex-direction: column;
+}
+
+#total-sum {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin-bottom: 16px;
 }
 
 .v-btn-group {
@@ -311,10 +332,6 @@ img {
     min-width: 0;
     margin: 0 auto;
     width: 40vw;
-  }
-
-  #product-name {
-    padding: 0;
   }
 }
 </style>

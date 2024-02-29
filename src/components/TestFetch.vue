@@ -7,8 +7,11 @@
       :title="items.name"
       @click="goToProduct(items.id)"
     >
-      <div class="blob-container">
+      <div class="blob-container" v-if="items.category === 'color'">
         <BlobComponent :color="items.colorHex" />
+      </div>
+      <div class="image-container" v-else>
+        <img class="product-image" :src="items.image" :alt="items.alt" />
       </div>
       <div class="name-container">
         <h2 class="name">{{ items.name }}</h2>
@@ -55,12 +58,26 @@ const goToProduct = (id) => {
   padding: 16px;
 }
 
+.image-container {
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .name {
   text-transform: uppercase;
   display: block;
   text-align: center;
   max-width: 85%;
   font-size: 1.125rem;
+  margin-bottom: 16px;
 }
 
 .name-container {

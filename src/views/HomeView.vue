@@ -4,10 +4,12 @@ import SearchResults from "../components/SearchComponent.vue";
 import About from "../components/AboutText.vue";
 import Carousel from "../components/ImgWheel.vue";
 import TestFetch from "../components/TestFetch.vue";
+import CoolBlob from "@/components/CoolBlob.vue";
 </script>
 
 <template>
   <main>
+    <CoolBlob />
     <TestFetch />
     <SearchResults />
     <HeroImage />

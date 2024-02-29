@@ -10,12 +10,27 @@ import { mdiMenu } from "@mdi/js";
 import { mdiClose } from "@mdi/js";
 import { mdiMenuDown } from "@mdi/js";
 import { mdiMenuRight } from "@mdi/js";
-import SearchComponent from "../components/SearchComponent.vue";
+import SearchComponent from "./SearchComponent.vue";
+
+//----------Funktionalitet för sök mobile/desktop--------------
+
+// OBS, reload av sidan krävs för att den ska kunna kolla mobile/dekstop
+
+// Hur vet den om den ska öppna mobil sök eller desktop sök?
+// checkIfMobile kollar om bredden är under 769 px bred, om den är under så sätts
+// this.isMobile till true, annars sätts den till false. Den körs när nav skapas under created.
+
+// Funktionen handleSearchComponent triggas vid click på sökikonen, den kollar värdet på isMobile.
+// Om false (desktopläge) så aktiveras "toggle" funktionalitet på this.showSearchComponent. Annars
+// så aktiveras den mobila menyns "toggle" funktionalitet.
 
 export default {
   components: {
     SvgIcon,
     SearchComponent,
+  },
+  created() {
+    this.checkIfMobile();
   },
   data() {
     return {
@@ -26,10 +41,12 @@ export default {
       closePath: mdiClose,
       menuDownPath: mdiMenuDown,
       menuRightPath: mdiMenuRight,
-      drawer: false,
+      drawer: null,
+      isMobile: null,
       search: "",
       showDropdownMenu: false,
       showColorsDropdown: false,
+      showSearchComponent: null,
     };
   },
   methods: {
@@ -43,6 +60,25 @@ export default {
     toggleColorsDropdown() {
       this.showColorsDropdown = !this.showColorsDropdown;
     },
+    handleSearchComponent() {
+      if (!this.isMobile) {
+        this.showSearchComponent = !this.showSearchComponent;
+        console.log("Är mobil?", this.isMobile);
+        console.log("Öppna/stäng sök", this.showSearchComponent);
+      } else {
+        this.drawer = !this.drawer;
+        console.log(this.drawer);
+      }
+    },
+    checkIfMobile() {
+      let width = screen.width;
+      console.log(width);
+      if (width < 769) {
+        this.isMobile = true; /* Mobile */
+      } else {
+        this.isMobile = false; /* Desktop */
+      }
+    },
   },
 };
 </script>
@@ -53,7 +89,7 @@ export default {
     <v-toolbar flat>
       <v-toolbar-title>Meny</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="drawer = false">
+      <v-btn icon @click="drawer = !drawer">
         <svg-icon type="mdi" :path="closePath"></svg-icon>
       </v-btn>
     </v-toolbar>
@@ -129,11 +165,13 @@ export default {
     </v-list>
 
     <!-- Ikoner -->
+    <!-- Sök-->
     <v-spacer></v-spacer>
-    <v-btn icon @click="drawer = !drawer">
+    <v-btn icon @click="handleSearchComponent">
       <v-icon><svg-icon type="mdi" :path="magnifyPath"></svg-icon></v-icon>
     </v-btn>
     <v-btn icon>
+      <!-- Varukorg-->
       <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
     </v-btn>
     <v-btn icon @click="toggleCartVisibility">
