@@ -10,10 +10,12 @@ import { mdiMenu } from "@mdi/js";
 import { mdiClose } from "@mdi/js";
 import { mdiMenuDown } from "@mdi/js";
 import { mdiMenuRight } from "@mdi/js";
+import SearchComponent from "../components/SearchComponent.vue";
 
 export default {
   components: {
     SvgIcon,
+    SearchComponent,
   },
   data() {
     return {
@@ -44,7 +46,6 @@ export default {
   },
 };
 </script>
-
 
 <template>
   <!-- drawer för mobile -->
@@ -170,49 +171,49 @@ export default {
 </template>
 
 <style scoped>
-  .dropdown-content {
-    position: absolute;
-    margin-top: 64px;
-    width: 100vw;
-    height: 13rem;
-    background-color: #ffffff;
-    z-index: 1;
-  }
-  #brand {
-    color: #000000;
-    text-decoration: none;
-    font-size: 2rem;
-    margin-left: 2rem;
-  }
-  .navigation-link {
-    text-decoration: none;
-    color: #000000;
-  }
-  .navigation-link:hover {
-    text-decoration: underline;
-  }
-  .navigation-item {
-    text-decoration: none;
-    color: #000000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .subMenu {
-    position: absolute;
-    margin-left: 15rem;
-    margin-top: -43px;
-    background-color: #ffffff;
-    z-index: 1;
-    width: 10rem;
-  }
+.dropdown-content {
+  position: absolute;
+  margin-top: 64px;
+  width: 100vw;
+  height: 13rem;
+  background-color: #ffffff;
+  z-index: 1;
+}
+#brand {
+  color: #000000;
+  text-decoration: none;
+  font-size: 2rem;
+  margin-left: 2rem;
+}
+.navigation-link {
+  text-decoration: none;
+  color: #000000;
+}
+.navigation-link:hover {
+  text-decoration: underline;
+}
+.navigation-item {
+  text-decoration: none;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.subMenu {
+  position: absolute;
+  margin-left: 15rem;
+  margin-top: -43px;
+  background-color: #ffffff;
+  z-index: 1;
+  width: 10rem;
+}
 
-  @media (max-width: 380px) {
-    #brand {
-      font-size: 1.5rem;
-    }
-    .dropdown-content {
-      display: none;
-    }
+@media (max-width: 380px) {
+  #brand {
+    font-size: 1.5rem;
   }
+  .dropdown-content {
+    display: none;
+  }
+}
 </style>

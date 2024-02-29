@@ -41,60 +41,54 @@
 </template>
 
 <script setup>
-  // Composition api
+// Composition api
 
-  import { productsStore } from '../stores/products'
-  import BlobComponent from './BlobComponent.vue'
-  import router from '@/router'
-  import { ref, watch } from 'vue'
-  //  import { computed, ref, watch } from 'vue'
-  // importera ref
-  // importera computed (beräkande egenskap)
-  // importera watch
+import { productsStore } from "../stores/products";
+import BlobComponent from "./BlobComponent.vue";
+import router from "@/router";
+import { ref, watch } from "vue";
+//  import { computed, ref, watch } from 'vue'
+// importera ref
+// importera computed (beräkande egenskap)
+// importera watch
 
-  let searchInput = ref('')
-  const store = productsStore()
-  const filteredProducts = ref([])
+let searchInput = ref("");
+const store = productsStore();
+const filteredProducts = ref([]);
 
-  watch(searchInput, () => {
-    if (searchInput.value !== '') {
-      filteredProducts.value = store.products.filter(
-        product =>
-          product.name
-            .toUpperCase()
-            .includes(searchInput.value.toUpperCase()) ||
-          product.colorType
-            .toUpperCase()
-            .includes(searchInput.value.toUpperCase())
-      )
-    } else {
-      filteredProducts.value = []
-    }
-  })
-
-  function searchResults() {
-    filteredProducts.value = store.products.filter(product =>
-      product.name.toUpperCase().includes(searchInput.value.toUpperCase())
-    )
+watch(searchInput, () => {
+  if (searchInput.value !== "") {
+    filteredProducts.value = store.products.filter(
+      (product) =>
+        product.name.toUpperCase().includes(searchInput.value.toUpperCase()) ||
+        product.colorType
+          .toUpperCase()
+          .includes(searchInput.value.toUpperCase())
+    );
+  } else {
+    filteredProducts.value = [];
   }
+});
 
-  const goToProduct = id => {
-    router.push({ name: 'product', params: { id: id } })
-  }
+function searchResults() {
+  filteredProducts.value = store.products.filter((product) =>
+    product.name.toUpperCase().includes(searchInput.value.toUpperCase())
+  );
+}
+
+const goToProduct = (id) => {
+  router.push({ name: "product", params: { id: id } });
+};
 </script>
 
 <style scoped>
-  button {
-    padding: 1%;
-  }
+.blob-container {
+  width: 35px;
+}
 
-  .blob-container {
-    width: 35px;
-  }
-
-  .list-item-text {
-    font-weight: 500;
-  }
+.list-item-text {
+  font-weight: 500;
+}
 
 .list-item-container {
   text-decoration: none;
@@ -129,5 +123,4 @@ p {
 :deep(.v-input__details) {
   display: none;
 }
-
 </style>
