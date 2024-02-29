@@ -60,7 +60,7 @@ export default {
     <!-- Search -->
     <!-- <v-form>
       <v-text-field v-model="search" label="Sök..." hide-details></v-text-field>
-    </v-form> -->
+    </v-form>. -->
 
     <SearchComponent />
 
