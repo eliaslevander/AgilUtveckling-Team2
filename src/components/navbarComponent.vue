@@ -84,6 +84,13 @@ export default {
 </script>
 
 <template>
+<!--template desktop-->
+<v-navigation-drawer v-model="showSearchComponent"
+location="right" class="desktopSearch">
+  <SearchComponent />
+
+</v-navigation-drawer>
+
   <!-- drawer för mobile -->
   <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
     <v-toolbar flat>
