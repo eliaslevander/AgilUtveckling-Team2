@@ -1,29 +1,20 @@
 <template>
   <div id="main-container">
-    <div id="blobs">
-      <div id="coolblob-container">
-        <BlobComponent
-          width="300px"
-          @click="clickForColor"
-          :color="`rgb(${r}, ${g}, ${b})`"
-        />
-        <div class="hex-container">
+    <div id="coolblob-container">
+      <BlobComponent @click="clickForColor" :color="`rgb(${r}, ${g}, ${b})`" />
+      <!-- <div class="hex-container">
           <p>R {{ r }}</p>
           <p>G {{ g }}</p>
           <p>B {{ b }}</p>
-        </div>
-      </div>
-      <div id="blob-container">
-        <BlobComponent
-          width="300px"
-          :color="`rgb(${clickedR}, ${clickedG}, ${clickedB})`"
-        />
-        <div class="hex-container">
+        </div> -->
+    </div>
+    <div id="blob-container">
+      <BlobComponent :color="`rgb(${clickedR}, ${clickedG}, ${clickedB})`" />
+      <!-- <div class="hex-container">
           <p>R {{ clickedR }}</p>
           <p>G {{ clickedG }}</p>
           <p>B {{ clickedB }}</p>
-        </div>
-      </div>
+        </div> -->
     </div>
   </div>
 </template>
@@ -67,22 +58,23 @@ onMounted(() => {
 <style>
 #main-container {
   width: 100%;
+  padding: 4vw;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 #coolblob-container {
-  width: 400px;
+  width: 40vw;
+  display: flex;
+  justify-content: center;
 }
 
 #blob-container {
-  width: 400px;
-}
-
-#blobs {
+  width: 40vw;
   display: flex;
+  justify-content: center;
 }
 
 .hex-container {
