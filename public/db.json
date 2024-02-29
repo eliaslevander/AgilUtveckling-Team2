@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Stenblågrå",
+    "name": "Skiffer",
     "description": "Elegant gråblå nyans, lugnande atmosfär, högkvalitativ färg för tidlös skönhet.",
     "image": "../src/assets/images/Blue/Blue_interior_01.jpg",
     "alt": "Stenblågrå-färg",
@@ -13,7 +13,7 @@
   },
   {
     "id": 2,
-    "name": "Midnattshav",
+    "name": "Midnatt",
     "description": "Djupt havsblå nyans, inspirerande och lugnande. Perfekt för att skapa en kreativ och fokuserad atmosfär.",
     "image": "../src/assets/images/Blue/Blue_interior_02.jpg",
     "alt": "Midnattshav-färg",
@@ -25,7 +25,7 @@
   },
   {
     "id": 3,
-    "name": "Silverblå Mist",
+    "name": "Skärgård",
     "description": "Mjuk himmelsblå ton, ger en känsla av ro och klarhet. Idealisk för att skapa en fräsch och luftig atmosfär.",
     "image": "../src/assets/images/Blue/Blue_interior_03.jpg",
     "alt": "Silverblå Mist-färg",
@@ -37,7 +37,7 @@
   },
   {
     "id": 4,
-    "name": "Djupgrön Skog",
+    "name": "Skogen",
     "description": "Jordnära och rik skogsgrön färg, ger en harmonisk koppling till naturen. Perfekt för att skapa ett organiskt och lugnt uttryck. Låt din omgivning omfamna den lugnande kraften av naturens skönhet med denna djupa och tillfredsställande nyans.",
     "image": "../src/assets/images/Green/Green_interior_01.jpg",
     "alt": "Djupgrön Skog-färg",
@@ -61,7 +61,7 @@
   },
   {
     "id": 6,
-    "name": "Silvergrön",
+    "name": "Salvia",
     "description": "Mjuk salviagrön ton, ger en naturlig och fridfull känsla. Skapar en lugn atmosfär med en subtil touch av elegans. Idealisk för att omfamna naturens skönhet och skapa ett harmoniskt utrymme.",
     "image": "../src/assets/images/Green/Green_interior_03_.jpg",
     "alt": "Silvergrön-färg",
@@ -73,7 +73,7 @@
   },
   {
     "id": 7,
-    "name": "Vintervit",
+    "name": "Kritvit",
     "description": "Vintervit är en sval och ren nyans av vitt, inspirerad av vinterns snöiga landskap. Den har en subtil kyla och mjukhet, vilket ger en känsla av lugn och friskhet, liknande den vita snön som täcker marken under vintermånaderna.",
     "image": "../src/assets/images/White/White_interior_01.jpg",
     "alt": "Vintervit-färg",
@@ -86,7 +86,7 @@
 
   {
     "id": 8,
-    "name": "Ljus Elfenbensvit",
+    "name": "Havre",
     "description": "En mild och varm nyans med subtila inslag av elfenbensfärg. Denna ton ger en sofistikerad och behaglig karaktär, passande för olika ändamål. Den skapar en lugn atmosfär och kan användas för att förstärka skönheten i olika material och ytor.",
     "image": "../src/assets/images/White/White_interior_02.jpg",
     "alt": "Ljus Elfenbensvit-färg",
