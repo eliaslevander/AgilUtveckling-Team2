@@ -10,12 +10,12 @@ import { mdiMenu } from "@mdi/js";
 import { mdiClose } from "@mdi/js";
 import { mdiMenuDown } from "@mdi/js";
 import { mdiMenuRight } from "@mdi/js";
-import SearchComponent from "../components/SearchComponent.vue";
+
 
 export default {
   components: {
     SvgIcon,
-    SearchComponent,
+
   },
   data() {
     return {
@@ -30,6 +30,7 @@ export default {
       search: "",
       showDropdownMenu: false,
       showColorsDropdown: false,
+      showSeachComponent: false,
     };
   },
   methods: {
@@ -43,6 +44,16 @@ export default {
     toggleColorsDropdown() {
       this.showColorsDropdown = !this.showColorsDropdown;
     },
+    toggleSearchComponent() {
+      this.showSearchComponent = !this.showSearchComponent;
+    },
+    isMobile() {
+      if (/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) {
+        return true /* Mobile */
+      } else {
+        return false /* Desktop */
+      }
+    }
   },
 };
 </script>
@@ -129,11 +140,14 @@ export default {
     </v-list>
 
     <!-- Ikoner -->
+    <!-- Sök-->
     <v-spacer></v-spacer>
-    <v-btn icon @click="drawer = !drawer">
+    <v-btn icon @click="toggleSearchComponent">
       <v-icon><svg-icon type="mdi" :path="magnifyPath"></svg-icon></v-icon>
     </v-btn>
     <v-btn icon>
+
+<!-- Varukorg-->
       <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
     </v-btn>
     <v-btn icon @click="toggleCartVisibility">
