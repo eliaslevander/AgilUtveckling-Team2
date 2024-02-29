@@ -285,7 +285,7 @@ img {
   width: 100%;
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 991px) {
   #swiper-container {
     width: 50%;
   }
@@ -309,8 +309,7 @@ img {
 
   #swiper {
     min-width: 0;
-    grid-area: swiper;
-    margin: 0;
+    margin: 0 auto;
     width: 40vw;
   }
 
