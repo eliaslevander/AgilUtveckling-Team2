@@ -12,7 +12,9 @@ const g = ref(134);
 const b = ref(13);
 const setupColorOscillation = (colorRef, speed) => {
   setInterval(() => {
-    colorRef.value = Math.round(127 * Math.sin((Date.now() / speed) * 0.001) + 128);
+    colorRef.value = Math.round(
+      127 * Math.sin((Date.now() / speed) * 0.001) + 128
+    );
   }, speed);
 };
 

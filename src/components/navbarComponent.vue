@@ -10,12 +10,15 @@ import { mdiMenu } from "@mdi/js";
 import { mdiClose } from "@mdi/js";
 import { mdiMenuDown } from "@mdi/js";
 import { mdiMenuRight } from "@mdi/js";
-
+import SearchComponent from "./SearchComponent.vue";
 
 export default {
   components: {
     SvgIcon,
-
+    SearchComponent,
+  },
+  created() {
+    this.checkIfMobile();
   },
   data() {
     return {
@@ -26,11 +29,12 @@ export default {
       closePath: mdiClose,
       menuDownPath: mdiMenuDown,
       menuRightPath: mdiMenuRight,
-      drawer: false,
+      drawer: null,
+      isMobile: null,
       search: "",
       showDropdownMenu: false,
       showColorsDropdown: false,
-      showSeachComponent: false,
+      showSearchComponent: null,
     };
   },
   methods: {
@@ -44,16 +48,25 @@ export default {
     toggleColorsDropdown() {
       this.showColorsDropdown = !this.showColorsDropdown;
     },
-    toggleSearchComponent() {
-      this.showSearchComponent = !this.showSearchComponent;
-    },
-    isMobile() {
-      if (/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) {
-        return true /* Mobile */
+    handleSearchComponent() {
+      if (!this.isMobile) {
+        this.showSearchComponent = !this.showSearchComponent;
+        console.log("Är mobil?", this.isMobile);
+        console.log("Öppna/stäng sök", this.showSearchComponent);
       } else {
-        return false /* Desktop */
+        this.drawer = !this.drawer;
+        console.log(this.drawer);
       }
-    }
+    },
+    checkIfMobile() {
+      let width = screen.width;
+      console.log(width);
+      if (width < 769) {
+        this.isMobile = true; /* Mobile */
+      } else {
+        this.isMobile = false; /* Desktop */
+      }
+    },
   },
 };
 </script>
@@ -64,7 +77,7 @@ export default {
     <v-toolbar flat>
       <v-toolbar-title>Meny</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="drawer = false">
+      <v-btn icon @click="drawer = !drawer">
         <svg-icon type="mdi" :path="closePath"></svg-icon>
       </v-btn>
     </v-toolbar>
@@ -142,12 +155,11 @@ export default {
     <!-- Ikoner -->
     <!-- Sök-->
     <v-spacer></v-spacer>
-    <v-btn icon @click="toggleSearchComponent">
+    <v-btn icon @click="handleSearchComponent">
       <v-icon><svg-icon type="mdi" :path="magnifyPath"></svg-icon></v-icon>
     </v-btn>
     <v-btn icon>
-
-<!-- Varukorg-->
+      <!-- Varukorg-->
       <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
     </v-btn>
     <v-btn icon @click="toggleCartVisibility">
