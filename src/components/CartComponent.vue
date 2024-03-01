@@ -1,6 +1,7 @@
 <script setup>
     import { computed } from 'vue'
     import { useCartStore } from '../stores/cart'
+    import { RouterLink } from 'vue-router'
 
     const cartStore = useCartStore()
 
@@ -9,19 +10,34 @@
     }
 
     function decrement(productId, colorType) {
-        if (cartStore.getItemQuantity(productId, colorType) > 1) {
+        let quantity = cartStore.getItemQuantity(productId, colorType)
+        if (quantity > 1) {
             cartStore.decrementQuantity(productId, colorType)
+        } else {
+            removeFromCart(productId, colorType)
         }
     }
 
     function removeFromCart(productId, colorType) {
-        cartStore.removeFromCart(productId, colorType)
+        if (
+            window.confirm(
+                'Är du säker på att du vill ta bort produkten från din kundvagn?'
+            )
+        ) {
+            cartStore.removeFromCart(productId, colorType)
+        }
     }
 
     const totalSum = computed(() => {
-        return cartStore.items.reduce((sum, item) => {
-            return sum + item.product.price * item.quantity
-        }, 0)
+        let sum = cartStore.items.reduce(
+            (sum, item) => sum + item.product.price * item.quantity,
+            0
+        )
+        return sum > 499 ? sum : sum + 49
+    })
+
+    const shippingCost = computed(() => {
+        return totalSum.value > 499 ? 0 : 49
     })
 </script>
 
@@ -40,7 +56,7 @@
                 <h3>Din Kundvagn</h3>
                 <button @click="cartStore.closeCart">X</button>
             </div>
-            <div class="cart-main">
+            <div class="cart-main" v-if="cartStore.items.length > 0">
                 <ul
                     v-for="(item, index) in cartStore.items"
                     :key="index"
@@ -49,7 +65,9 @@
                     <hr />
                     <li>
                         <div id="item-header">
-                            <h4>{{ item.product.name }} {{ item.colorType }}</h4>
+                            <h4>
+                                {{ item.product.name }} {{ item.colorType }}
+                            </h4>
                             <button
                                 @click="
                                     removeFromCart(
@@ -76,7 +94,10 @@
                                         >
                                             -
                                         </button>
-                                        <input :value="item.quantity" readonly />
+                                        <input
+                                            :value="item.quantity"
+                                            readonly
+                                        />
                                         <button
                                             @click="
                                                 increment(
@@ -89,23 +110,40 @@
                                         </button>
                                     </div>
                                 </div>
-                                <p id="item-price">{{ item.product.price }}kr / st</p>
+                                <p id="item-price">
+                                    {{ item.product.price }}kr / st
+                                </p>
                             </div>
                         </div>
                     </li>
                 </ul>
                 <hr id="total-line" />
+                <p id="shipping-note">Fri frakt över 499 kr</p>
+                <div id="cart-shipping">
+                    <h3>Frakt</h3>
+                    <p>{{ shippingCost }} kr</p>
+                </div>
                 <div id="cart-total">
-                    <h3>Summa</h3>
+                    <h3>Totalsumma</h3>
                     <div id="total-price">
-                        <h3>{{ totalSum }}kr</h3>
+                        <h3>{{ totalSum }} kr</h3>
                         <p>ink. moms</p>
                     </div>
                 </div>
                 <div id="cart-checkout">
-                    <button id="to-checkout-btn">TILL KASSAN</button>
+                    <router-link to="/checkout"
+                        ><button id="to-checkout-btn" @click="cartStore.closeCart">
+                            TILL KASSAN
+                        </button></router-link
+                    >
                 </div>
                 <hr />
+            </div>
+            <div v-else class="empty-cart">
+                <p>Här var det tomt..</p>
+                <button id="to-checkout-btn" @click="cartStore.closeCart">
+                    Fortsätt shoppa
+                </button>
             </div>
         </div>
     </div>
@@ -120,6 +158,15 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 100;
+    }
+
+    .empty-cart {
+        margin-top: -2rem;
+        padding: 1rem;
+    }
+
+    .empty-cart p {
+        margin-bottom: 2rem;
     }
 
     .cart-container {
@@ -140,7 +187,7 @@
         transition: transform 0.3s ease-in-out;
         transform: translateX(100%);
         overflow: scroll;
-        padding: 1rem
+        padding: 1rem;
     }
 
     .cart-main ul {
@@ -254,16 +301,27 @@
     }
 
     #cart-total {
-        margin-top: 1rem;
         display: flex;
         justify-content: space-between;
         padding: 1rem;
+        margin-top: -1.5rem;
     }
 
     #total-price {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+    }
+
+    #shipping-note {
+        padding: 1rem;
+    }
+
+    #cart-shipping {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+        margin-top: -1rem;
     }
 
     #cart-checkout {
