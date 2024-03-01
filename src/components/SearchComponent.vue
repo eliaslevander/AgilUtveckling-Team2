@@ -20,13 +20,12 @@
 
   <!-- SÖKRESULTAT -->
   <!-- <span v-if="filteredProducts.length > 0"></span> -->
-  <v-list v-if="filteredProducts">r
-    
+  <v-list v-if="filteredProducts">
     <v-list-item-group>
       <v-list-item
         v-for="items in filteredProducts"
         :key="items.id"
-        @click="goToProduct(items.id)"
+        @click="goToProduct(items.id), router.go"
       >
         <div class="list-item-container">
           <div v-if="items.category === 'color'" class="blob-container">
@@ -50,11 +49,14 @@
 import { productsStore } from "../stores/products";
 import BlobComponent from "./BlobComponent.vue";
 import router from "@/router";
+// import { useRouter } from "vue-router";
 import { ref, watch } from "vue";
 //  import { computed, ref, watch } from 'vue'
 // importera ref
 // importera computed (beräkande egenskap)
 // importera watch
+
+// const router = useRouter();
 
 let searchInput = ref("");
 const store = productsStore();

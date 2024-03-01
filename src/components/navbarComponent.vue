@@ -30,7 +30,7 @@ export default {
     SearchComponent,
   },
   created() {
-    this.checkIfMobile();
+    window.addEventListener("resize", this.checkIfMobile);
   },
   data() {
     return {
@@ -71,9 +71,8 @@ export default {
       }
     },
     checkIfMobile() {
-      let width = screen.width;
-      console.log(width);
-      if (width < 769) {
+      let width = window.innerWidth;
+      if (width < 600) {
         this.isMobile = true; /* Mobile */
       } else {
         this.isMobile = false; /* Desktop */
@@ -90,12 +89,18 @@ export default {
     location="right"
     class="desktopSearch"
     temporary
+    touchless
   >
     <SearchComponent />
   </v-navigation-drawer>
 
   <!-- drawer för mobile -->
-  <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
+  <v-navigation-drawer
+    v-model="drawer"
+    touchless
+    temporary
+    class="d-flex d-sm-none"
+  >
     <v-toolbar flat>
       <v-toolbar-title>Meny</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -154,7 +159,7 @@ export default {
 
   <v-app-bar>
     <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
-      ><svg-icon type="mdi" :path="menuPath"></svg-icon
+      ><svg-icon size="42" type="mdi" :path="menuPath"></svg-icon
     ></v-app-bar-nav-icon>
     <!-- Brand -->
     <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
@@ -231,6 +236,7 @@ export default {
   color: #000000;
   text-decoration: none;
   font-size: 2rem;
+  font-weight: 500;
   margin-left: 2rem;
 }
 .navigation-link {
@@ -256,9 +262,10 @@ export default {
   width: 10rem;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 601px) {
   #brand {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    margin-left: 10px;
   }
   .dropdown-content {
     display: none;

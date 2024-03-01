@@ -110,14 +110,16 @@
         Totalsumma: <strong> {{ product.price * amount }}</strong
         >:-
       </p>
-      <v-btn
-        @click="addToCartHandler"
-        class="cart-button"
-        :color="product.category === 'color' ? product.colorHex : 'orange'"
-        height="48"
-        :disabled="toggle === '' && isColor ? true : false"
-        >Lägg till i kundvagn</v-btn
-      >
+      <div id="cart-button-container">
+        <v-btn
+          @click="addToCartHandler"
+          id="cart-button"
+          :color="product.category === 'color' ? product.colorHex : 'orange'"
+          height="48"
+          :disabled="toggle === '' && isColor ? true : false"
+          >Lägg till i kundvagn
+        </v-btn>
+      </div>
     </div>
   </div>
   <!-- <v-btn>Helmatt</v-btn>
@@ -301,9 +303,15 @@ img {
   border: 1px solid #000 !important;
 }
 
-.cart-button {
+#cart-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+#cart-button {
   font-size: 1.25rem;
-  width: 100%;
+  width: 80%;
+  margin: auto;
 }
 
 @media screen and (min-width: 991px) {
