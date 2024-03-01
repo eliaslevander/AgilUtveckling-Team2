@@ -30,7 +30,7 @@
       <v-list-item
         v-for="items in filteredProducts"
         :key="items.id"
-        @click="goToProduct(items.id)"
+        @click="goToProduct(items.id), router.go"
       >
         <div class="list-item-container">
           <div v-if="items.category === 'color'" class="blob-container">
@@ -49,6 +49,7 @@
 </template>
 
 <script setup>
+
   // Composition api
 
   import { productsStore } from '../stores/products'
@@ -84,6 +85,7 @@
     filteredProducts.value = store.products.filter(product =>
       product.name.toUpperCase().includes(searchInput.value.toUpperCase())
     )
+
   }
 
   const goToProduct = id => {

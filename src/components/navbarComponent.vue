@@ -24,32 +24,33 @@
   // Om false (desktopläge) så aktiveras "toggle" funktionalitet på this.showSearchComponent. Annars
   // så aktiveras den mobila menyns "toggle" funktionalitet.
 
-  export default {
-    components: {
-      SvgIcon,
-      SearchComponent
-    },
-    created() {
-      this.checkIfMobile()
-    },
-    data() {
-      return {
-        magnifyPath: mdiMagnify,
-        heartPath: mdiHeartOutline,
-        shoppingPath: mdiShoppingOutline,
-        menuPath: mdiMenu,
-        closePath: mdiClose,
-        menuDownPath: mdiMenuDown,
-        menuRightPath: mdiMenuRight,
-        drawer: null,
-        isMobile: null,
-        search: '',
-        showDropdownMenu: false,
-        showColorsDropdown: false,
-        showSearchComponent: false
-      }
-    },
-    methods: {
+
+export default {
+  components: {
+    SvgIcon,
+    SearchComponent,
+  },
+  created() {
+    window.addEventListener("resize", this.checkIfMobile);
+  },
+  data() {
+    return {
+      magnifyPath: mdiMagnify,
+      heartPath: mdiHeartOutline,
+      shoppingPath: mdiShoppingOutline,
+      menuPath: mdiMenu,
+      closePath: mdiClose,
+      menuDownPath: mdiMenuDown,
+      menuRightPath: mdiMenuRight,
+      drawer: null,
+      isMobile: null,
+      search: "",
+      showDropdownMenu: false,
+      showColorsDropdown: false,
+      showSearchComponent: false,
+    };
+  },
+  methods: {
       toggleCartVisibility() {
         const cartStore = useCartStore()
         cartStore.toggleCartVisibility()
@@ -71,16 +72,14 @@
         }
       },
       checkIfMobile() {
-        let width = screen.width
-        console.log(width)
-        if (width < 769) {
-          this.isMobile = true /* Mobile */
+      let width = window.innerWidth;
+        if (width < 600) {
+          this.isMobile = true; /* Mobile */
         } else {
-          this.isMobile = false /* Desktop */
+          this.isMobile = false; /* Desktop */
         }
       }
     }
-  }
 </script>
 
 <template>
@@ -90,12 +89,18 @@
     location="right"
     class="desktopSearch"
     temporary
+    touchless
   >
     <SearchComponent />
   </v-navigation-drawer>
 
   <!-- drawer för mobile -->
-  <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
+  <v-navigation-drawer
+    v-model="drawer"
+    touchless
+    temporary
+    class="d-flex d-sm-none"
+  >
     <v-toolbar flat>
       <v-toolbar-title>Meny</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -154,7 +159,7 @@
 
   <v-app-bar>
     <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
-      ><svg-icon type="mdi" :path="menuPath"></svg-icon
+      ><svg-icon size="42" type="mdi" :path="menuPath"></svg-icon
     ></v-app-bar-nav-icon>
     <!-- Brand -->
     <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
@@ -219,19 +224,49 @@
 </template>
 
 <style scoped>
-  .dropdown-content {
-    position: absolute;
-    margin-top: 64px;
-    width: 100vw;
-    height: 13rem;
-    background-color: #ffffff;
-    z-index: 1;
-  }
+.dropdown-content {
+  position: absolute;
+  margin-top: 64px;
+  width: 100vw;
+  height: 13rem;
+  background-color: #ffffff;
+  z-index: 1;
+}
+#brand {
+  color: #000000;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: 2rem;
+}
+.navigation-link {
+  text-decoration: none;
+  color: #000000;
+}
+.navigation-link:hover {
+  text-decoration: underline;
+}
+.navigation-item {
+  text-decoration: none;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.subMenu {
+  position: absolute;
+  margin-left: 15rem;
+  margin-top: -43px;
+  background-color: #ffffff;
+  z-index: 1;
+  width: 10rem;
+}
+
+@media (max-width: 601px) {
   #brand {
-    color: #000000;
-    text-decoration: none;
-    font-size: 2rem;
-    margin-left: 2rem;
+    font-size: 1.75rem;
+    margin-left: 10px;
+
   }
   .navigation-link {
     text-decoration: none;
