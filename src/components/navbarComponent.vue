@@ -163,7 +163,17 @@ export default {
     ></v-app-bar-nav-icon>
     <!-- Brand -->
     <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
-
+    <!-- <router-link :to="{ name: 'home' }" id="brand"
+      ><div
+        style="width: 160px; display: flex; align-items: center"
+        id="logo-container"
+      >
+        <img
+          style="width: 100%"
+          src="../assets/images/testlogo.png"
+          alt=""
+        /></div
+    ></router-link> -->
     <!-- länkar -->
     <v-spacer></v-spacer>
     <v-list class="navigation-links d-none d-sm-flex">

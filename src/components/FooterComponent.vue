@@ -19,18 +19,18 @@
   </v-footer>
 </template>
 <script>
-  import { RouterLink } from 'vue-router'
-  export default {
-    data: () => ({
-      links: [
-        'Prisma',
-        'Kontakt',
-        'Vanliga frågor',
-        'Samarbeten',
-        'Användarvillkor'
-      ]
-    })
-  }
+import { RouterLink } from "vue-router";
+export default {
+  data: () => ({
+    links: [
+      "Prisma",
+      "Kontakt",
+      "Vanliga frågor",
+      "Samarbeten",
+      "Användarvillkor",
+    ],
+  }),
+};
 </script>
 
 <style></style>

@@ -109,7 +109,11 @@
       <p id="total-sum">
         Totalsumma:
         <strong v-if="isColor">
-          {{ product.price * colorTypePrice * amount }}</strong
+          {{
+            (product.price * colorTypePrice * amount)
+              .toFixed(2)
+              .replace(/\.00$/, "")
+          }}</strong
         >
         <strong v-else> {{ product.price * amount }}</strong
         >:-
@@ -167,7 +171,7 @@ onMounted(() => {
 });
 
 // Använder computed för att ge de olika färgtyperna olika priser. colorTypeValue används
-// som multiplikator i totalsumman. helmatt = standard, halvmatt + 10%, högglans + 15%
+// som multiplikator i totalsumman. helmatt = standard, halvmatt + 10%, högglans + 20%
 
 const colorTypePrice = computed(() => {
   let colorTypeValue = toggle.value;
@@ -179,7 +183,7 @@ const colorTypePrice = computed(() => {
       colorTypeValue = 1.1;
       break;
     case "hogglans":
-      colorTypeValue = 1.15;
+      colorTypeValue = 1.2;
       break;
   }
   return colorTypeValue;
