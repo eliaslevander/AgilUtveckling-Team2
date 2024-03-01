@@ -30,7 +30,7 @@ export default {
     SearchComponent,
   },
   created() {
-    this.checkIfMobile();
+    window.addEventListener("resize", this.checkIfMobile);
   },
   data() {
     return {
@@ -71,9 +71,8 @@ export default {
       }
     },
     checkIfMobile() {
-      let width = screen.width;
-      console.log(width);
-      if (width < 769) {
+      let width = window.innerWidth;
+      if (width < 600) {
         this.isMobile = true; /* Mobile */
       } else {
         this.isMobile = false; /* Desktop */
@@ -231,6 +230,7 @@ export default {
   color: #000000;
   text-decoration: none;
   font-size: 2rem;
+  font-weight: 500;
   margin-left: 2rem;
 }
 .navigation-link {
@@ -256,9 +256,10 @@ export default {
   width: 10rem;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 601px) {
   #brand {
     font-size: 1.5rem;
+    margin: 0;
   }
   .dropdown-content {
     display: none;
