@@ -46,7 +46,7 @@ export default {
       search: "",
       showDropdownMenu: false,
       showColorsDropdown: false,
-      showSearchComponent: null,
+      showSearchComponent: false,
     };
   },
   methods: {
