@@ -89,12 +89,18 @@ export default {
     location="right"
     class="desktopSearch"
     temporary
+    touchless
   >
     <SearchComponent />
   </v-navigation-drawer>
 
   <!-- drawer för mobile -->
-  <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
+  <v-navigation-drawer
+    v-model="drawer"
+    touchless
+    temporary
+    class="d-flex d-sm-none"
+  >
     <v-toolbar flat>
       <v-toolbar-title>Meny</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -153,7 +159,7 @@ export default {
 
   <v-app-bar>
     <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
-      ><svg-icon type="mdi" :path="menuPath"></svg-icon
+      ><svg-icon size="42" type="mdi" :path="menuPath"></svg-icon
     ></v-app-bar-nav-icon>
     <!-- Brand -->
     <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
@@ -258,8 +264,8 @@ export default {
 
 @media (max-width: 601px) {
   #brand {
-    font-size: 1.5rem;
-    margin: 0;
+    font-size: 1.75rem;
+    margin-left: 10px;
   }
   .dropdown-content {
     display: none;
