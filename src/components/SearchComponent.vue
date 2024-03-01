@@ -20,7 +20,8 @@
 
   <!-- SÖKRESULTAT -->
   <!-- <span v-if="filteredProducts.length > 0"></span> -->
-  <v-list v-if="filteredProducts">
+  <v-list v-if="filteredProducts">r
+    
     <v-list-item-group>
       <v-list-item
         v-for="items in filteredProducts"

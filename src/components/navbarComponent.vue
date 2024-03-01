@@ -89,6 +89,7 @@ export default {
     v-model="showSearchComponent"
     location="right"
     class="desktopSearch"
+    temporary
   >
     <SearchComponent />
   </v-navigation-drawer>
