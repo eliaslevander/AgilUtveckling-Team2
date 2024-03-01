@@ -142,7 +142,7 @@
     "category": "color",
     "value": "l",
     "colorType": "Röd",
-    "colorHex": "#FF1100"
+    "colorHex": "#a01A00"
   },
   {
     "id": 13,
@@ -154,7 +154,7 @@
     "category": "color",
     "value": "l",
     "colorType": "Röd",
-    "colorHex": "#FD0350"
+    "colorHex": "#B03808"
   },
   {
     "id": 13,
@@ -166,6 +166,42 @@
     "category": "color",
     "value": "l",
     "colorType": "Röd",
-    "colorHex": "#AA0350"
+    "colorHex": "#ca3710"
+  },
+  {
+    "id": 14,
+    "name": "Gul 1",
+    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "image": "../src/assets/images/",
+    "alt": "Gul 1-färg",
+    "price": 199,
+    "category": "color",
+    "value": "l",
+    "colorType": "Gul",
+    "colorHex": "#FFD508"
+  },
+  {
+    "id": 15,
+    "name": "Gul 2",
+    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "image": "../src/assets/images/",
+    "alt": "Gul 2-färg",
+    "price": 199,
+    "category": "color",
+    "value": "l",
+    "colorType": "Gul",
+    "colorHex": "#FFCD08"
+  },
+  {
+    "id": 16,
+    "name": "Gul 3",
+    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "image": "../src/assets/images/",
+    "alt": "Gul 3-färg",
+    "price": 199,
+    "category": "color",
+    "value": "l",
+    "colorType": "Gul",
+    "colorHex": "#FFFF08"
   }
 ]

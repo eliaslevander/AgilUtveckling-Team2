@@ -107,7 +107,11 @@
       </div>
       <v-divider class="divider"></v-divider>
       <p id="total-sum">
-        Totalsumma: <strong> {{ product.price * amount }}</strong
+        Totalsumma:
+        <strong v-if="isColor">
+          {{ product.price * colorTypePrice * amount }}</strong
+        >
+        <strong v-else> {{ product.price * amount }}</strong
         >:-
       </p>
       <div id="cart-button-container">
@@ -128,7 +132,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { productsStore } from "../stores/products.js";
 import { useCartStore } from "../stores/cart";
 import { useRoute, useRouter } from "vue-router";
@@ -160,6 +164,25 @@ onMounted(() => {
   );
 
   isColor.value = product.value.category === "color" ? true : false;
+});
+
+// Använder computed för att ge de olika färgtyperna olika priser. colorTypeValue används
+// som multiplikator i totalsumman. helmatt = standard, halvmatt + 10%, högglans + 15%
+
+const colorTypePrice = computed(() => {
+  let colorTypeValue = toggle.value;
+  switch (colorTypeValue) {
+    case "helmatt":
+      colorTypeValue = 1;
+      break;
+    case "halvmatt":
+      colorTypeValue = 1.1;
+      break;
+    case "hogglans":
+      colorTypeValue = 1.15;
+      break;
+  }
+  return colorTypeValue;
 });
 
 const addToCartHandler = () => {
