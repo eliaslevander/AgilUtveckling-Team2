@@ -8,14 +8,14 @@
       margin: props.margin,
       // Detta gör skuggorna responsiva, istället för pixelvärde så utgår den från bredden på parent.
       boxShadow: `
-      ${parentWidth * -0.03}px 
-      ${parentWidth * 0.02}px 
-      ${parentWidth * 0.04}px 
-      rgba(0, 0, 0, 0.5), 
-      inset 
-      ${parentWidth * 0.04}px 
-      ${parentWidth * -0.04}px 
-      ${parentWidth * 0.08}px  
+      ${parentWidth * -0.03}px
+      ${parentWidth * 0.02}px
+      ${parentWidth * 0.04}px
+      rgba(0, 0, 0, 0.5),
+      inset
+      ${parentWidth * 0.04}px
+      ${parentWidth * -0.04}px
+      ${parentWidth * 0.08}px
       rgba(0, 0, 0, 0.2)`,
     }"
   ></div>
