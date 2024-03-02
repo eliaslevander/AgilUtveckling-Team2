@@ -88,4 +88,11 @@
         right: 1rem;
         z-index: 10;
     }
+
+    @media (max-width: 380px) {
+        .favorite-item img {
+            width: 100vw;
+            height: 50vh;
+        }
+    }
 </style>
