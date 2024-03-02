@@ -11,20 +11,20 @@
       :loop gör så att den är "oändlig", du kan fortsätta scrolla hur mycket som helst
 
       -->
-      <Swiper
-        :modules="[Pagination, Navigation, A11y]"
-        navigation
-        pagination
-        :loop="true"
-        id="swiper"
-      >
-        <SwiperSlide>
-          <div id="image-container">
-            <img
-              :src="product.image"
-              :alt="`Ett rum med färgen ${product.name}`"
-            />
-            <v-btn
+            <Swiper
+                :modules="[Pagination, Navigation, A11y]"
+                navigation
+                pagination
+                :loop="true"
+                id="swiper"
+            >
+                <SwiperSlide>
+                    <div id="image-container">
+                        <img
+                            :src="product.image"
+                            :alt="`Ett rum med färgen ${product.name}`"
+                        />
+                        <v-btn
                             icon
                             flat
                             @click="toggleFavorite"
@@ -38,149 +38,158 @@
                                 }}
                             </v-icon>
                         </v-btn>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div id="blob-container">
-            <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
-            <BlobComponent :color="product.colorHex" margin="48px" />
-          </div>
-        </SwiperSlide>
-      </Swiper>
-    </div>
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                    <div id="blob-container">
+                        <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
+                        <BlobComponent
+                            :color="product.colorHex"
+                            margin="48px"
+                        />
+                    </div>
+                </SwiperSlide>
+            </Swiper>
+        </div>
 
         <v-divider class="vertical-divider" vertical></v-divider>
 
-    <div id="content-container">
-      <h2 id="product-name">{{ product.name }}</h2>
-      <p id="description">{{ product.description }}</p>
-      <v-divider class="divider"></v-divider>
-      <p class="select-text">Välj mängd:</p>
-      <div id="amount-selector-container">
-        <v-btn
-          class="btn"
-          size="48"
-          :ripple="false"
-          flat
-          icon
-          :color="isColor ? product.colorHex : 'orange'"
-          @click="amount -= 1"
-          :disabled="amount === 1"
-        >
-          <v-icon size="30">mdi-minus</v-icon>
-        </v-btn>
-        <p id="amount">{{ amount }} {{ product.value }}</p>
-        <v-btn
-          class="btn"
-          size="48"
-          :ripple="false"
-          flat
-          icon
-          :color="isColor ? product.colorHex : 'orange'"
-          @click="amount += 1"
-        >
-          <v-icon size="30">mdi-plus</v-icon>
-        </v-btn>
-      </div>
-      <p v-if="isColor" id="total-area-text">
-        Räcker till ca {{ amount * 5 }} kvadratmeter efter två lager
-      </p>
-      <p v-if="isColor" class="select-text">Välj färgtyp:</p>
-      <div v-if="isColor" id="color-type-selector-container">
-        <v-btn-toggle
-          light
-          rounded="0"
-          v-model="toggle"
-          mandatory
-          :ripple="false"
-          :color="product.category === 'color' ? product.colorHex : 'orange'"
-        >
-          <v-btn
-            :ripple="false"
-            flat
-            value="helmatt"
-            height="48"
-            class="color-type-button"
-            >Helmatt</v-btn
-          >
-          <v-btn
-            :ripple="false"
-            value="halvmatt"
-            height="48"
-            class="color-type-button"
-            >Halvmatt</v-btn
-          >
-          <v-btn
-            :ripple="false"
-            value="hogglans"
-            height="48"
-            class="color-type-button"
-            >Högglans</v-btn
-          >
-        </v-btn-toggle>
-      </div>
-      <v-divider class="divider"></v-divider>
-      <p id="total-sum">
-        Totalsumma: <strong> {{ product.price * amount }}</strong
-        >:-
-      </p>
-      <v-btn
-        @click="addToCartHandler"
-        class="cart-button"
-        :color="product.category === 'color' ? product.colorHex : 'orange'"
-        height="48"
-        :disabled="toggle === '' && isColor ? true : false"
-        >Lägg till i kundvagn</v-btn
-      >
+        <div id="content-container">
+            <h2 id="product-name">{{ product.name }}</h2>
+            <p id="description">{{ product.description }}</p>
+            <v-divider class="divider"></v-divider>
+            <p class="select-text">Välj mängd:</p>
+            <div id="amount-selector-container">
+                <v-btn
+                    class="btn"
+                    size="48"
+                    :ripple="false"
+                    flat
+                    icon
+                    :color="isColor ? product.colorHex : 'orange'"
+                    @click="amount -= 1"
+                    :disabled="amount === 1"
+                >
+                    <v-icon size="30">mdi-minus</v-icon>
+                </v-btn>
+                <p id="amount">{{ amount }} {{ product.value }}</p>
+                <v-btn
+                    class="btn"
+                    size="48"
+                    :ripple="false"
+                    flat
+                    icon
+                    :color="isColor ? product.colorHex : 'orange'"
+                    @click="amount += 1"
+                >
+                    <v-icon size="30">mdi-plus</v-icon>
+                </v-btn>
+            </div>
+            <p v-if="isColor" id="total-area-text">
+                Räcker till ca {{ amount * 5 }} kvadratmeter efter två lager
+            </p>
+            <p v-if="isColor" class="select-text">Välj färgtyp:</p>
+            <div v-if="isColor" id="color-type-selector-container">
+                <v-btn-toggle
+                    light
+                    rounded="0"
+                    v-model="toggle"
+                    mandatory
+                    :ripple="false"
+                    :color="
+                        product.category === 'color'
+                            ? product.colorHex
+                            : 'orange'
+                    "
+                >
+                    <v-btn
+                        :ripple="false"
+                        flat
+                        value="helmatt"
+                        height="48"
+                        class="color-type-button"
+                        >Helmatt</v-btn
+                    >
+                    <v-btn
+                        :ripple="false"
+                        value="halvmatt"
+                        height="48"
+                        class="color-type-button"
+                        >Halvmatt</v-btn
+                    >
+                    <v-btn
+                        :ripple="false"
+                        value="hogglans"
+                        height="48"
+                        class="color-type-button"
+                        >Högglans</v-btn
+                    >
+                </v-btn-toggle>
+            </div>
+            <v-divider class="divider"></v-divider>
+            <p id="total-sum">
+                Totalsumma: <strong> {{ product.price * amount }}</strong
+                >:-
+            </p>
+            <v-btn
+                @click="addToCartHandler"
+                class="cart-button"
+                :color="
+                    product.category === 'color' ? product.colorHex : 'orange'
+                "
+                height="48"
+                :disabled="toggle === '' && isColor ? true : false"
+                >Lägg till i kundvagn</v-btn
+            >
+        </div>
     </div>
-  </div>
-  <!-- <v-btn>Helmatt</v-btn>
+    <!-- <v-btn>Helmatt</v-btn>
   <v-btn>Halvmatt</v-btn>
   <v-btn>Högglans</v-btn> -->
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { productsStore } from "../stores/products.js";
-import { useCartStore } from '../stores/cart';
-import { useFavoritesStore } from '../stores/favorit'
-import { useRoute, useRouter } from "vue-router";
-/* För att kunna använda Swiper så måste dom även importeras här  */
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { Pagination, Navigation, A11y } from "swiper/modules";
-import "swiper/css/bundle";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-/* -------------------------------------------------------------- */
-import BlobComponent from "@/components/BlobComponent.vue";
+    import { ref, onMounted } from 'vue'
+    import { productsStore } from '../stores/products.js'
+    import { useCartStore } from '../stores/cart'
+    import { useFavoritesStore } from '../stores/favorit'
+    import { useRoute, useRouter } from 'vue-router'
+    /* För att kunna använda Swiper så måste dom även importeras här  */
+    import { Swiper, SwiperSlide } from 'swiper/vue'
+    import { Pagination, Navigation, A11y } from 'swiper/modules'
+    import 'swiper/css/bundle'
+    import 'swiper/css/pagination'
+    import 'swiper/css/navigation'
+    /* -------------------------------------------------------------- */
+    import BlobComponent from '@/components/BlobComponent.vue'
 
-const route = useRoute();
-const router = useRouter();
-const store = productsStore();
-const cartStore = useCartStore();
-
-const product = ref({});
-const amount = ref(1);
-const toggle = ref("");
-const isColor = ref(null);
+    const route = useRoute()
+    const router = useRouter()
+    const store = productsStore()
+    const cartStore = useCartStore()
+    const favoritesStore = useFavoritesStore()
+    const product = ref({})
+    const amount = ref(1)
+    const toggle = ref('')
+    const isColor = ref(null)
 
     onMounted(() => {
         // Här letar funktionen efter den första produkten med det id som är == route.params.id
 
-  product.value = store.products.find(
-    //Varför i hela friden fungerar detta endast med == istället för === ?!
-    (product) => product.id == route.params.id
-  );
+        product.value = store.products.find(
+            //Varför i hela friden fungerar detta endast med == istället för === ?!
+            (product) => product.id == route.params.id
+        )
 
-  isColor.value = product.value.category === "color" ? true : false;
-});
+        isColor.value = product.value.category === 'color' ? true : false
+    })
 
-const addToCartHandler = () => {
-  cartStore.addToCart(product.value, amount.value, toggle.value);
-  alert(
-    `${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`
-  );
-};
+    const addToCartHandler = () => {
+        cartStore.addToCart(product.value, amount.value, toggle.value)
+        alert(
+            `${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`
+        )
+    }
 
     const info = () => {
         //Används för att logga aktiva värden vid tryck på "Lägg till i varukorgen"
@@ -225,19 +234,19 @@ const addToCartHandler = () => {
         padding: 0px;
     }
 
-#product-name {
-  margin-bottom: 16px;
-  text-align: center;
-  font-size: 2.5rem;
-}
+    #product-name {
+        margin-bottom: 16px;
+        text-align: center;
+        font-size: 2.5rem;
+    }
 
-#swiper {
-  position: relative;
-}
+    #swiper {
+        position: relative;
+    }
 
-#swiper-container {
-  margin-bottom: 16px;
-}
+    #swiper-container {
+        margin-bottom: 16px;
+    }
 
     #description {
         font-size: 1.25rem;
@@ -257,29 +266,29 @@ const addToCartHandler = () => {
         margin: 16px 0;
     }
 
-#amount-selector-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #ddd;
-  border-radius: 50px;
-  padding: 0;
-  max-width: 400px;
-  width: 80%;
-  margin: 0 auto 32px;
-  box-shadow: 5px 5px 6px #afafaf, -5px -5px 6px #ffffff;
-  overflow: hidden;
-}
+    #amount-selector-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #ddd;
+        border-radius: 50px;
+        padding: 0;
+        max-width: 400px;
+        width: 80%;
+        margin: 0 auto 32px;
+        box-shadow: 5px 5px 6px #afafaf, -5px -5px 6px #ffffff;
+        overflow: hidden;
+    }
 
     .btn {
         touch-action: manipulation;
     }
 
-#amount {
-  font-size: 1.75rem;
-  width: 80px;
-  text-align: center;
-}
+    #amount {
+        font-size: 1.75rem;
+        width: 80px;
+        text-align: center;
+    }
 
     #total-area-text {
         text-align: center;
@@ -290,19 +299,12 @@ const addToCartHandler = () => {
         margin: 16px 0;
     }
 
-#color-type-selector-container {
-  width: 80%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-#total-sum {
-  text-align: center;
-  font-size: 1.75rem;
-  font-weight: 500;
-  margin-bottom: 16px;
-}
+    #color-type-selector-container {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+    }
 
     .v-btn-group {
         flex-direction: column;
@@ -353,10 +355,14 @@ const addToCartHandler = () => {
             display: block;
         }
 
-  #swiper {
-    min-width: 0;
-    margin: 0 auto;
-    width: 40vw;
-  }
-}
+        #swiper {
+            min-width: 0;
+            margin: 0 auto;
+            width: 40vw;
+        }
+
+        #product-name {
+            padding: 0;
+        }
+    }
 </style>

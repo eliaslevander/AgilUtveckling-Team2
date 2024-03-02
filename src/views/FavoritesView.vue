@@ -23,12 +23,8 @@
                     @click="toggleFavoriteItem(item)"
                     class="favorite-button"
                 >
-                    <v-icon>
-                        {{
-                            isFavorite(item.id)
-                                ? 'mdi-heart'
-                                : 'mdi-heart-outline'
-                        }}
+                    <v-icon @click="alert('Item deleted')">
+                        {{ 'mdi-delete-empty' }}
                     </v-icon>
                 </v-btn>
             </div>
@@ -70,6 +66,12 @@
     }
     .favorite-item {
         position: relative;
+        display: inline-block;
+        margin: 10px;
+    }
+    .favorite-item img {
+        width: 30vw;
+        height: 40vh;
     }
     .favorites-container {
         text-align: center;
@@ -82,7 +84,8 @@
     }
     .favorite-button {
         position: absolute;
-        top: 4rem;
-        right: 4rem;
+        top: 3rem;
+        right: 1rem;
+        z-index: 10;
     }
 </style>
