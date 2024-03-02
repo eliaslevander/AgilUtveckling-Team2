@@ -54,96 +54,100 @@
 
         <v-divider class="vertical-divider" vertical></v-divider>
 
-        <div id="content-container">
-            <h2 id="product-name">{{ product.name }}</h2>
-            <p id="description">{{ product.description }}</p>
-            <v-divider class="divider"></v-divider>
-            <p class="select-text">Välj mängd:</p>
-            <div id="amount-selector-container">
-                <v-btn
-                    class="btn"
-                    size="48"
-                    :ripple="false"
-                    flat
-                    icon
-                    :color="isColor ? product.colorHex : 'orange'"
-                    @click="amount -= 1"
-                    :disabled="amount === 1"
-                >
-                    <v-icon size="30">mdi-minus</v-icon>
-                </v-btn>
-                <p id="amount">{{ amount }} {{ product.value }}</p>
-                <v-btn
-                    class="btn"
-                    size="48"
-                    :ripple="false"
-                    flat
-                    icon
-                    :color="isColor ? product.colorHex : 'orange'"
-                    @click="amount += 1"
-                >
-                    <v-icon size="30">mdi-plus</v-icon>
-                </v-btn>
-            </div>
-            <p v-if="isColor" id="total-area-text">
-                Räcker till ca {{ amount * 5 }} kvadratmeter efter två lager
-            </p>
-            <p v-if="isColor" class="select-text">Välj färgtyp:</p>
-            <div v-if="isColor" id="color-type-selector-container">
-                <v-btn-toggle
-                    light
-                    rounded="0"
-                    v-model="toggle"
-                    mandatory
-                    :ripple="false"
-                    :color="
-                        product.category === 'color'
-                            ? product.colorHex
-                            : 'orange'
-                    "
-                >
-                    <v-btn
-                        :ripple="false"
-                        flat
-                        value="helmatt"
-                        height="48"
-                        class="color-type-button"
-                        >Helmatt</v-btn
-                    >
-                    <v-btn
-                        :ripple="false"
-                        value="halvmatt"
-                        height="48"
-                        class="color-type-button"
-                        >Halvmatt</v-btn
-                    >
-                    <v-btn
-                        :ripple="false"
-                        value="hogglans"
-                        height="48"
-                        class="color-type-button"
-                        >Högglans</v-btn
-                    >
-                </v-btn-toggle>
-            </div>
-            <v-divider class="divider"></v-divider>
-            <p id="total-sum">
-                Totalsumma: <strong> {{ product.price * amount }}</strong
-                >:-
-            </p>
-            <v-btn
-                @click="addToCartHandler"
-                class="cart-button"
-                :color="
-                    product.category === 'color' ? product.colorHex : 'orange'
-                "
-                height="48"
-                :disabled="toggle === '' && isColor ? true : false"
-                >Lägg till i kundvagn</v-btn
-            >
-        </div>
+    <div id="content-container">
+      <h2 id="product-name">{{ product.name }}</h2>
+      <p id="description">{{ product.description }}</p>
+      <v-divider class="divider"></v-divider>
+      <p class="select-text">Välj mängd:</p>
+      <div id="amount-selector-container">
+        <v-btn
+          class="btn"
+          size="48"
+          :ripple="false"
+          flat
+          icon
+          :color="isColor ? product.colorHex : 'orange'"
+          @click="amount -= 1"
+          :disabled="amount === 1"
+        >
+          <v-icon size="30">mdi-minus</v-icon>
+        </v-btn>
+        <p id="amount">{{ amount }} {{ product.value }}</p>
+        <v-btn
+          class="btn"
+          size="48"
+          :ripple="false"
+          flat
+          icon
+          :color="isColor ? product.colorHex : 'orange'"
+          @click="amount += 1"
+        >
+          <v-icon size="30">mdi-plus</v-icon>
+        </v-btn>
+      </div>
+      <p v-if="isColor" id="total-area-text">
+        Räcker till ca {{ amount * 5 }} kvadratmeter efter två lager
+      </p>
+      <p v-if="isColor" class="select-text">Välj färgtyp:</p>
+      <div v-if="isColor" id="color-type-selector-container">
+        <v-btn-toggle
+          light
+          rounded="0"
+          v-model="toggle"
+          mandatory
+          :ripple="false"
+          :color="product.category === 'color' ? product.colorHex : 'orange'"
+        >
+          <v-btn
+            :ripple="false"
+            flat
+            value="helmatt"
+            height="48"
+            class="color-type-button"
+            >Helmatt</v-btn
+          >
+          <v-btn
+            :ripple="false"
+            value="halvmatt"
+            height="48"
+            class="color-type-button"
+            >Halvmatt</v-btn
+          >
+          <v-btn
+            :ripple="false"
+            value="hogglans"
+            height="48"
+            class="color-type-button"
+            >Högglans</v-btn
+          >
+        </v-btn-toggle>
+      </div>
+      <v-divider class="divider"></v-divider>
+      <p id="total-sum">
+        Totalsumma:
+        <strong v-if="isColor">
+          {{
+            (product.price * colorTypePrice * amount)
+              .toFixed(2)
+              .replace(/\.00$/, "")
+          }}</strong
+        >
+        <strong v-else> {{ product.price * amount }}</strong
+        >:-
+      </p>
+      <div id="cart-button-container">
+        <v-btn
+          @click="addToCartHandler"
+          id="cart-button"
+          :color="product.category === 'color' ? product.colorHex : 'orange'"
+          height="48"
+          :disabled="toggle === '' && isColor ? true : false"
+          >Lägg till i kundvagn
+        </v-btn>
+      </div>
     </div>
-    <!-- <v-btn>Helmatt</v-btn>
+  </div>
+  <!-- <v-btn>Helmatt</v-btn>
   <v-btn>Halvmatt</v-btn>
   <v-btn>Högglans</v-btn> -->
 </template>
@@ -181,8 +185,27 @@
             (product) => product.id == route.params.id
         )
 
-        isColor.value = product.value.category === 'color' ? true : false
-    })
+  isColor.value = product.value.category === "color" ? true : false;
+});
+
+// Använder computed för att ge de olika färgtyperna olika priser. colorTypeValue används
+// som multiplikator i totalsumman. helmatt = standard, halvmatt + 10%, högglans + 20%
+
+const colorTypePrice = computed(() => {
+  let colorTypeValue = toggle.value;
+  switch (colorTypeValue) {
+    case "helmatt":
+      colorTypeValue = 1;
+      break;
+    case "halvmatt":
+      colorTypeValue = 1.1;
+      break;
+    case "hogglans":
+      colorTypeValue = 1.2;
+      break;
+  }
+  return colorTypeValue;
+});
 
     const addToCartHandler = () => {
         cartStore.addToCart(product.value, amount.value, toggle.value)
@@ -322,16 +345,16 @@
         border: 1px solid #000 !important;
     }
 
-    .cart-button {
-        font-size: 1.25rem;
-        width: 100%;
-    }
+#cart-button-container {
+  display: flex;
+  justify-content: center;
+}
 
-    .favorite-button {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-    }
+#cart-button {
+  font-size: 1.25rem;
+  width: 80%;
+  margin: auto;
+}
 
     @media screen and (min-width: 991px) {
         #swiper-container {
