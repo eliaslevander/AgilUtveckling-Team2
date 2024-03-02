@@ -20,7 +20,8 @@
 
   <!-- SÖKRESULTAT -->
   <!-- <span v-if="filteredProducts.length > 0"></span> -->
-  <v-list v-if="filteredProducts">
+  <v-list v-if="filteredProducts">r
+    
     <v-list-item-group>
       <v-list-item
         v-for="items in filteredProducts"
@@ -28,8 +29,11 @@
         @click="goToProduct(items.id)"
       >
         <div class="list-item-container">
-          <div class="blob-container">
+          <div v-if="items.category === 'color'" class="blob-container">
             <BlobComponent :color="items.colorHex" />
+          </div>
+          <div v-else class="image-container">
+            <img class="product-image" :src="items.image" />
           </div>
           <p class="list-item-text">{{ items.name }}</p>
         </div>
@@ -84,6 +88,17 @@ const goToProduct = (id) => {
 <style scoped>
 .blob-container {
   width: 35px;
+}
+
+.image-container {
+  width: 35px;
+  aspect-ratio: 1;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .list-item-text {

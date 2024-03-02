@@ -11,11 +11,14 @@
 </template>
 
 <style scoped>
-
+path {
+  bottom: 0;
+  width: 50%;
+}
 #shape{
     bottom: 0;
     position:absolute;
-    height:60%;
+    height:100%;
 }
 h1{
     color: navy;
@@ -32,16 +35,19 @@ h1{
     height: 100vh;
     margin-left: 0;
     margin-right: 0;
-    margin-bottom: 5vh;
+    margin-bottom: 3vh;
     width: 100%;
     padding: 0;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 1000px) {
   h1 {
     bottom: 0;
     right: 4%;
     font-size: 4vh;
+  }
+  #HeroImage{
+    height: 60vh;
   }
 }
 </style>
