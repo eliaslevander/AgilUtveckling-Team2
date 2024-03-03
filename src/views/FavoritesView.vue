@@ -23,7 +23,7 @@
                     @click="toggleFavoriteItem(item)"
                     class="favorite-button"
                 >
-                    <v-icon @click="alert('Item deleted')">
+                    <v-icon>
                         {{ 'mdi-delete-empty' }}
                     </v-icon>
                 </v-btn>
@@ -70,7 +70,7 @@
         margin: 10px;
     }
     .favorite-item img {
-        width: 30vw;
+        width: auto;
         height: 40vh;
     }
     .favorites-container {
@@ -91,8 +91,8 @@
 
     @media (max-width: 380px) {
         .favorite-item img {
-            width: 100vw;
-            height: 50vh;
+            width: 80vw;
+            height: auto;
         }
     }
 </style>

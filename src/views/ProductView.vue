@@ -133,7 +133,7 @@
                     {{
                         (product.price * colorTypePrice * amount)
                             .toFixed(2)
-                            .replace(/\.00$/, '')
+                            .replace(`/\.00$/, ''`)
                     }}</strong
                 >
                 <strong v-else> {{ product.price * amount }}</strong
@@ -161,7 +161,7 @@
 </template>
 
 <script setup>
-    import { ref, onMounted } from 'vue'
+    import { ref, onMounted, computed } from 'vue'
     import { productsStore } from '../stores/products.js'
     import { useCartStore } from '../stores/cart'
     import { useFavoritesStore } from '../stores/favorit'
@@ -228,7 +228,7 @@
     }
 
     function toggleFavorite() {
-        favoritesStore.toggleFavorites(item.store)
+        favoritesStore.toggleFavorites(product.value)
     }
 </script>
 
@@ -361,6 +361,12 @@
         font-size: 1.25rem;
         width: 80%;
         margin: auto;
+    }
+
+    .favorite-button {
+        position: absolute;
+        top: 16px;
+        right: 16px;
     }
 
     @media screen and (min-width: 991px) {
