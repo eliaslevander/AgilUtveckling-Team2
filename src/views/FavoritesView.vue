@@ -13,9 +13,11 @@
         <div v-if="favorites.length > 0">
             <div v-for="item in favorites" :key="item.id" class="favorite-item">
                 <h3>{{ item.name }}</h3>
-                <img
-                    :src="item.image"
-                    :alt="`Ett rum med färgen ${item.name}`"
+                <blob-component
+                    :color="item.color"
+                    width="100px"
+                    margin="10px"
+                    @click="goToProduct(item.id)"
                 />
                 <v-btn
                     icon
@@ -38,15 +40,17 @@
 <script setup>
     import { useRouter } from 'vue-router'
     import { useFavoritesStore } from '../stores/favorit'
+    import BlobComponent from '../components/BlobComponent.vue'
 
     const router = useRouter()
     const {
         items: favorites,
         toggleFavorites,
-        isFavorite,
         saveFavorites
     } = useFavoritesStore()
-
+    const goToProduct = (id) => {
+        router.push({ name: 'product', params: { id } })
+    }
     const toggleFavoriteItem = (item) => {
         toggleFavorites(item)
         saveFavorites()
