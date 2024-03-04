@@ -111,7 +111,7 @@
         <strong v-if="isColor">
           {{
             (product.price * colorTypePrice * amount)
-              .toFixed(2)
+              .toFixed(0)
               .replace(/\.00$/, "")
           }}</strong
         >
