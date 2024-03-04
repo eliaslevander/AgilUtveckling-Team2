@@ -1,27 +1,32 @@
 <script setup>
-    import { RouterView } from 'vue-router'
-    import { onMounted } from 'vue'
-    import { productsStore } from './stores/products.js'
-    import NavbarComponent from './components/navbarComponent.vue'
-    import CartComponent from './components/CartComponent.vue'
-    import FooterComponent from './components/FooterComponent.vue'
+import { RouterView } from "vue-router";
+import { onMounted } from "vue";
+import { productsStore } from "./stores/products.js";
+import { useRoute } from "vue-router";
+import NavbarComponent from "./components/navbarComponent.vue";
+import CartComponent from "./components/CartComponent.vue";
+import FooterComponent from "./components/FooterComponent.vue";
 
-    const store = productsStore()
+const store = productsStore();
 
-    onMounted(async () => {
-        await store.fetchData()
-    })
+// :key="route.fullPath" fixar problemet med att den nya produkten inte laddas när product view är öppen
+
+const route = useRoute();
+
+onMounted(async () => {
+  await store.fetchData();
+});
 </script>
 
 <template>
-    <v-app>
-        <NavbarComponent />
-        <CartComponent />
-        <div class="content" style="margin-top: 64px">
-            <RouterView />
-        </div>
-        <FooterComponent />
-    </v-app>
+  <v-app>
+    <NavbarComponent />
+    <CartComponent />
+    <div class="content" style="margin-top: 64px">
+      <RouterView :key="route.fullPath" />
+    </div>
+    <FooterComponent />
+  </v-app>
 </template>
 
 <style scoped></style>
