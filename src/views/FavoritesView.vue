@@ -14,7 +14,7 @@
             <div v-for="item in favorites" :key="item.id" class="favorite-item">
                 <h3>{{ item.name }}</h3>
                 <blob-component
-                    :color="item.color"
+                    :color="item.colorHex"
                     width="100px"
                     margin="10px"
                     @click="goToProduct(item.id)"

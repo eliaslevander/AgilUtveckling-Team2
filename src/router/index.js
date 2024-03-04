@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import ProductView from '@/views/ProductView.vue'
 import FavoritesView from '@/views/FavoritesView.vue'
 import CheckoutView from '@/views/CheckoutView.vue'
-import ThanksAlot from "../views/ThanksAlot.vue";
+import ThanksAlot from '../views/ThanksAlot.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,16 +32,16 @@ const router = createRouter({
             component: () => import('../views/AboutView.vue')
         },
         {
-              path: '/checkout',
-              name: 'checkout',
-              component: CheckoutView
+            path: '/checkout',
+            name: 'checkout',
+            component: CheckoutView
+        },
+        {
+            path: '/ThanksAlot',
+            name: 'ThanksAlot',
+            component: ThanksAlot
         }
-      {
-      path: "/ThanksAlot",
-      name: "ThanksAlot",
-      component: ThanksAlot,
-    }
-  ]
+    ]
 })
 
 export default router
