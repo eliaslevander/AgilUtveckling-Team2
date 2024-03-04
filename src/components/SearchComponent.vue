@@ -10,21 +10,21 @@
       placeholder="Sök produkter..."
     ></v-text-field>
     <!------->
-
-    <!-- SÖKIKON-->
-    <v-btn flat size="48" id="search-button" @click="searchResults"
-      ><v-icon size="x-large">mdi-magnify</v-icon></v-btn
-    >
   </div>
-
+  <!-- CLOSE Search-->
+  <!-- <button @click="closeSearch">X</button> -->
   <!-- SÖKKNAPP-->
+  <!-- SÖKIKON-->
   <div>
-    <v-btn class="searchResultsButton" @click="searchResults"> Sök </v-btn>
+    <v-btn class="searchResultsButton" @click="searchResults">
+      Sök
+
+      <v-icon size="large" right>mdi-magnify</v-icon>
+    </v-btn>
   </div>
   <!------->
 
   <!-- SÖKRESULTAT -->
-  <!-- <span v-if="filteredProducts.length > 0"></span> -->
   <v-list v-if="filteredProducts">
     <v-list-item-group>
       <v-list-item
@@ -49,7 +49,6 @@
 </template>
 
 <script setup>
-
   // Composition api
 
   import { productsStore } from '../stores/products'
@@ -57,9 +56,6 @@
   import router from '@/router'
   import { ref, watch } from 'vue'
   //  import { computed, ref, watch } from 'vue'
-  // importera ref
-  // importera computed (beräkande egenskap)
-  // importera watch
 
   let searchInput = ref('')
   const store = productsStore()
@@ -85,7 +81,6 @@
     filteredProducts.value = store.products.filter(product =>
       product.name.toUpperCase().includes(searchInput.value.toUpperCase())
     )
-
   }
 
   const goToProduct = id => {
@@ -138,18 +133,25 @@
   }
 
   .searchResultsButton {
-    margin-left: 0.5rem;
     box-shadow: none;
-    border: 1px solid #aaa;
-  }
-
-  #search-button {
-    position: absolute;
-    right: 12px;
+    font-size: 20px;
+    letter-spacing: 0.1rem;
+    width: 382px;
+    margin: 10px auto;
+    padding: 8px auto;
+    margin-left: 8px;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 1px;
     border: 1px solid #aaa;
   }
 
   :deep(.v-input__details) {
     display: none;
+  }
+
+  @media (max-width: 380px) {
+    .searchResultsButton {
+      width: 240px;
+    }
   }
 </style>
