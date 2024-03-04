@@ -159,4 +159,9 @@
         left: 0.5rem;
         z-index: 10;
     }
+    @media (max-width: 380px) {
+        .favorites-container p {
+            width: 20rem;
+        }
+    }
 </style>
