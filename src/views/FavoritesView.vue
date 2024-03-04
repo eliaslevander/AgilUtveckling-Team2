@@ -10,23 +10,39 @@
             ska kunna återvända till de nyanser och verktyg som inspirerar dig
             mest för ditt nästa målningsprojekt.
         </p>
-        <div v-if="favorites.length > 0">
-            <div v-for="item in favorites" :key="item.id" class="favorite-item">
-                <h3>{{ item.name }}</h3>
-                <blob-component
-                    :color="item.colorHex"
-                    width="100px"
-                    margin="10px"
-                    @click="goToProduct(item.id)"
-                />
+        <div v-if="favorites.length > 0" class="product-grid">
+            <div
+                v-for="item in favorites"
+                :key="item.id"
+                class="card"
+                @click="goToProduct(item.id)"
+            >
+                <div class="blob-container" v-if="item.colorHex">
+                    <blob-component :color="item.colorHex" />
+                </div>
+                <div class="equipment-container" v-else-if="item.image">
+                    <img
+                        :src="item.image"
+                        alt="item.name"
+                        class="product-image"
+                    />
+                </div>
+                <div class="card-content">
+                    <h3 class="product-name">{{ item.name }}</h3>
+                </div>
+
                 <v-btn
                     icon
                     flat
-                    @click="toggleFavoriteItem(item)"
+                    @click.stop="toggleFavoriteItem(item)"
                     class="favorite-button"
                 >
-                    <v-icon>
-                        {{ 'mdi-delete-empty' }}
+                    <v-icon class="icon">
+                        {{
+                            isFavorite(item.id)
+                                ? 'mdi-heart'
+                                : 'mdi-heart-outline'
+                        }}
                     </v-icon>
                 </v-btn>
             </div>
@@ -46,7 +62,8 @@
     const {
         items: favorites,
         toggleFavorites,
-        saveFavorites
+        saveFavorites,
+        isFavorite
     } = useFavoritesStore()
     const goToProduct = (id) => {
         router.push({ name: 'product', params: { id } })
@@ -68,17 +85,66 @@
         text-decoration: underline;
         font-weight: 600;
     }
-    .favorite-item {
-        position: relative;
-        display: inline-block;
-        margin: 10px;
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+        gap: 8px;
+        padding: 8px;
+        justify-content: center;
     }
-    .favorite-item img {
-        width: auto;
-        height: 40vh;
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        cursor: pointer;
+    }
+    .image-container {
+        width: 100%;
+        aspect-ratio: 1;
+        padding: 16px;
+        overflow: hidden;
+    }
+    .blob-container {
+        width: 100%;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 16px;
+    }
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+    .name {
+        text-transform: uppercase;
+        display: block;
+        text-align: center;
+        max-width: 85%;
+        font-size: 1.125rem;
+        margin-bottom: 16px;
+    }
+    .name-container {
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card-content {
+        padding: 1rem;
+    }
+    .product-name {
+        margin-top: 1rem;
     }
     .favorites-container {
         text-align: center;
+        margin: auto;
+        padding-bottom: 50px;
+        box-sizing: border-box;
     }
     .favorites-container p {
         width: 25rem;
@@ -88,15 +154,9 @@
     }
     .favorite-button {
         position: absolute;
-        top: 3rem;
-        right: 1rem;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+        top: 0.5rem;
+        left: 0.5rem;
         z-index: 10;
-    }
-
-    @media (max-width: 380px) {
-        .favorite-item img {
-            width: 80vw;
-            height: auto;
-        }
     }
 </style>
