@@ -134,7 +134,7 @@
   },
   {
     "id": 12,
-    "name": "Röd 1",
+    "name": "Passion",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/",
     "alt": "Röd 1-färg",
@@ -146,7 +146,7 @@
   },
   {
     "id": 13,
-    "name": "Röd 2",
+    "name": "Tegel",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/",
     "alt": "Röd 2-färg",
@@ -158,7 +158,7 @@
   },
   {
     "id": 13,
-    "name": "Röd 3",
+    "name": "Paprika",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/",
     "alt": "Röd 3-färg",
@@ -170,7 +170,7 @@
   },
   {
     "id": 14,
-    "name": "Gul 1",
+    "name": "Solen",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/",
     "alt": "Gul 1-färg",
@@ -182,7 +182,7 @@
   },
   {
     "id": 15,
-    "name": "Gul 2",
+    "name": "Honung",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/",
     "alt": "Gul 2-färg",
@@ -194,7 +194,7 @@
   },
   {
     "id": 16,
-    "name": "Gul 3",
+    "name": "Citron",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/",
     "alt": "Gul 3-färg",
