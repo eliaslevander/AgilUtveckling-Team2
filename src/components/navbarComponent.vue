@@ -31,6 +31,7 @@ export default {
   },
   created() {
     window.addEventListener("resize", this.checkIfMobile);
+    this.checkIfMobile();
   },
   data() {
     return {
@@ -47,7 +48,22 @@ export default {
       showDropdownMenu: false,
       showColorsDropdown: false,
       showSearchComponent: false,
+      searching: null,
     };
+  },
+  watch: {
+    // Sätter autofokus på sökfält i desktop. Sökkomponentens värde =  värdet på this.searching.
+    // VÄrdet på this.searching skickas till sökkomponenten med en prop
+
+    showSearchComponent(newValue) {
+      this.searching = newValue;
+    },
+
+    // mobile sök blir svårt att hantera då användaren ska kunna öppna menyn som vanligt utan autofokus.
+
+    // drawer(newValue) {
+    //   this.searching = newValue;
+    // },
   },
   methods: {
     toggleCartVisibility() {
@@ -67,7 +83,7 @@ export default {
         console.log("Öppna/stäng sök", this.showSearchComponent);
       } else {
         this.drawer = !this.drawer;
-        console.log(this.drawer);
+        this.searching = !this.searching;
       }
     },
     checkIfMobile() {
@@ -78,13 +94,41 @@ export default {
         this.isMobile = false; /* Desktop */
       }
     },
+    // userIsSearching() {
+    //   if (this.drawer || this.showSearchComponent) {
+    //     console.log(
+    //       "drawer " + this.drawer,
+    //       "overlay " + this.showSearchComponent
+    //     );
+    //     this.searching = !this.searching;
+    //     // console.log("User is searching");
+    //   }
+    // },
+    // userIsSearching() {
+    //   if (this.isMobile) {
+    //     this.searching = this.drawer;
+    //   } else {
+    //     this.searching = this.showSearchComponent;
+    //   }
+    // },
+    openMenu() {
+      if (this.searching) {
+        this.searching = false;
+      }
+      this.drawer = !this.drawer;
+    },
   },
 };
 </script>
 
 <template>
+  <!-- v-show="this.showSearchComponent" krävs för att autofokus på sökfältet ska fungera för både mobile och desktop search.
+  Utan detta så fungerar endast den för desktop eftersom att den ligger före mobile
+  -->
+
   <!--template desktop-->
   <v-navigation-drawer
+    v-show="this.showSearchComponent"
     width="400"
     v-model="showSearchComponent"
     location="right"
@@ -92,7 +136,7 @@ export default {
     temporary
     touchless
   >
-    <SearchComponent />
+    <SearchComponent :state="this.searching" />
   </v-navigation-drawer>
 
   <!-- drawer för mobile -->
@@ -105,7 +149,7 @@ export default {
     <v-toolbar flat>
       <v-toolbar-title>Meny</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="drawer = !drawer">
+      <v-btn icon @click="(drawer = !drawer), (this.searching = false)">
         <svg-icon type="mdi" :path="closePath"></svg-icon>
       </v-btn>
     </v-toolbar>
@@ -114,7 +158,11 @@ export default {
       <v-text-field v-model="search" label="Sök..." hide-details></v-text-field>
     </v-form> -->
 
-    <SearchComponent />
+    <SearchComponent
+      :state="this.searching"
+      :drawer="this.drawer"
+      :showSearchComponent="this.showSearchComponent"
+    />
 
     <!-- Rendera länkarna -->
     <v-list class="navigation-list">
@@ -159,7 +207,7 @@ export default {
   </v-navigation-drawer>
 
   <v-app-bar>
-    <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
+    <v-app-bar-nav-icon @click="openMenu()" class="d-flex d-sm-none"
       ><svg-icon size="42" type="mdi" :path="menuPath"></svg-icon
     ></v-app-bar-nav-icon>
     <!-- Brand -->
@@ -193,7 +241,7 @@ export default {
     <!-- Ikoner -->
     <!-- Sök-->
     <v-spacer></v-spacer>
-    <v-btn icon @click="handleSearchComponent">
+    <v-btn icon @click="handleSearchComponent()">
       <v-icon><svg-icon type="mdi" :path="magnifyPath"></svg-icon></v-icon>
     </v-btn>
     <v-btn icon>
