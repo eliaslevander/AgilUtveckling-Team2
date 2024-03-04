@@ -271,7 +271,6 @@ p {
   .searchResultsButton {
     box-shadow: none !important; /* Tar bort skuggan */
     background-color: #fff; /* Anger bakgrundsfärg på knapp*/
-    transition: none !important; /* Förhindrar hover-effekt */
   }
 
   :deep(.v-input__details) {
