@@ -46,7 +46,6 @@
   </v-list>
   <v-divider></v-divider>
   <!------->
-  
 </template>
 
 <script setup>
@@ -144,6 +143,16 @@
     background-color: rgba(0, 0, 0, 0);
     border-radius: 1px;
     border: 1px solid #aaa;
+  }
+
+  .searchResultsButton:hover {
+    text-shadow: none;
+  }
+
+  .searchResultsButton {
+    box-shadow: none !important; /* Tar bort skuggan */
+    background-color: #fff; /* Anger bakgrundsfärg på knapp*/
+    transition: none !important; /* Förhindrar hover-effekt */
   }
 
   :deep(.v-input__details) {
