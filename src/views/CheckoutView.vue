@@ -310,10 +310,6 @@
 
     /* Höger/Övre */
     .checkout-item-container {
-        position: -webkit-sticky; /* För Safari */
-        position: sticky;
-        top: 0;
-        left: 10px;
         margin-top: 3rem;
         width: 50%;
         margin-right: 5rem;
