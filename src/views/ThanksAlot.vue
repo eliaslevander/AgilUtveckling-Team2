@@ -56,7 +56,7 @@ const filteredProducts = computed(() => {
       <v-list-item-title id="infotitle">
       Erbjudande till dig:
     </v-list-item-title>
-        För att visa vår uppskattning, ge dig en 10% rabatt på din nästa beställning med koden "TACK10". 
+        För att visa vår uppskattning, ge dig en 10% rabatt på din nästa beställning med koden "TACK10".
         Använd den vid utcheckningen för att ta del av erbjudandet. Gäller fram till [2024-06-04].
       </v-list-item>
       <v-list-item>
@@ -131,7 +131,7 @@ const filteredProducts = computed(() => {
     padding-right:1vh;
     margin: auto;
     text-align:center;
-    border-bottom: solid 1px 
+    border-bottom: solid 1px
   }
   .info {
     padding-left:4vh;
