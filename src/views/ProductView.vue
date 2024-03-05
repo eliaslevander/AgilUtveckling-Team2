@@ -107,17 +107,27 @@
       </div>
       <v-divider class="divider"></v-divider>
       <p id="total-sum">
-        Totalsumma: <strong> {{ product.price * amount }}</strong
+        Totalsumma:
+        <strong v-if="isColor">
+          {{
+            (product.price * colorTypePrice * amount)
+              .toFixed(0)
+              .replace(/\.00$/, "")
+          }}</strong
+        >
+        <strong v-else> {{ product.price * amount }}</strong
         >:-
       </p>
-      <v-btn
-        @click="addToCartHandler"
-        class="cart-button"
-        :color="product.category === 'color' ? product.colorHex : 'orange'"
-        height="48"
-        :disabled="toggle === '' && isColor ? true : false"
-        >Lägg till i kundvagn</v-btn
-      >
+      <div id="cart-button-container">
+        <v-btn
+          @click="addToCartHandler"
+          id="cart-button"
+          :color="product.category === 'color' ? product.colorHex : 'orange'"
+          height="48"
+          :disabled="toggle === '' && isColor ? true : false"
+          >Lägg till i kundvagn
+        </v-btn>
+      </div>
     </div>
   </div>
   <!-- <v-btn>Helmatt</v-btn>
@@ -126,7 +136,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { productsStore } from "../stores/products.js";
 import { useCartStore } from "../stores/cart";
 import { useRoute, useRouter } from "vue-router";
@@ -158,6 +168,25 @@ onMounted(() => {
   );
 
   isColor.value = product.value.category === "color" ? true : false;
+});
+
+// Använder computed för att ge de olika färgtyperna olika priser. colorTypeValue används
+// som multiplikator i totalsumman. helmatt = standard, halvmatt + 10%, högglans + 20%
+
+const colorTypePrice = computed(() => {
+  let colorTypeValue = toggle.value;
+  switch (colorTypeValue) {
+    case "helmatt":
+      colorTypeValue = 1;
+      break;
+    case "halvmatt":
+      colorTypeValue = 1.1;
+      break;
+    case "hogglans":
+      colorTypeValue = 1.2;
+      break;
+  }
+  return colorTypeValue;
 });
 
 const addToCartHandler = () => {
@@ -301,9 +330,15 @@ img {
   border: 1px solid #000 !important;
 }
 
-.cart-button {
+#cart-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+#cart-button {
   font-size: 1.25rem;
-  width: 100%;
+  width: 80%;
+  margin: auto;
 }
 
 @media screen and (min-width: 991px) {

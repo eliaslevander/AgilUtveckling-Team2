@@ -30,7 +30,7 @@ export default {
     SearchComponent,
   },
   created() {
-    this.checkIfMobile();
+    window.addEventListener("resize", this.checkIfMobile);
   },
   data() {
     return {
@@ -46,7 +46,7 @@ export default {
       search: "",
       showDropdownMenu: false,
       showColorsDropdown: false,
-      showSearchComponent: null,
+      showSearchComponent: false,
     };
   },
   methods: {
@@ -71,9 +71,8 @@ export default {
       }
     },
     checkIfMobile() {
-      let width = screen.width;
-      console.log(width);
-      if (width < 769) {
+      let width = window.innerWidth;
+      if (width < 600) {
         this.isMobile = true; /* Mobile */
       } else {
         this.isMobile = false; /* Desktop */
@@ -86,16 +85,23 @@ export default {
 <template>
   <!--template desktop-->
   <v-navigation-drawer
+    width="400"
     v-model="showSearchComponent"
     location="right"
     class="desktopSearch"
     temporary
+    touchless
   >
     <SearchComponent />
   </v-navigation-drawer>
 
   <!-- drawer för mobile -->
-  <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
+  <v-navigation-drawer
+    v-model="drawer"
+    touchless
+    temporary
+    class="d-flex d-sm-none"
+  >
     <v-toolbar flat>
       <v-toolbar-title>Meny</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -154,11 +160,21 @@ export default {
 
   <v-app-bar>
     <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
-      ><svg-icon type="mdi" :path="menuPath"></svg-icon
+      ><svg-icon size="42" type="mdi" :path="menuPath"></svg-icon
     ></v-app-bar-nav-icon>
     <!-- Brand -->
-    <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
-
+    <!-- <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link> -->
+    <router-link :to="{ name: 'home' }" id="brand"
+      ><div
+        style="width: 160px; display: flex; align-items: center"
+        id="logo-container"
+      >
+        <img
+          style="width: 100%"
+          src="../assets/images/testlogo.png"
+          alt=""
+        /></div
+    ></router-link>
     <!-- länkar -->
     <v-spacer></v-spacer>
     <v-list class="navigation-links d-none d-sm-flex">
@@ -231,6 +247,7 @@ export default {
   color: #000000;
   text-decoration: none;
   font-size: 2rem;
+  font-weight: 500;
   margin-left: 2rem;
 }
 .navigation-link {
@@ -254,6 +271,43 @@ export default {
   background-color: #ffffff;
   z-index: 1;
   width: 10rem;
+}
+
+.desktopSearch {
+  background-color: #f5f5f5;
+}
+
+@media (max-width: 601px) {
+  #brand {
+    font-size: 1.75rem;
+    margin-left: 10px;
+  }
+  .navigation-link {
+    text-decoration: none;
+    color: #000000;
+  }
+  .navigation-link:hover {
+    text-decoration: underline;
+  }
+  .navigation-item {
+    text-decoration: none;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .subMenu {
+    position: absolute;
+    margin-left: 15rem;
+    margin-top: -43px;
+    background-color: #ffffff;
+    z-index: 1;
+    width: 10rem;
+  }
+
+  .desktopSearch {
+    background-color: #f5f5f5;
+  }
 }
 
 @media (max-width: 380px) {
