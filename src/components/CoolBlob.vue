@@ -48,10 +48,9 @@ const setupColorOscillation = (colorRef, speed) => {
 };
 
 onMounted(() => {
-  // Set up color oscillations with different speeds
-  setupColorOscillation(r, 100); // Adjust the speed as needed
-  setupColorOscillation(g, 500);
-  setupColorOscillation(b, 200);
+  setupColorOscillation(r, 100);
+  setupColorOscillation(g, 200);
+  setupColorOscillation(b, 300);
 });
 </script>
 

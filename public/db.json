@@ -131,5 +131,77 @@
     "value": "st",
     "colorType": "",
     "colorHex": ""
+  },
+  {
+    "id": 12,
+    "name": "Passion",
+    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "image": "../src/assets/images/",
+    "alt": "Röd 1-färg",
+    "price": 199,
+    "category": "color",
+    "value": "l",
+    "colorType": "Röd",
+    "colorHex": "#a01A00"
+  },
+  {
+    "id": 13,
+    "name": "Tegel",
+    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "image": "../src/assets/images/",
+    "alt": "Röd 2-färg",
+    "price": 199,
+    "category": "color",
+    "value": "l",
+    "colorType": "Röd",
+    "colorHex": "#B03808"
+  },
+  {
+    "id": 13,
+    "name": "Paprika",
+    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "image": "../src/assets/images/",
+    "alt": "Röd 3-färg",
+    "price": 199,
+    "category": "color",
+    "value": "l",
+    "colorType": "Röd",
+    "colorHex": "#ca3710"
+  },
+  {
+    "id": 14,
+    "name": "Solen",
+    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "image": "../src/assets/images/",
+    "alt": "Gul 1-färg",
+    "price": 199,
+    "category": "color",
+    "value": "l",
+    "colorType": "Gul",
+    "colorHex": "#FFD508"
+  },
+  {
+    "id": 15,
+    "name": "Honung",
+    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "image": "../src/assets/images/",
+    "alt": "Gul 2-färg",
+    "price": 199,
+    "category": "color",
+    "value": "l",
+    "colorType": "Gul",
+    "colorHex": "#FFCD08"
+  },
+  {
+    "id": 16,
+    "name": "Citron",
+    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "image": "../src/assets/images/",
+    "alt": "Gul 3-färg",
+    "price": 199,
+    "category": "color",
+    "value": "l",
+    "colorType": "Gul",
+    "colorHex": "#FFFF08"
   }
 ]

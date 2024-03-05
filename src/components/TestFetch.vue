@@ -48,16 +48,6 @@ const goToProduct = (id) => {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: pointer;
 }
-
-.blob-container {
-  width: 100%;
-  aspect-ratio: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-}
-
 .image-container {
   width: 100%;
   aspect-ratio: 1;

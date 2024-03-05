@@ -24,9 +24,18 @@
               :src="product.image"
               :alt="`Ett rum med färgen ${product.name}`"
             />
+            <v-btn icon flat @click="toggleFavorite" class="favorite-button">
+              <v-icon>
+                {{
+                  favoritesStore.isFavorite(product.id)
+                    ? "mdi-heart"
+                    : "mdi-heart-outline"
+                }}
+              </v-icon>
+            </v-btn>
           </div>
         </SwiperSlide>
-        <SwiperSlide v-if="product.category === 'color'">
+        <SwiperSlide>
           <div id="blob-container">
             <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
             <BlobComponent :color="product.colorHex" margin="48px" />
@@ -107,17 +116,27 @@
       </div>
       <v-divider class="divider"></v-divider>
       <p id="total-sum">
-        Totalsumma: <strong> {{ product.price * amount }}</strong
+        Totalsumma:
+        <strong v-if="isColor">
+          {{
+            (product.price * colorTypePrice * amount)
+              .toFixed(0)
+              .replace(/\.00$/, "")
+          }}</strong
+        >
+        <strong v-else> {{ product.price * amount }}</strong
         >:-
       </p>
-      <v-btn
-        @click="addToCartHandler"
-        class="cart-button"
-        :color="product.category === 'color' ? product.colorHex : 'orange'"
-        height="48"
-        :disabled="toggle === '' && isColor ? true : false"
-        >Lägg till i kundvagn</v-btn
-      >
+      <div id="cart-button-container">
+        <v-btn
+          @click="addToCartHandler"
+          id="cart-button"
+          :color="product.category === 'color' ? product.colorHex : 'orange'"
+          height="48"
+          :disabled="toggle === '' && isColor ? true : false"
+          >Lägg till i kundvagn
+        </v-btn>
+      </div>
     </div>
   </div>
   <!-- <v-btn>Helmatt</v-btn>
@@ -126,9 +145,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { productsStore } from "../stores/products.js";
 import { useCartStore } from "../stores/cart";
+import { useFavoritesStore } from "../stores/favorit";
 import { useRoute, useRouter } from "vue-router";
 /* För att kunna använda Swiper så måste dom även importeras här  */
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -143,7 +163,7 @@ const route = useRoute();
 const router = useRouter();
 const store = productsStore();
 const cartStore = useCartStore();
-
+const favoritesStore = useFavoritesStore();
 const product = ref({});
 const amount = ref(1);
 const toggle = ref("");
@@ -160,6 +180,25 @@ onMounted(() => {
   isColor.value = product.value.category === "color" ? true : false;
 });
 
+// Använder computed för att ge de olika färgtyperna olika priser. colorTypeValue används
+// som multiplikator i totalsumman. helmatt = standard, halvmatt + 10%, högglans + 20%
+
+const colorTypePrice = computed(() => {
+  let colorTypeValue = toggle.value;
+  switch (colorTypeValue) {
+    case "helmatt":
+      colorTypeValue = 1;
+      break;
+    case "halvmatt":
+      colorTypeValue = 1.1;
+      break;
+    case "hogglans":
+      colorTypeValue = 1.2;
+      break;
+  }
+  return colorTypeValue;
+});
+
 const addToCartHandler = () => {
   cartStore.addToCart(product.value, amount.value, toggle.value);
   alert(
@@ -171,6 +210,10 @@ const info = () => {
   //Används för att logga aktiva värden vid tryck på "Lägg till i varukorgen"
   console.log(amount.value, toggle.value, product.value.name);
 };
+
+function toggleFavorite() {
+  favoritesStore.toggleFavorites(product.value);
+}
 </script>
 
 <style scoped>
@@ -188,7 +231,6 @@ const info = () => {
 
 #image-container {
   width: 100%;
-  aspect-ratio: 1;
   overflow: hidden;
 }
 
@@ -278,13 +320,6 @@ img {
   flex-direction: column;
 }
 
-#total-sum {
-  text-align: center;
-  font-size: 1.75rem;
-  font-weight: 500;
-  margin-bottom: 16px;
-}
-
 .v-btn-group {
   flex-direction: column;
 }
@@ -301,9 +336,27 @@ img {
   border: 1px solid #000 !important;
 }
 
-.cart-button {
+#total-sum {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+#cart-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+#cart-button {
   font-size: 1.25rem;
-  width: 100%;
+  width: 80%;
+  margin: auto;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
 }
 
 @media screen and (min-width: 991px) {
@@ -332,6 +385,10 @@ img {
     min-width: 0;
     margin: 0 auto;
     width: 40vw;
+  }
+
+  #product-name {
+    padding: 0;
   }
 }
 </style>

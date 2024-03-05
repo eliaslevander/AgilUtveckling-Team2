@@ -30,6 +30,7 @@ export default {
     SearchComponent,
   },
   created() {
+    window.addEventListener("resize", this.checkIfMobile);
     this.checkIfMobile();
   },
   data() {
@@ -46,8 +47,23 @@ export default {
       search: "",
       showDropdownMenu: false,
       showColorsDropdown: false,
-      showSearchComponent: null,
+      showSearchComponent: false,
+      searching: null,
     };
+  },
+  watch: {
+    // Sätter autofokus på sökfält i desktop. Sökkomponentens värde =  värdet på this.searching.
+    // VÄrdet på this.searching skickas till sökkomponenten med en prop
+
+    showSearchComponent(newValue) {
+      this.searching = newValue;
+    },
+
+    // mobile sök blir svårt att hantera då användaren ska kunna öppna menyn som vanligt utan autofokus.
+
+    // drawer(newValue) {
+    //   this.searching = newValue;
+    // },
   },
   methods: {
     toggleCartVisibility() {
@@ -67,97 +83,171 @@ export default {
         console.log("Öppna/stäng sök", this.showSearchComponent);
       } else {
         this.drawer = !this.drawer;
-        console.log(this.drawer);
+        this.searching = !this.searching;
       }
     },
     checkIfMobile() {
-      let width = screen.width;
-      console.log(width);
-      if (width < 769) {
+      let width = window.innerWidth;
+      if (width < 600) {
         this.isMobile = true; /* Mobile */
       } else {
         this.isMobile = false; /* Desktop */
       }
+    },
+    // userIsSearching() {
+    //   if (this.drawer || this.showSearchComponent) {
+    //     console.log(
+    //       "drawer " + this.drawer,
+    //       "overlay " + this.showSearchComponent
+    //     );
+    //     this.searching = !this.searching;
+    //     // console.log("User is searching");
+    //   }
+    // },
+    // userIsSearching() {
+    //   if (this.isMobile) {
+    //     this.searching = this.drawer;
+    //   } else {
+    //     this.searching = this.showSearchComponent;
+    //   }
+    // },
+    openMenu() {
+      if (this.searching) {
+        this.searching = false;
+      }
+      this.drawer = !this.drawer;
     },
   },
 };
 </script>
 
 <template>
+  <!-- v-show="this.showSearchComponent" krävs för att autofokus på sökfältet ska fungera för både mobile och desktop search.
+  Utan detta så fungerar endast den för desktop eftersom att den ligger före mobile
+  -->
+
   <!--template desktop-->
   <v-navigation-drawer
+    v-show="this.showSearchComponent"
+    width="400"
     v-model="showSearchComponent"
     location="right"
     class="desktopSearch"
+    temporary
+    touchless
   >
-    <SearchComponent />
+    <SearchComponent :state="this.searching" />
   </v-navigation-drawer>
 
   <!-- drawer för mobile -->
-  <v-navigation-drawer v-model="drawer" temporary class="d-flex d-sm-none">
+  <v-navigation-drawer
+    v-model="drawer"
+    touchless
+    temporary
+    class="d-flex d-sm-none"
+  >
     <v-toolbar flat>
       <v-toolbar-title>Meny</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="drawer = !drawer">
+      <v-btn icon @click="(drawer = !drawer), (this.searching = false)">
         <svg-icon type="mdi" :path="closePath"></svg-icon>
       </v-btn>
     </v-toolbar>
     <!-- Search -->
     <!-- <v-form>
       <v-text-field v-model="search" label="Sök..." hide-details></v-text-field>
-    </v-form> -->
+    </v-form>. -->
 
-    <SearchComponent />
 
-    <!-- Rendera länkarna -->
-    <v-list class="navigation-list">
-      <v-list-item class="navigation-item" @click="toggleDropdownMenu">
-        Måla
-        <v-icon><svg-icon type="mdi" :path="menuDownPath"></svg-icon></v-icon>
-      </v-list-item>
-      <!-- Dold div som visas när 'showDropdownMenu' är true -->
-      <div v-if="showDropdownMenu">
-        <v-list-item class="navigation-link" @click="toggleColorsDropdown">
-          Färger
-          <v-icon><svg-icon type="mdi" :path="menuDownPath"></svg-icon></v-icon>
-        </v-list-item>
-        <div v-if="showColorsDropdown">
-          <v-list-item plain>
-            <router-link to="#" class="navigation-link">Gråskala</router-link>
-          </v-list-item>
-          <v-list-item plain>
-            <router-link to="#" class="navigation-link">Röd</router-link>
-          </v-list-item>
-          <v-list-item plain>
-            <router-link to="#" class="navigation-link">Blå</router-link>
-          </v-list-item>
-          <v-list-item plain>
-            <router-link to="#" class="navigation-link">Grön</router-link>
-          </v-list-item>
-          <v-list-item plain>
-            <router-link to="#" class="navigation-link">Gul</router-link>
-          </v-list-item>
-        </div>
-        <v-list-item plain>
-          <router-link to="#" class="navigation-link">Utrustning</router-link>
-        </v-list-item>
-      </div>
-      <v-list-item class="navigation-item" plain>
-        <router-link to="#" class="navigation-link">Inspiration</router-link>
-      </v-list-item>
-      <v-list-item class="navigation-item" plain>
-        <router-link to="#" class="navigation-link">Guide</router-link>
-      </v-list-item>
-    </v-list>
-  </v-navigation-drawer>
+    <SearchComponent
+      :state="this.searching"
+      :drawer="this.drawer"
+      :showSearchComponent="this.showSearchComponent"
+    />
 
-  <v-app-bar>
-    <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
-      ><svg-icon type="mdi" :path="menuPath"></svg-icon
+
+        <!-- Rendera länkarna -->
+        <v-list class="navigation-list">
+            <v-list-item class="navigation-item" @click="toggleDropdownMenu">
+                Måla
+                <v-icon
+                    ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
+                ></v-icon>
+            </v-list-item>
+            <!-- Dold div som visas när 'showDropdownMenu' är true -->
+            <div v-if="showDropdownMenu">
+                <v-list-item
+                    class="navigation-link"
+                    @click="toggleColorsDropdown"
+                >
+                    Färger
+                    <v-icon
+                        ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
+                    ></v-icon>
+                </v-list-item>
+                <div v-if="showColorsDropdown">
+                    <v-list-item plain>
+                        <router-link to="#" class="navigation-link"
+                            >Gråskala</router-link
+                        >
+                    </v-list-item>
+                    <v-list-item plain>
+                        <router-link to="#" class="navigation-link"
+                            >Röd</router-link
+                        >
+                    </v-list-item>
+                    <v-list-item plain>
+                        <router-link to="#" class="navigation-link"
+                            >Blå</router-link
+                        >
+                    </v-list-item>
+                    <v-list-item plain>
+                        <router-link to="#" class="navigation-link"
+                            >Grön</router-link
+                        >
+                    </v-list-item>
+                    <v-list-item plain>
+                        <router-link to="#" class="navigation-link"
+                            >Gul</router-link
+                        >
+                    </v-list-item>
+                </div>
+                <v-list-item plain>
+                    <router-link to="#" class="navigation-link"
+                        >Utrustning</router-link
+                    >
+                </v-list-item>
+            </div>
+            <v-list-item class="navigation-item" plain>
+                <router-link to="#" class="navigation-link"
+                    >Inspiration</router-link
+                >
+            </v-list-item>
+            <v-list-item class="navigation-item" plain>
+                <router-link to="#" class="navigation-link">Guide</router-link>
+            </v-list-item>
+        </v-list>
+    </v-navigation-drawer>
+
+
+  <v-app-bar flat>
+    <v-app-bar-nav-icon @click="openMenu()" class="d-flex d-sm-none"
+
+      ><svg-icon size="42" type="mdi" :path="menuPath"></svg-icon
     ></v-app-bar-nav-icon>
     <!-- Brand -->
-    <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link>
-
+    <!-- <router-link :to="{ name: 'home' }" id="brand">PRISMA</router-link> -->
+    <router-link :to="{ name: 'home' }" id="brand"
+      ><div
+        style="width: 160px; display: flex; align-items: center"
+        id="logo-container"
+      >
+        <img
+          style="width: 100%"
+          src="../assets/images/testlogo.png"
+          alt=""
+        /></div
+    ></router-link>
     <!-- länkar -->
     <v-spacer></v-spacer>
     <v-list class="navigation-links d-none d-sm-flex">
@@ -173,12 +263,15 @@ export default {
       </v-list-item>
     </v-list>
 
-    <!-- Ikoner -->
-    <!-- Sök-->
-    <v-spacer></v-spacer>
-    <v-btn icon @click="handleSearchComponent">
-      <v-icon><svg-icon type="mdi" :path="magnifyPath"></svg-icon></v-icon>
-    </v-btn>
+
+        <!-- Ikoner -->
+        <!-- Sök-->
+        <v-spacer></v-spacer>
+        <v-btn icon @click="handleSearchComponent()">
+            <v-icon
+                ><svg-icon type="mdi" :path="magnifyPath"></svg-icon
+            ></v-icon>
+        </v-btn>
     <v-btn icon>
       <!-- Varukorg-->
       <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
@@ -188,33 +281,38 @@ export default {
     </v-btn>
   </v-app-bar>
 
-  <!-- Visas när 'showDropdownMenu' är true -->
-  <div v-if="showDropdownMenu" class="dropdown-content show-dropdown">
-    <v-list-item class="navigation-link" @click="toggleColorsDropdown">
-      Färger
-      <v-icon><svg-icon type="mdi" :path="menuRightPath"></svg-icon></v-icon>
-    </v-list-item>
-    <div v-if="showColorsDropdown" class="subMenu">
-      <v-list-item plain>
-        <router-link to="#" class="navigation-link">Gråskala</router-link>
-      </v-list-item>
-      <v-list-item plain>
-        <router-link to="#" class="navigation-link">Röd</router-link>
-      </v-list-item>
-      <v-list-item plain>
-        <router-link to="#" class="navigation-link">Blå</router-link>
-      </v-list-item>
-      <v-list-item plain>
-        <router-link to="#" class="navigation-link">Grön</router-link>
-      </v-list-item>
-      <v-list-item plain>
-        <router-link to="#" class="navigation-link">Gul</router-link>
-      </v-list-item>
+
+    <!-- Visas när 'showDropdownMenu' är true -->
+    <div v-if="showDropdownMenu" class="dropdown-content show-dropdown">
+        <v-list-item @click="toggleColorsDropdown">
+            Färger
+            <v-icon
+                ><svg-icon type="mdi" :path="menuRightPath"></svg-icon
+            ></v-icon>
+        </v-list-item>
+        <div v-if="showColorsDropdown" class="subMenu">
+            <v-list-item link>
+                <router-link to="#" class="navigation-link"
+                    >Gråskala</router-link
+                >
+            </v-list-item>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link">Röd</router-link>
+            </v-list-item>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link">Blå</router-link>
+            </v-list-item>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link">Grön</router-link>
+            </v-list-item>
+            <v-list-item link>
+                <router-link to="#" class="navigation-link">Gul</router-link>
+            </v-list-item>
+        </div>
+        <v-list-item link>
+            <router-link to="#" class="navigation-link">Utrustning</router-link>
+        </v-list-item>
     </div>
-    <v-list-item plain>
-      <router-link to="#" class="navigation-link">Utrustning</router-link>
-    </v-list-item>
-  </div>
 </template>
 
 <style scoped>
@@ -230,6 +328,7 @@ export default {
   color: #000000;
   text-decoration: none;
   font-size: 2rem;
+  font-weight: 500;
   margin-left: 2rem;
 }
 .navigation-link {
@@ -252,7 +351,48 @@ export default {
   margin-top: -43px;
   background-color: #ffffff;
   z-index: 1;
-  width: 10rem;
+  width: 100rem;
+}
+
+.favorites-link {
+        color: #000000;
+    }
+
+.desktopSearch {
+  background-color: #f5f5f5;
+}
+
+@media (max-width: 601px) {
+  #brand {
+    font-size: 1.75rem;
+    margin-left: 10px;
+  }
+  .navigation-link {
+    text-decoration: none;
+    color: #000000;
+  }
+  .navigation-link:hover {
+    text-decoration: underline;
+  }
+  .navigation-item {
+    text-decoration: none;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .subMenu {
+    position: absolute;
+    margin-left: 15rem;
+    margin-top: -43px;
+    background-color: #ffffff;
+    z-index: 1;
+    width: 10rem;
+  }
+
+  .desktopSearch {
+    background-color: #f5f5f5;
+  }
 }
 
 @media (max-width: 380px) {
