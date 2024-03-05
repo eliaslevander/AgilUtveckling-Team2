@@ -1,58 +1,50 @@
 <template>
-    <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
-        ><v-icon>mdi-chevron-left</v-icon>
-        <p>Tillbaka</p>
-    </span>
-    <div id="container">
-        <div id="swiper-container">
-            <!-- Swiper, npm paket ger tillgång till enkel implementation av swipning.
+  <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
+    ><v-icon>mdi-chevron-left</v-icon>
+    <p>Tillbaka</p>
+  </span>
+  <div id="container">
+    <div id="swiper-container">
+      <!-- Swiper, npm paket ger tillgång till enkel implementation av swipning.
 
       :modules importerar moduler som ska användas
       :loop gör så att den är "oändlig", du kan fortsätta scrolla hur mycket som helst
 
       -->
-            <Swiper
-                :modules="[Pagination, Navigation, A11y]"
-                navigation
-                pagination
-                :loop="true"
-                id="swiper"
-            >
-                <SwiperSlide>
-                    <div id="image-container">
-                        <img
-                            :src="product.image"
-                            :alt="`Ett rum med färgen ${product.name}`"
-                        />
-                        <v-btn
-                            icon
-                            flat
-                            @click="toggleFavorite"
-                            class="favorite-button"
-                        >
-                            <v-icon>
-                                {{
-                                    favoritesStore.isFavorite(product.id)
-                                        ? 'mdi-heart'
-                                        : 'mdi-heart-outline'
-                                }}
-                            </v-icon>
-                        </v-btn>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div id="blob-container">
-                        <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
-                        <BlobComponent
-                            :color="product.colorHex"
-                            margin="48px"
-                        />
-                    </div>
-                </SwiperSlide>
-            </Swiper>
-        </div>
+      <Swiper
+        :modules="[Pagination, Navigation, A11y]"
+        navigation
+        pagination
+        :loop="true"
+        id="swiper"
+      >
+        <SwiperSlide>
+          <div id="image-container">
+            <img
+              :src="product.image"
+              :alt="`Ett rum med färgen ${product.name}`"
+            />
+            <v-btn icon flat @click="toggleFavorite" class="favorite-button">
+              <v-icon>
+                {{
+                  favoritesStore.isFavorite(product.id)
+                    ? "mdi-heart"
+                    : "mdi-heart-outline"
+                }}
+              </v-icon>
+            </v-btn>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div id="blob-container">
+            <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
+            <BlobComponent :color="product.colorHex" margin="48px" />
+          </div>
+        </SwiperSlide>
+      </Swiper>
+    </div>
 
-        <v-divider class="vertical-divider" vertical></v-divider>
+    <v-divider class="vertical-divider" vertical></v-divider>
 
     <div id="content-container">
       <h2 id="product-name">{{ product.name }}</h2>
@@ -153,244 +145,250 @@
 </template>
 
 <script setup>
-    import { ref, onMounted, computed } from 'vue'
-    import { productsStore } from '../stores/products.js'
-    import { useCartStore } from '../stores/cart'
-    import { useFavoritesStore } from '../stores/favorit'
-    import { useRoute, useRouter } from 'vue-router'
-    /* För att kunna använda Swiper så måste dom även importeras här  */
-    import { Swiper, SwiperSlide } from 'swiper/vue'
-    import { Pagination, Navigation, A11y } from 'swiper/modules'
-    import 'swiper/css/bundle'
-    import 'swiper/css/pagination'
-    import 'swiper/css/navigation'
-    /* -------------------------------------------------------------- */
-    import BlobComponent from '@/components/BlobComponent.vue'
+import { ref, onMounted, computed } from "vue";
+import { productsStore } from "../stores/products.js";
+import { useCartStore } from "../stores/cart";
+import { useFavoritesStore } from "../stores/favorit";
+import { useRoute, useRouter } from "vue-router";
+/* För att kunna använda Swiper så måste dom även importeras här  */
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Pagination, Navigation, A11y } from "swiper/modules";
+import "swiper/css/bundle";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+/* -------------------------------------------------------------- */
+import BlobComponent from "@/components/BlobComponent.vue";
 
-    const route = useRoute()
-    const router = useRouter()
-    const store = productsStore()
-    const cartStore = useCartStore()
-    const favoritesStore = useFavoritesStore()
-    const product = ref({})
-    const amount = ref(1)
-    const toggle = ref('')
-    const isColor = ref(null)
+const route = useRoute();
+const router = useRouter();
+const store = productsStore();
+const cartStore = useCartStore();
+const favoritesStore = useFavoritesStore();
+const product = ref({});
+const amount = ref(1);
+const toggle = ref("");
+const isColor = ref(null);
 
-    onMounted(() => {
-        // Här letar funktionen efter den första produkten med det id som är == route.params.id
+onMounted(() => {
+  // Här letar funktionen efter den första produkten med det id som är == route.params.id
 
-        product.value = store.products.find(
-            //Varför i hela friden fungerar detta endast med == istället för === ?!
-            (product) => product.id == route.params.id
-        )
+  product.value = store.products.find(
+    //Varför i hela friden fungerar detta endast med == istället för === ?!
+    (product) => product.id == route.params.id
+  );
 
-        isColor.value = product.value.category === 'color' ? true : false
-    })
+  isColor.value = product.value.category === "color" ? true : false;
+});
 
-    // Använder computed för att ge de olika färgtyperna olika priser. colorTypeValue används
-    // som multiplikator i totalsumman. helmatt = standard, halvmatt + 10%, högglans + 20%
+// Använder computed för att ge de olika färgtyperna olika priser. colorTypeValue används
+// som multiplikator i totalsumman. helmatt = standard, halvmatt + 10%, högglans + 20%
 
-    const colorTypePrice = computed(() => {
-        let colorTypeValue = toggle.value
-        switch (colorTypeValue) {
-            case 'helmatt':
-                colorTypeValue = 1
-                break
-            case 'halvmatt':
-                colorTypeValue = 1.1
-                break
-            case 'hogglans':
-                colorTypeValue = 1.2
-                break
-        }
-        return colorTypeValue
-    })
+const colorTypePrice = computed(() => {
+  let colorTypeValue = toggle.value;
+  switch (colorTypeValue) {
+    case "helmatt":
+      colorTypeValue = 1;
+      break;
+    case "halvmatt":
+      colorTypeValue = 1.1;
+      break;
+    case "hogglans":
+      colorTypeValue = 1.2;
+      break;
+  }
+  return colorTypeValue;
+});
 
-    const addToCartHandler = () => {
-        cartStore.addToCart(product.value, amount.value, toggle.value)
-        alert(
-            `${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`
-        )
-    }
+const addToCartHandler = () => {
+  cartStore.addToCart(product.value, amount.value, toggle.value);
+  alert(
+    `${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`
+  );
+};
 
-    const info = () => {
-        //Används för att logga aktiva värden vid tryck på "Lägg till i varukorgen"
-        console.log(amount.value, toggle.value, product.value.name)
-    }
+const info = () => {
+  //Används för att logga aktiva värden vid tryck på "Lägg till i varukorgen"
+  console.log(amount.value, toggle.value, product.value.name);
+};
 
-    function toggleFavorite() {
-        favoritesStore.toggleFavorites(product.value)
-    }
+function toggleFavorite() {
+  favoritesStore.toggleFavorites(product.value);
+}
 </script>
 
 <style scoped>
-    #go-back {
-        display: flex;
-        align-items: center;
-        padding: 8px;
-        cursor: pointer;
-    }
+#go-back {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+}
 
-    #go-back p {
-        text-decoration: underline;
-        font-weight: 600;
-    }
+#go-back p {
+  text-decoration: underline;
+  font-weight: 600;
+}
 
-    #image-container {
-        width: 100%;
-        overflow: hidden;
-    }
+#image-container {
+  width: 100%;
+  overflow: hidden;
+}
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    #blob-container {
-        width: 100%;
-        height: auto;
-        display: flex;
-        margin: auto;
-        padding: 0px;
-    }
+#blob-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin: auto;
+  padding: 0px;
+}
 
-    #product-name {
-        margin-bottom: 16px;
-        text-align: center;
-        font-size: 2.5rem;
-    }
+#product-name {
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 2.5rem;
+}
 
-    #swiper {
-        position: relative;
-    }
+#swiper {
+  position: relative;
+}
 
-    #swiper-container {
-        margin-bottom: 16px;
-    }
+#swiper-container {
+  margin-bottom: 16px;
+}
 
-    #description {
-        font-size: 1.25rem;
-    }
+#description {
+  font-size: 1.25rem;
+}
 
-    #content-container {
-        padding: 0 16px 16px 16px;
-    }
-    .vertical-divider {
-        display: none;
-    }
+#content-container {
+  padding: 0 16px 16px 16px;
+}
+.vertical-divider {
+  display: none;
+}
 
-    .select-text {
-        font-weight: 500;
-        text-align: center;
-        font-size: 1.75rem;
-        margin: 16px 0;
-    }
+.select-text {
+  font-weight: 500;
+  text-align: center;
+  font-size: 1.75rem;
+  margin: 16px 0;
+}
 
-    #amount-selector-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #ddd;
-        border-radius: 50px;
-        padding: 0;
-        max-width: 400px;
-        width: 80%;
-        margin: 0 auto 32px;
-        box-shadow: 5px 5px 6px #afafaf, -5px -5px 6px #ffffff;
-        overflow: hidden;
-    }
+#amount-selector-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ddd;
+  border-radius: 50px;
+  padding: 0;
+  max-width: 400px;
+  width: 80%;
+  margin: 0 auto 32px;
+  box-shadow: 5px 5px 6px #afafaf, -5px -5px 6px #ffffff;
+  overflow: hidden;
+}
 
-    .btn {
-        touch-action: manipulation;
-    }
+.btn {
+  touch-action: manipulation;
+}
 
-    #amount {
-        font-size: 1.75rem;
-        width: 80px;
-        text-align: center;
-    }
+#amount {
+  font-size: 1.75rem;
+  width: 80px;
+  text-align: center;
+}
 
-    #total-area-text {
-        text-align: center;
-        margin-top: 16px;
-    }
+#total-area-text {
+  text-align: center;
+  margin-top: 16px;
+}
 
-    .divider {
-        margin: 16px 0;
-    }
+.divider {
+  margin: 16px 0;
+}
 
-    #color-type-selector-container {
-        width: 80%;
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-    }
+#color-type-selector-container {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
 
-    .v-btn-group {
-        flex-direction: column;
-    }
-    .v-btn-group--density-default.v-btn-group {
-        height: auto;
-    }
+.v-btn-group {
+  flex-direction: column;
+}
+.v-btn-group--density-default.v-btn-group {
+  height: auto;
+}
 
-    .color-type-button {
-        font-size: 1.25rem;
-        margin-bottom: 8px;
-    }
+.color-type-button {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
 
-    .v-btn-group .v-btn {
-        border: 1px solid #000 !important;
-    }
+.v-btn-group .v-btn {
+  border: 1px solid #000 !important;
+}
 
-    #cart-button-container {
-        display: flex;
-        justify-content: center;
-    }
+#total-sum {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
 
-    #cart-button {
-        font-size: 1.25rem;
-        width: 80%;
-        margin: auto;
-    }
+#cart-button-container {
+  display: flex;
+  justify-content: center;
+}
 
-    .favorite-button {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-    }
+#cart-button {
+  font-size: 1.25rem;
+  width: 80%;
+  margin: auto;
+}
 
-    @media screen and (min-width: 991px) {
-        #swiper-container {
-            width: 50%;
-        }
+.favorite-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
 
-        #content-container {
-            width: 50%;
-        }
+@media screen and (min-width: 991px) {
+  #swiper-container {
+    width: 50%;
+  }
 
-        #container {
-            width: 90vw;
-            display: flex;
-            margin: auto;
-            /* grid-template-columns: repeat(4, 1fr);
+  #content-container {
+    width: 50%;
+  }
+
+  #container {
+    width: 90vw;
+    display: flex;
+    margin: auto;
+    /* grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr); */
-        }
+  }
 
-        .vertical-divider {
-            margin: 16px;
-            display: block;
-        }
+  .vertical-divider {
+    margin: 16px;
+    display: block;
+  }
 
-        #swiper {
-            min-width: 0;
-            margin: 0 auto;
-            width: 40vw;
-        }
+  #swiper {
+    min-width: 0;
+    margin: 0 auto;
+    width: 40vw;
+  }
 
-        #product-name {
-            padding: 0;
-        }
-    }
+  #product-name {
+    padding: 0;
+  }
+}
 </style>

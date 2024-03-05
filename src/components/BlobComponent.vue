@@ -63,6 +63,8 @@ onMounted(() => {
   content: "";
   position: absolute;
   background-color: rgba(255, 255, 255, 1);
+  /* box-shadow: inset -10px -0px 20px #fff; */
+  /* opacity: 0.5; */
   width: 10%;
   height: 35%;
   top: 5%;
