@@ -1,0 +1,36 @@
+{
+    "orders": [
+        {
+            "orderId": "000000001",
+            "mailOrPhone": "Epost eller telefonnummer",
+            "isSubscribed": false,
+            "firstName": "Kundens Namn",
+            "lastName": "Kundens Efternamn",
+            "address": "Gatuadress 123",
+            "postalCode": "12345",
+            "city": "Staden",
+            "shipping": "Postnord",
+            "payment": {
+                "paymentMethod": "Creditcard",
+                "cardNumber": "1234567890123456",
+                "expDate": "12/24",
+                "secutiyCode": "123",
+                "nameOnCard": "Kundens Namn Kundens Efternamn"
+            },
+            "orderDetails": [
+                {
+                    "productId": "Test010101",
+                    "productName": "Testprodukt",
+                    "quantity": 1,
+                    "pricePerItem": 123
+                }
+            ],
+            "isBillingAddressSameAsShipping": false,
+            "billingAddress": {
+                "address": "Alternativ Gatuadress 456",
+                "postalCode": "54321",
+                "city": "Annat Stad"
+            }
+        }
+    ]
+}
