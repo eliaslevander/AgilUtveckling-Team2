@@ -158,7 +158,7 @@
                         <div class="card-details" id="row-2">
                             <input for="expDate" placeholder="Datum (MM / YY)" type="text" required>
                             <div id="row-2-cvv">
-                                <input for="securityCode" placeholder="CVV" type="text" required>
+                                <input for="securityCode" placeholder="Cvv" type="text" required>
                                 <img v-if="otherIcons.length > 0" :src="otherIcons[1].img" alt="">
                             </div>
                         </div>
