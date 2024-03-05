@@ -1,7 +1,9 @@
 <script setup>
     import { ref, computed, onMounted } from 'vue'
+    import { useRouter } from 'vue-router'
     import { useCartStore } from '@/stores/cart'
 
+    const router = useRouter()
     const cartStore = useCartStore()
 
     const icons = ref([])
@@ -74,6 +76,10 @@
         isDiscountApplied.value = false
         voucherMessage.value = 'Ogiltig rabattkod.'
     }
+    }
+
+    function submitCheckout(){
+        router.push('/thanksAlot')
     }
 
     onMounted(() => {
@@ -152,7 +158,7 @@
                         <div class="card-details" id="row-2">
                             <input for="expDate" placeholder="Datum (MM / YY)" type="text" required>
                             <div id="row-2-cvv">
-                                <input for="securityCode" placeholder="CVV" type="text" required>
+                                <input for="securityCode" placeholder="Cvv" type="text" required>
                                 <img v-if="otherIcons.length > 0" :src="otherIcons[1].img" alt="">
                             </div>
                         </div>
@@ -241,7 +247,7 @@
 
             </div>
             <div>
-                <button id="submit-checkout">SLUTFÖR BETALNING</button>
+                <button @click="submitCheckout" id="submit-checkout">SLUTFÖR BETALNING</button>
             </div>
         </div>
 
