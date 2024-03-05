@@ -111,7 +111,7 @@
                                     </div>
                                 </div>
                                 <p id="item-price">
-                                    {{ item.product.price }}kr / st
+                                    {{ item.product.price }}kr / {{ item.product.value }}
                                 </p>
                             </div>
                         </div>
