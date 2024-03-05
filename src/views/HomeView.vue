@@ -9,9 +9,8 @@ import CoolBlob from "@/components/CoolBlob.vue";
 
 <template>
   <main>
-    <TestFetch />
-    <SearchResults />
-    <CoolBlob />
+    <!-- <TestFetch /> -->
+    <!-- <CoolBlob /> -->
     <HeroImage />
     <Carousel />
     <About />
