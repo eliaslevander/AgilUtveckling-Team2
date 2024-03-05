@@ -1,7 +1,9 @@
 <script setup>
     import { ref, computed, onMounted } from 'vue'
+    import { useRouter } from 'vue-router'
     import { useCartStore } from '@/stores/cart'
 
+    const router = useRouter()
     const cartStore = useCartStore()
 
     const icons = ref([])
@@ -74,6 +76,10 @@
         isDiscountApplied.value = false
         voucherMessage.value = 'Ogiltig rabattkod.'
     }
+    }
+
+    function submitCheckout(){
+        router.push('/thanksAlot')
     }
 
     onMounted(() => {
@@ -241,7 +247,7 @@
 
             </div>
             <div>
-                <button id="submit-checkout">SLUTFÖR BETALNING</button>
+                <button @click="submitCheckout" id="submit-checkout">SLUTFÖR BETALNING</button>
             </div>
         </div>
 

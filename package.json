@@ -13,6 +13,7 @@
     "@jamescoyle/vue-icon": "^0.1.2",
     "@mdi/js": "^7.4.47",
     "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
     "pinia": "^2.1.7",
     "swiper": "^11.0.7",
     "vue": "^3.4.15",
