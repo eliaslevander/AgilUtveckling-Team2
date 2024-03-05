@@ -1,0 +1,91 @@
+{
+    "contacts": [
+        {
+            "id": 1,
+            "mailOrPhone": "test@test.com",
+            "subscribe": true,
+            "firstName": "Test",
+            "lastName": "Test",
+            "adress": "Test",
+            "postalCode": "12345",
+            "city": "Test"
+        }
+    ],
+    "checkoutPage": {
+        "logoIcons": [
+            {
+                "id": 1,
+                "img": "/svg/visa.svg",
+                "alt": "visa-icon"
+            },
+            {
+                "id": 2,
+                "img": "/svg/mastercard.svg",
+                "alt": "mastercard-icon"
+            },
+            {
+                "id": 3,
+                "img": "/svg/amex.svg",
+                "alt": "amex-icon"
+            },
+            {
+                "id": 4,
+                "img": "/svg/discover.svg",
+                "alt": "discover-icon"
+            }
+        ],
+        "paymentMethods": [
+            {
+                "id": 1,
+                "img": "/svg/apple.png",
+                "alt": "applepay-icon"
+            },
+            {
+                "id": 2,
+                "img": "/svg/klarna.svg",
+                "alt": "klarna-icon"
+            },
+            {
+                "cryptoIcons": [
+                    {
+                        "id": 1,
+                        "img": "/svg/bitcoin.svg",
+                        "alt": "bitcoin-icon"
+                    },
+                    {
+                        "id": 2,
+                        "img": "/svg/ethereum.svg",
+                        "alt": "ethereum-icon"
+                    },
+                    {
+                        "id": 3,
+                        "img": "/svg/bitcoin-cash.svg",
+                        "alt": "bitcoincash-icon"
+                    },
+                    {
+                        "id": 4,
+                        "img": "/svg/litecoin.svg",
+                        "alt": "litecoin-icon"
+                    }
+                ]
+            }
+        ],
+        "otherIcons": [
+            {
+                "id": 1,
+                "img": "/svg/lock.svg",
+                "alt": "lock-icon"
+            },
+            {
+                "id": 2,
+                "img": "/svg/question.svg",
+                "alt": "question-icon"
+            },
+            {
+                "id": 3,
+                "img": "/svg/postnord.svg",
+                "alt": "postnord-icon"
+            }
+        ]
+    }
+}
