@@ -1,69 +1,77 @@
 <template>
-  <span id="go-back" @click="router.go(-1)" title="Gå tillbaka"
-    ><v-icon>mdi-chevron-left</v-icon>
-    <p>Tillbaka</p>
-  </span>
-  <div class="favorites-container">
-    <h1>Dina Favoriter</h1>
-    <p>
-      Här samlar vi dina favoritfärger och tillbehör, för att du enkelt ska
-      kunna återvända till de nyanser och verktyg som inspirerar dig mest för
-      ditt nästa målningsprojekt.
-    </p>
-    <div v-if="favorites.length > 0" class="product-grid">
-      <div
-        v-for="item in favorites"
-        :key="item.id"
-        class="card"
-        @click="goToProduct(item.id)"
-      >
-        <div class="blob-container" v-if="item.colorHex">
-          <blob-component :color="item.colorHex" />
-        </div>
-        <div class="equipment-container" v-else-if="item.image">
-          <img :src="item.image" alt="item.name" class="product-image" />
-        </div>
-        <div class="card-content">
-          <h3 class="product-name">{{ item.name }}</h3>
-        </div>
+    <span id="go-back" @click="router.go(-1)" title="Gå tillbaka"
+        ><v-icon>mdi-chevron-left</v-icon>
+        <p>Tillbaka</p>
+    </span>
+    <div class="favorites-container">
+        <h1>Dina Favoriter</h1>
+        <p>
+            Här samlar vi dina favoritfärger och tillbehör, för att du enkelt
+            ska kunna återvända till de nyanser och verktyg som inspirerar dig
+            mest för ditt nästa målningsprojekt.
+        </p>
+        <div v-if="favorites.length > 0" class="product-grid">
+            <div
+                v-for="item in favorites"
+                :key="item.id"
+                class="card"
+                @click="goToProduct(item.id)"
+            >
+                <div class="blob-container" v-if="item.colorHex">
+                    <blob-component :color="item.colorHex" />
+                </div>
+                <div class="equipment-container" v-else-if="item.image">
+                    <img
+                        :src="item.image"
+                        alt="item.name"
+                        class="product-image"
+                    />
+                </div>
+                <div class="card-content">
+                    <h3 class="product-name">{{ item.name }}</h3>
+                </div>
 
-        <v-btn
-          icon
-          flat
-          @click.stop="toggleFavoriteItem(item)"
-          class="favorite-button"
-        >
-          <v-icon class="icon">
-            {{ isFavorite(item.id) ? 'mdi-heart' : 'mdi-heart-outline' }}
-          </v-icon>
-        </v-btn>
-      </div>
+                <v-btn
+                    icon
+                    flat
+                    @click.stop="toggleFavoriteItem(item)"
+                    class="favorite-button"
+                >
+                    <v-icon class="icon">
+                        {{
+                            isFavorite(item.id)
+                                ? 'mdi-heart'
+                                : 'mdi-heart-outline'
+                        }}
+                    </v-icon>
+                </v-btn>
+            </div>
+        </div>
+        <div v-else>
+            <p>Du har inte sparat något än</p>
+        </div>
     </div>
-    <div v-else>
-      <p>Du har inte sparat något än</p>
-    </div>
-  </div>
 </template>
 
 <script setup>
-  import { useRouter } from 'vue-router'
-  import { useFavoritesStore } from '../stores/favorit'
-  import BlobComponent from '../components/BlobComponent.vue'
+    import { useRouter } from 'vue-router'
+    import { useFavoritesStore } from '../stores/favorit'
+    import BlobComponent from '../components/BlobComponent.vue'
 
-  const router = useRouter()
-  const {
-    items: favorites,
-    toggleFavorites,
-    saveFavorites,
-    isFavorite
-  } = useFavoritesStore()
-  const goToProduct = id => {
-    router.push({ name: 'product', params: { id } })
-  }
-  const toggleFavoriteItem = item => {
-    toggleFavorites(item)
-    saveFavorites()
-  }
+    const router = useRouter()
+    const {
+        items: favorites,
+        toggleFavorites,
+        saveFavorites,
+        isFavorite
+    } = useFavoritesStore()
+    const goToProduct = (id) => {
+        router.push({ name: 'product', params: { id } })
+    }
+    const toggleFavoriteItem = (item) => {
+        toggleFavorites(item)
+        saveFavorites()
+    }
 </script>
 
 <style scoped>
@@ -94,7 +102,6 @@
     }
     .image-container {
         width: 100%;
-        aspect-ratio: 1;
         padding: 16px;
         overflow: hidden;
     }
@@ -109,6 +116,7 @@
     .product-image {
         width: 100%;
         height: 100%;
+        aspect-ratio: 1;
         object-fit: cover;
         border-radius: 5px;
     }
