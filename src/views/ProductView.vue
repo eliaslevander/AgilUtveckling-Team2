@@ -35,7 +35,7 @@
             </v-btn>
           </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide v-if="isColor">
           <div id="blob-container">
             <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
             <BlobComponent :color="product.colorHex" margin="48px" />
@@ -231,6 +231,7 @@ function toggleFavorite() {
 
 #image-container {
   width: 100%;
+  aspect-ratio: 1;
   overflow: hidden;
 }
 
