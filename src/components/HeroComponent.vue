@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import BlobComponent from "./BlobComponent.vue";
 
 const r = ref(0);
 const g = ref(0);
@@ -22,7 +21,7 @@ const setupColorOscillation = (speed) => {
     g.value = green;
     b.value = blue;
     phase += (2 * Math.PI) / speed;
-  }, 500);
+  }, 50);
 };
 
 onMounted(() => {
@@ -38,51 +37,29 @@ const setupDegreeOscillation = (degreeRef) => {
 onMounted(() => {
   setupDegreeOscillation(deg);
 });
-
-// onMounted(() => {
-//   console.log(sine(45, 90, 100));
-// });
 </script>
 
 <template>
   <div id="HeroImage">
-    <!-- <svg id="shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-      <path
-        fill="#ffffff"
-        fill-opacity="1"
-        d="M0,320L720,64L1440,96L1440,320L720,320L0,320Z"
-      ></path>
-    </svg> -->
-    <!-- <div id="container">
-      
-      <div class="blob-container two">
-        <BlobComponent :color="`rgb(${b}, ${r}, ${g})`" />
-      </div>
-      <div class="blob-container three">
-        <BlobComponent :color="`rgb(${r}, ${g}, ${b})`" />
-      </div>
-    </div> -->
-    <div id="left-container">
-      <h1 id="hero-title">Mer färg i ditt hem</h1>
-      <p id="hero-text">
-        Vi på Prisma värdesätter kvalitativa färger och nyanser som en central
-        del av vårt arbete. Genom att noggrant välja och kombinera färgnyanser
-        strävar vi efter att skapa unika och estetiskt tilltalande produkter.
-      </p>
-      <div id="button-container">
-        <button
-          id="read-more"
-          :style="{
-            background: `linear-gradient(${deg}deg, rgba(${r},${g},${b},1) 0%, rgba(${g},${b},${r},1) 100%)`,
-          }"
-        >
-          LÄS MER<v-icon>mdi-chevron-right</v-icon>
-        </button>
-      </div>
-    </div>
-    <div id="right-container">
-      <div class="blob-container">
-        <BlobComponent :color="`rgb(${g}, ${b}, ${r})`" />
+    <div id="hero-image-container"></div>
+    <div id="overlay">
+      <div id="hero-overlay-inner">
+        <div id="hero-overlay-inner-container">
+          <h1 id="hero-title">Mer färg i ditt hem</h1>
+        <p id="hero-text">
+          Vår färggenerator hjälper dig att hitta den exakta kulören du vill ha till ditt hem
+        </p>
+          <div id="button-container">
+            <button
+              id="read-more"
+              :style="{
+                background: `linear-gradient(${deg}deg, rgba(${r},${g},${b},1) 0%, rgba(${g},${b},${r},1) 100%)`,
+              }"
+              >
+              LÄS MER<v-icon>mdi-chevron-right</v-icon>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -90,136 +67,104 @@ onMounted(() => {
 
 <style scoped>
 #HeroImage {
-  background-image: url(../assets/images/testroom.jpg);
-  background-size: cover;
-  background-position: center;
-  /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)); */
-  backdrop-filter: brightness(0%);
+  background-image: url(../assets/images/hero-image-vertical.jpg);
+  background-size: 66%;
+  background-position: left;
   height: 80vh;
   margin-bottom: 3vh;
+  width: 100%; 
+}
+
+#overlay {
   width: 100%;
-  padding: 0;
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
+  height: 100%;
+  background-image: url(/src/assets/images/hero-overlay-mobile.png);
+  background-repeat: no-repeat;
+  background-size: 100% 101%;
+  min-height: 100%;
+  position: relative;
 }
 
-#left-container {
-  /* width: 50vw; */
-  /* text-align: center; */
+#hero-overlay-inner {
+  width: 50vw;
+  height: 100%;
+  position: absolute;
+  right: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  flex: 1;
-  flex-basis: 0;
 }
 
-#right-container {
-  /* width: 50vw; */
+#hero-overlay-inner-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  flex: 1;
-  flex-basis: 0;
-}
-
-#button-container {
-  display: flex;
-  justify-content: center;
 }
 
 #hero-title {
-  color: #fff;
+  width: 80%;
+  text-align: center;
+  color: #000;
   font-size: 4rem;
-
-  padding: 8px;
-  /* background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 8px; */
-  background-color: rgba(0, 0, 0, 0.2);
-  margin-bottom: 16px;
+  margin-bottom: 3vh;
 }
 
 #hero-text {
-  width: 80%;
-  padding: 8px;
-  background-color: rgba(0, 0, 0, 0.2);
   text-align: center;
-  font-size: 1.5rem;
-  color: #fff;
-  display: inline-block;
-  margin-bottom: 16px;
+  width: 80%;
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 3vh;
 }
 
 #read-more {
   font-size: 2rem;
   padding: 0.75rem;
   font-weight: bold;
-  border-radius: 16px;
+  border-radius: 1vh;
   display: flex;
   align-items: center;
-  /* box-shadow: 1px 1px 10px #000; */
   color: #fff;
-  border: 3px solid #fff;
-  font-weight: bold;
+  border: 3px solid #bbb;
 }
 
-#overlay {
-  width: 100%;
-  height: 100%;
-  background-image: url(/src/assets/images/hero-overlay.png);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  min-height: 100%;
-}
-
-#container {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
-  position: relative;
-}
-
-.blob-container {
-  width: 80%;
-}
-
-path {
-  bottom: 0;
-  width: 50%;
-  display: none;
-}
-#shape {
-  bottom: 0;
-  position: absolute;
-  height: 100%;
+#read-more:hover {
+  box-shadow: 1px 5px 10px #000;
 }
 
 @media (max-width: 1000px) {
-  #hero-image {
-    height: 40vh;
-    bottom: 20%;
-    right: 4%;
-    font-size: 1.5rem;
-  }
   #HeroImage {
-    flex-direction: column;
+    background-image: url(/src/assets/images/Prisma_HeroImage.jpg);
+    background-size: cover;
+    height: 60vh;
   }
 
-  #left-container,
-  #right-container {
-    width: 100%;
+  #hero-overlay-inner {
+    width: 60%;
+  }
+
+  #overlay {
+    height: 100.1%;
   }
 
   #hero-title {
-    font-size: 2rem;
+    font-size: 4vh;
+    width: 80%;
   }
 
   #hero-text {
-    font-size: 1rem;
+    font-size: 2vh;
+    width: 80%;
+    font-weight: normal;
+    text-align: center;
   }
+
+  #read-more {
+    font-size: 5vw;
+    padding: 1vh;
+    border-radius: 2vw;
+  }
+
 }
 </style>
