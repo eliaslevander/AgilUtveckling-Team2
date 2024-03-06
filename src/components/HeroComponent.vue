@@ -11,12 +11,12 @@ const setupColorOscillation = (speed) => {
   let phase = 0;
 
   setInterval(() => {
-    const red = Math.round(128 * Math.abs(Math.sin(phase)));
+    const red = Math.round(255 * Math.abs(Math.sin(phase)));
     const green = Math.round(
       255 * Math.abs(Math.sin(phase + (2 * Math.PI) / 3))
     );
     const blue = Math.round(
-      128 * Math.abs(Math.sin(phase + (4 * Math.PI) / 3))
+      255 * Math.abs(Math.sin(phase + (4 * Math.PI) / 3))
     );
     r.value = red;
     g.value = green;
@@ -31,7 +31,7 @@ onMounted(() => {
 
 const setupDegreeOscillation = (degreeRef) => {
   setInterval(() => {
-    degreeRef.value = Math.round(64 * Math.sin(Date.now() * 0.001) + 128);
+    degreeRef.value = Math.round(127 * Math.sin(Date.now() * 0.0005) + 128);
   }, 10);
 };
 
@@ -154,7 +154,7 @@ onMounted(() => {
 }
 
 #read-more {
-  font-size: 1.5rem;
+  font-size: 2rem;
   padding: 0.75rem;
   font-weight: bold;
   border-radius: 16px;
@@ -162,7 +162,7 @@ onMounted(() => {
   align-items: center;
   /* box-shadow: 1px 1px 10px #000; */
   color: #fff;
-  /* border: 6px solid #fff; */
+  border: 3px solid #fff;
   font-weight: bold;
 }
 
@@ -184,7 +184,7 @@ onMounted(() => {
 }
 
 .blob-container {
-  width: 500px;
+  width: 80%;
 }
 
 path {
@@ -206,6 +206,20 @@ path {
     font-size: 1.5rem;
   }
   #HeroImage {
+    flex-direction: column;
+  }
+
+  #left-container,
+  #right-container {
+    width: 100%;
+  }
+
+  #hero-title {
+    font-size: 2rem;
+  }
+
+  #hero-text {
+    font-size: 1rem;
   }
 }
 </style>
