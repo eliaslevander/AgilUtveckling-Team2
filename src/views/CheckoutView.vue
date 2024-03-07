@@ -123,6 +123,10 @@
         }
     }
 
+    function clearCart() {
+        cartStore.items = [] // Töm varukorgen
+    }
+
     function submitCheckout() {
         if (isBillingAddressSameAsShipping.value) {
             customerOrder.billingAddress.address = customerOrder.address
@@ -130,15 +134,19 @@
             customerOrder.billingAddress.city = customerOrder.city
         }
 
-    const orderId = `order_${new Date().getTime()}`;
-    customerOrder.orderId = orderId;
+        const orderId = `order_${new Date().getTime()}`
+        customerOrder.orderId = orderId
 
-    customerOrder.shipping = "PostNord";
+        customerOrder.shipping = 'PostNord'
+        customerOrder.discountAmount = discountAmount.value
+        customerOrder.totalSum = totalSum.value
+        customerOrder.shippingCost = shippingCost.value
 
-    const orderDataAsString = JSON.stringify(customerOrder);
-    sessionStorage.setItem('orderData', orderDataAsString);
-    console.log("Orderdata sparad i sessionStorage:", customerOrder);
-    router.push('/thanksAlot');
+        const orderDataAsString = JSON.stringify(customerOrder)
+        sessionStorage.setItem('orderData', orderDataAsString)
+        console.log('Orderdata sparad i sessionStorage:', customerOrder)
+        router.push('/thanksAlot')
+        clearCart()
     }
 
     onMounted(() => {

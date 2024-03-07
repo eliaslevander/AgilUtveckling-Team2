@@ -9,7 +9,8 @@
     "category": "color",
     "value": "l",
     "colorType": "Blå",
-    "colorHex": "#93a1ae"
+    "colorHex": "#93a1ae",
+    "url": "/product/1"
   },
   {
     "id": 2,
@@ -21,7 +22,8 @@
     "category": "color",
     "value": "l",
     "colorType": "Blå",
-    "colorHex": "#3b719d"
+    "colorHex": "#3b719d",
+    "url": "/product/2"
   },
   {
     "id": 3,
@@ -33,7 +35,8 @@
     "category": "color",
     "value": "l",
     "colorType": "Blå",
-    "colorHex": "#88a3be"
+    "colorHex": "#88a3be",
+    "url": "/product/3"
   },
   {
     "id": 4,
@@ -45,7 +48,8 @@
     "category": "color",
     "value": "l",
     "colorType": "Grön",
-    "colorHex": "#516858"
+    "colorHex": "#516858",
+    "url": "/product/4"
   },
   {
     "id": 5,
@@ -57,7 +61,8 @@
     "category": "color",
     "value": "l",
     "colorType": "Grön",
-    "colorHex": "#5d5c3d"
+    "colorHex": "#5d5c3d",
+    "url": "/product/5"
   },
   {
     "id": 6,
@@ -69,7 +74,8 @@
     "category": "color",
     "value": "l",
     "colorType": "Grön",
-    "colorHex": "#9fb1a1"
+    "colorHex": "#9fb1a1",
+    "url": "/product/6"
   },
   {
     "id": 7,
@@ -81,7 +87,8 @@
     "category": "color",
     "value": "l",
     "colorType": "Vit",
-    "colorHex": "#f3f5f2"
+    "colorHex": "#f3f5f2",
+    "url": "/product/7"
   },
 
   {
@@ -94,7 +101,8 @@
     "category": "color",
     "value": "l",
     "colorType": "Vit",
-    "colorHex": "#edeee0"
+    "colorHex": "#edeee0",
+    "url": "/product/8"
   },
   {
     "id": 9,
@@ -106,7 +114,8 @@
     "category": "accessories",
     "value": "st",
     "colorType": "",
-    "colorHex": ""
+    "colorHex": "",
+    "url": "/product/9"
   },
   {
     "id": 10,
@@ -118,7 +127,8 @@
     "category": "accessories",
     "value": "st",
     "colorType": "",
-    "colorHex": ""
+    "colorHex": "",
+    "url": "/product/10"
   },
   {
     "id": 11,
@@ -130,78 +140,85 @@
     "category": "accessories",
     "value": "st",
     "colorType": "",
-    "colorHex": ""
+    "colorHex": "",
+    "url": "/product/11"
   },
   {
     "id": 12,
     "name": "Passion",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
-    "image": "../src/assets/images/",
+    "image": "../src/assets/images/Red/Red_Interior_Passion.jpg",
     "alt": "Röd 1-färg",
     "price": 199,
     "category": "color",
     "value": "l",
     "colorType": "Röd",
-    "colorHex": "#a01A00"
+    "colorHex": "#a01A00",
+    "url": "/product/12"
   },
   {
     "id": 13,
     "name": "Tegel",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
-    "image": "../src/assets/images/",
+    "image": "../src/assets/images/Red/Red_Interior_Tegel.jpg",
     "alt": "Röd 2-färg",
     "price": 199,
     "category": "color",
     "value": "l",
     "colorType": "Röd",
-    "colorHex": "#B03808"
+    "colorHex": "#B03808",
+    "url": "/product/13"
   },
   {
     "id": 13,
     "name": "Paprika",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
-    "image": "../src/assets/images/",
+    "image": "../src/assets/images/Red/Red_Interior_Paprika.jpg",
     "alt": "Röd 3-färg",
     "price": 199,
     "category": "color",
     "value": "l",
     "colorType": "Röd",
-    "colorHex": "#ca3710"
+    "colorHex": "#ca3710",
+    "url": "/product/14"
   },
   {
     "id": 14,
     "name": "Solen",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
-    "image": "../src/assets/images/",
+    "image": "../src/assets/images/Yellow/Yewllow_Solen",
     "alt": "Gul 1-färg",
     "price": 199,
     "category": "color",
     "value": "l",
     "colorType": "Gul",
-    "colorHex": "#FFD508"
+    "colorHex": "#FFD508",
+    "url": "/product/15"
   },
   {
     "id": 15,
     "name": "Honung",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
-    "image": "../src/assets/images/",
+    "image": "../src/assets/images/Yellow/Yewllow_Interior_Honung",
     "alt": "Gul 2-färg",
     "price": 199,
     "category": "color",
     "value": "l",
     "colorType": "Gul",
-    "colorHex": "#FFCD08"
+    "colorHex": "#FFCD08",
+    "url": "/product/16"
   },
   {
     "id": 16,
     "name": "Citron",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
-    "image": "../src/assets/images/",
+    "image": "../src/assets/images/Yellow/Yewllow_Citron",
     "alt": "Gul 3-färg",
     "price": 199,
     "category": "color",
     "value": "l",
     "colorType": "Gul",
-    "colorHex": "#FFFF08"
+    "colorHex": "#FFFF08",
+    "url": "/product/17"
   }
 ]
