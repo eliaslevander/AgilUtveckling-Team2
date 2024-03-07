@@ -6,6 +6,7 @@ import { useCartStore } from "../stores/cart";
 import { ref, onMounted } from "vue";
 
 
+
 //Order från varukorg
 const cartStore = useCartStore()
 const orderData = ref(null)
@@ -63,7 +64,7 @@ const filteredProducts = computed(() => {
     <h4>Din beställning har nu behandlats och är på väg att bli packad med omsorg för att snart nå fram till dig.</h4>
   </v-card>
   <div class="checkout-item-container">
-      <!-- Bild och styckpris -->
+      <!--SAMMANSTÄLLNING ORDER-->
       <h2>Din order:</h2>
       <div
         id="checkout-item-header"
@@ -81,8 +82,9 @@ const filteredProducts = computed(() => {
           <p>{{ orderData?.totalSum }} kr</p>
           <p>{{ orderData?.shipping }} </p>
         </div>
-        
-</div>
+      </div>
+      <!---------------->
+
   <v-card class="info">
       <v-list>
       <v-list-item>

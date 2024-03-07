@@ -157,7 +157,7 @@
     "colorHex": "#B03808"
   },
   {
-    "id": 13,
+    "id": 14,
     "name": "Paprika",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Red/Red_Interior_Paprika.jpg",
@@ -169,7 +169,7 @@
     "colorHex": "#ca3710"
   },
   {
-    "id": 14,
+    "id": 15,
     "name": "Solen",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Yellow/Yewllow_Solen",
@@ -181,7 +181,7 @@
     "colorHex": "#FFD508"
   },
   {
-    "id": 15,
+    "id": 16,
     "name": "Honung",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Yellow/Yewllow_Interior_Honung",
@@ -193,7 +193,7 @@
     "colorHex": "#FFCD08"
   },
   {
-    "id": 16,
+    "id": 17,
     "name": "Citron",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Yellow/Yewllow_Citron",

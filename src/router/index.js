@@ -4,6 +4,7 @@ import ProductView from '@/views/ProductView.vue'
 import FavoritesView from '@/views/FavoritesView.vue'
 import CheckoutView from '@/views/CheckoutView.vue'
 import ThanksAlot from '../views/ThanksAlot.vue'
+import Category from '../views/FilterView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +41,11 @@ const router = createRouter({
             path: '/ThanksAlot',
             name: 'ThanksAlot',
             component: ThanksAlot
+        },
+        {
+            path: '/Category',
+            name: 'Category',
+            component: Category
         }
     ]
 })
