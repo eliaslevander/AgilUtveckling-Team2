@@ -2,18 +2,34 @@
 import { productsStore } from "../stores/products";
 import router from "@/router";
 import { computed } from 'vue';
+import { useCartStore } from "../stores/cart";
+import { ref, onMounted } from "vue";
 
+
+//Order från varukorg
+const cartStore = useCartStore()
+const orderData = ref(null)
+
+onMounted(() => {
+        const orderDataString = sessionStorage.getItem('orderData')
+        if (orderDataString) {
+            orderData.value = JSON.parse(orderDataString)
+        }
+    })
+
+//Accessories från JSON
 const store = productsStore();
-
 const goToProduct = (id) => {
   router.push({ name: "product", params: { id: id } });
 };
 const filteredProducts = computed(() => {
   return store.products.filter(product => product.category === 'accessories');
 });
-
 </script>
+
+
 <script>
+//Countdown 60 min 
     export default {
         data () {
         return {
@@ -37,13 +53,36 @@ const filteredProducts = computed(() => {
 </script>
 
 <template>
+
+
 <div>
     <v-card class="Thanks">
     <h1>Tack för att du handlar hos PRISMA</h1>
-    <h3>Ditt ordernummer är: 000000001</h3>
+    <h3>Ditt ordernummer är: {{ orderData?.orderId }}</h3>
     <h4>Vi är otroligt tacksamma för att du har valt att handla hos oss. </h4>
     <h4>Din beställning har nu behandlats och är på väg att bli packad med omsorg för att snart nå fram till dig.</h4>
   </v-card>
+  <div class="checkout-item-container">
+      <!-- Bild och styckpris -->
+      <h2>Din order:</h2>
+      <div
+        id="checkout-item-header"
+        v-for="(item, index) in cartStore.items"
+        :key="index"
+      >
+        <div id="photo-title">
+          <img :src="item.product.image" alt="" />
+          <h5>{{ item.product.name }}</h5>
+        </div>
+        <p>{{ item.product.price }} kr / st</p>
+      </div>
+      <div id="total-cost">
+          <h3>Total:</h3>
+          <p>{{ orderData?.totalSum }} kr</p>
+          <p>{{ orderData?.shipping }} </p>
+        </div>
+        
+</div>
   <v-card class="info">
       <v-list>
       <v-list-item>
@@ -56,7 +95,7 @@ const filteredProducts = computed(() => {
       <v-list-item-title id="infotitle">
       Erbjudande till dig:
     </v-list-item-title>
-        För att visa vår uppskattning, ge dig en 10% rabatt på din nästa beställning med koden "TACK10".
+        För att visa vår uppskattning, ge dig en 10% rabatt på din nästa beställning med koden "TACK10". 
         Använd den vid utcheckningen för att ta del av erbjudandet. Gäller fram till [2024-06-04].
       </v-list-item>
       <v-list-item>
@@ -131,7 +170,7 @@ const filteredProducts = computed(() => {
     padding-right:1vh;
     margin: auto;
     text-align:center;
-    border-bottom: solid 1px
+    border-bottom: solid 1px 
   }
   .info {
     padding-left:4vh;
@@ -141,11 +180,38 @@ const filteredProducts = computed(() => {
 .contactlist{
   text-align:center;
   margin:auto;
+  margin-bottom: 2vh;
   margin-top: 4vh;
   padding: 2vh;
-  width: 90%;
+  width: 80%;
 }
+.checkout-item-container {
+    margin-top: 3vh;
+    width: 100%;
+    margin-right: 5rem;
+    padding: 1rem 4rem;
+    height: auto;
+    overflow-y: auto;
+  }
 
+  #checkout-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  #checkout-item-header #photo-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  #checkout-item-header #photo-title img {
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 1rem;
+    object-fit: cover;
+  }
 
 #infotitle {
   font-weight: 800;
