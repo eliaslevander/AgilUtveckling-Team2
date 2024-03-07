@@ -27,7 +27,8 @@
             const images = computed(() =>
                 store.products.map((product) => ({
                     src: product.image,
-                    alt: product.alt
+                    alt: product.alt,
+                    url: product.url
                 }))
             )
 
@@ -69,7 +70,9 @@
             loop
         >
             <SwiperSlide v-for="image in images" :key="image.id">
-                <img :src="image.src" :alt="image.alt" />
+                <router-link :to="image.url">
+                    <img :src="image.src" :alt="image.alt" />
+                </router-link>
             </SwiperSlide>
             <div class="swiper-pagination"></div>
             <div class="swiper-button-next"></div>
