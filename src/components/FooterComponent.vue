@@ -46,28 +46,28 @@
     font-size: 1.1rem;
   }
 
-  @media screen and (max-width: 601px) {
+  @media screen and (max-width: 850px) {
     .v-row {
       display: block;
       height: 38vh;
     }
     #logo-container {
-      padding-top: 20px;
-      padding-bottom: 15px;
-      padding-left: 24px;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      margin-left: 1rem;
     }
 
     .v-btn {
       display: flex;
-      justify-content: left;
-      text-align: left;
+      margin-left: 1rem;
     }
 
     p {
       display: flex;
       justify-content: left;
       text-align: left;
-      padding-left: 24px;
+      margin-left: 1rem;
+      padding-bottom: 1rem;
     }
   }
 </style>
