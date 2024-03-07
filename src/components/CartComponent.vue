@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useCartStore } from "../stores/cart";
 import { RouterLink } from "vue-router";
+import BlobComponent from "./BlobComponent.vue";
 
 const cartStore = useCartStore();
 
@@ -100,7 +101,11 @@ const shippingCost = computed(() => {
                             </button>
                         </div>
                         <div id="cart-content">
-                            <img :src="item.product.image" alt="" />
+                            <BlobComponent
+                                :color="item.product.colorHex"
+                                :width="'6rem'"
+                                :margin="'0 1rem 0 0'"
+                            />
                             <div id="price-and-quantity">
                                 <div id="quantity-container">
                                     <div class="quantity-selector">

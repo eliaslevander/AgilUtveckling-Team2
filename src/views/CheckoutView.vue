@@ -2,6 +2,7 @@
     import { ref, reactive, computed, watch, onMounted } from 'vue'
     import { useRouter } from 'vue-router'
     import { useCartStore } from '@/stores/cart'
+    import BlobComponent from '@/components/BlobComponent.vue'
 
     const router = useRouter()
     const cartStore = useCartStore()
@@ -478,10 +479,16 @@
                 :key="index"
             >
                 <div id="photo-title">
-                    <img :src="item.product.image" alt="" />
+                    <BlobComponent
+                        id="blob"
+                        :color="item.product.colorHex"
+                        :width="'6rem'"
+                        :margin="'0 1rem 0 0'"
+                    />
                     <h5>{{ item.product.name }}</h5>
                 </div>
-                <p>{{ item.product.price }} kr / st</p>
+                    <p>{{ item.quantity }}st</p>
+                    <p>{{ item.product.price }} kr / st</p>
             </div>
             <!-- Rabattkod -->
             <div id="checkout-item-mid">
@@ -557,6 +564,12 @@
         gap: 1rem;
     }
 
+    #quantity-and-price {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
     #checkout-item-header #photo-title img {
         width: 6rem;
         height: 6rem;
@@ -569,6 +582,10 @@
         width: 100%;
         margin-top: 0.5rem;
         gap: 1rem;
+    }
+
+    #blob{
+        margin-bottom: 1rem;
     }
 
     #checkout-item-mid input {
