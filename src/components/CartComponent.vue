@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useCartStore } from "../stores/cart";
 import { RouterLink } from "vue-router";
+import BlobComponent from "./BlobComponent.vue";
 
 const cartStore = useCartStore();
 
@@ -29,11 +30,31 @@ function removeFromCart(productId, colorType) {
 }
 
 const totalSum = computed(() => {
-  let sum = cartStore.items.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  );
-  return sum > 499 ? sum : sum + 49;
+  let sum = cartStore.items.reduce((sum, item) => {
+    let price = item.product.price;
+
+    // Adjust price based on colorType
+    switch (item.colorType) {
+      case "helmatt":
+        price *= 1; // No change
+        break;
+      case "halvmatt":
+        price *= 1.1; // Increase by 10%
+        break;
+      case "hogglans":
+        price *= 1.2; // Increase by 20%
+        break;
+      default:
+        price *= 1; // No change
+        break;
+    }
+
+    return sum + price * item.quantity;
+  }, 0);
+
+  sum = sum > 499 ? sum : sum + 49;
+
+  return Math.round(sum); // Round to nearest integer
 });
 
 const shippingCost = computed(() => {
@@ -80,7 +101,11 @@ const shippingCost = computed(() => {
                             </button>
                         </div>
                         <div id="cart-content">
-                            <img :src="item.product.image" alt="" />
+                            <BlobComponent
+                                :color="item.product.colorHex"
+                                :width="'6rem'"
+                                :margin="'0 1rem 0 0'"
+                            />
                             <div id="price-and-quantity">
                                 <div id="quantity-container">
                                     <div class="quantity-selector">
