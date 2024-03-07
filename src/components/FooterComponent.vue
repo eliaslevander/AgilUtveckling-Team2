@@ -46,6 +46,10 @@
     font-size: 1.1rem;
   }
 
+  #logo-container {
+    padding-top: 0.2rem;
+  }
+
   @media screen and (max-width: 850px) {
     .v-row {
       display: block;
