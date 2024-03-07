@@ -31,10 +31,6 @@
             SvgIcon,
             SearchComponent
         },
-        created() {
-            window.addEventListener('resize', this.checkIfMobile)
-            this.checkIfMobile()
-        },
         data() {
             return {
                 magnifyPath: mdiMagnify,
@@ -68,11 +64,12 @@
             // },
         },
         mounted() {
+            /* La till en global event listener så att den fångar upp när användar klickar vart som helst på sidan förutom i dropdown */
             document.addEventListener('click', this.handleClickOutside, true)
         },
         beforeUnmount() {
+            /* Tar bort från DOM när det inte längre används så att det inte ska bli några problem senare */
             document.removeEventListener('click', this.handleClickOutside, true)
-            window.removeEventListener('resize', this.checkIfMobile)
         },
         methods: {
             toggleCartVisibility() {
@@ -80,9 +77,11 @@
                 cartStore.toggleCartVisibility()
             },
             toggleDropdownMenu() {
+                /* Växlar ifall dropdown menyn är synlig eller inte om den är false är menyn dåld annars så visas den */
                 this.showDropdownMenu = !this.showDropdownMenu
             },
             toggleColorsDropdown() {
+                /* Liknande toggle till den över men hanterar dropdown menyn för undermenyn "Färger" och funkar då på samma sätt */
                 this.showColorsDropdown = !this.showColorsDropdown
             },
             handleSearchComponent() {
@@ -104,6 +103,7 @@
                 }
             },
             goToFavorites() {
+                /* Navigerar användaren till favoriter utan att ladda om hela sidan */
                 this.$router.push({ name: 'favorites' })
             },
 
@@ -128,14 +128,18 @@
                 if (this.searching) {
                     this.searching = false
                 }
+                /* Växlar synligheten av sidomenyn. false = dold annars så är den synlig */
                 this.drawer = !this.drawer
             },
             handleClickOutside(event) {
+                /* Kontrollerar ifall det finns en referens till dropdown menyn och om dte man klickar på inte är inom dropdown menyns DOM-träd */
                 if (
                     this.$refs.dropdownMenu &&
                     !this.$refs.dropdownMenu.contains(event.target)
                 ) {
+                    //döljer huvud dropdown menyn
                     this.showDropdownMenu = false
+                    //döljer dropdown för undermenyn Färger
                     this.showColorsDropdown = false
                 }
             }
@@ -168,6 +172,7 @@
         temporary
         class="d-flex d-sm-none"
     >
+    <!-- flat tar bort skuggorna som vuetify la till -->
         <v-toolbar flat>
             <v-toolbar-title>Meny</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -206,6 +211,7 @@
                     ></v-icon>
                 </v-list-item>
                 <div v-if="showColorsDropdown">
+                    <!-- La till plain, den tar bort den skumma hover effekt som vuetify la till. Funka dock inte på dropdown menyerna vet inte riktigt hur jag ska ta bort den från dem -->
                     <v-list-item plain>
                         <router-link to="#" class="navigation-link"
                             >Gråskala</router-link
@@ -293,6 +299,7 @@
                 ><svg-icon type="mdi" :path="magnifyPath"></svg-icon
             ></v-icon>
         </v-btn>
+        <!-- Favorit -->
         <v-btn icon @click="goToFavorites">
             <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
         </v-btn>
@@ -312,6 +319,7 @@
     >
         <v-list-item @click="toggleColorsDropdown">
             Färger
+            <!-- ikon för att göra det tydligt på sidan att det är en dropdown meny och inte en länk som tar användaren någonstans -->
             <v-icon
                 ><svg-icon type="mdi" :path="menuRightPath"></svg-icon
             ></v-icon>
