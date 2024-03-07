@@ -3,13 +3,15 @@
     import { useCartStore } from '@/stores/cart'
     /* Ikoner */
     import SvgIcon from '@jamescoyle/vue-icon'
-    import { mdiMagnify } from '@mdi/js'
-    import { mdiHeartOutline } from '@mdi/js'
-    import { mdiShoppingOutline } from '@mdi/js'
-    import { mdiMenu } from '@mdi/js'
-    import { mdiClose } from '@mdi/js'
-    import { mdiMenuDown } from '@mdi/js'
-    import { mdiMenuRight } from '@mdi/js'
+    import {
+        mdiMagnify,
+        mdiHeartOutline,
+        mdiShoppingOutline,
+        mdiMenu,
+        mdiClose,
+        mdiMenuDown,
+        mdiMenuRight
+    } from '@mdi/js'
     import SearchComponent from './SearchComponent.vue'
 
     //----------Funktionalitet för sök mobile/desktop--------------
@@ -64,6 +66,13 @@
             // drawer(newValue) {
             //   this.searching = newValue;
             // },
+        },
+        mounted() {
+            document.addEventListener('click', this.handleClickOutside, true)
+        },
+        beforeUnmount() {
+            document.removeEventListener('click', this.handleClickOutside, true)
+            window.removeEventListener('resize', this.checkIfMobile)
         },
         methods: {
             toggleCartVisibility() {
@@ -120,6 +129,15 @@
                     this.searching = false
                 }
                 this.drawer = !this.drawer
+            },
+            handleClickOutside(event) {
+                if (
+                    this.$refs.dropdownMenu &&
+                    !this.$refs.dropdownMenu.contains(event.target)
+                ) {
+                    this.showDropdownMenu = false
+                    this.showColorsDropdown = false
+                }
             }
         }
     }
@@ -287,7 +305,11 @@
     </v-app-bar>
 
     <!-- Visas när 'showDropdownMenu' är true -->
-    <div v-if="showDropdownMenu" class="dropdown-content show-dropdown">
+    <div
+        v-if="showDropdownMenu"
+        class="dropdown-content show-dropdown"
+        ref="dropdownMenu"
+    >
         <v-list-item @click="toggleColorsDropdown">
             Färger
             <v-icon
