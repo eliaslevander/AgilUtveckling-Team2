@@ -497,19 +497,19 @@
             <div id="checkout-item-foot">
                 <div id="shipping-cost">
                     <h3>Frakt</h3>
-                    <p>{{ shippingCost }} kr</p>
+                    <p>{{ Math.round(shippingCost) }} kr</p>
                 </div>
                 <div id="subtotal-cost">
                     <h3>Subtotal:</h3>
-                    <p>{{ totalSum - shippingCost }} kr</p>
+                    <p>{{ Math.round(totalSumWithoutDiscount - shippingCost) }} kr</p>
                 </div>
                 <div id="discount-amount" v-if="discountAmount > 0">
                     <h3>Rabatt</h3>
-                    <p>-{{ discountAmount }} kr</p>
+                    <p>-{{ Math.round(discountAmount) }} kr</p>
                 </div>
                 <div id="total-cost">
                     <h3>Total:</h3>
-                    <p>{{ totalSum }} kr</p>
+                    <p>{{ Math.round(totalSum) }} kr</p>
                 </div>
             </div>
         </div>
@@ -519,7 +519,6 @@
 <style scoped>
     /* Bas style */
     input {
-        /* border: 0.5px solid black; */
         background-color: rgb(236, 236, 236);
         border-radius: 3px;
         padding: 0.4rem;
