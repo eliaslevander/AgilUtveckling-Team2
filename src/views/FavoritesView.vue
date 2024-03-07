@@ -138,7 +138,7 @@
         padding: 1rem;
     }
     .product-name {
-        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
     .favorites-container {
         text-align: center;
