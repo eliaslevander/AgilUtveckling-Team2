@@ -44,6 +44,7 @@
 <style scoped>
   .v-btn {
     font-size: 1.1rem;
+    padding-top: 0.1rem;
   }
 
   #logo-container {
@@ -58,20 +59,20 @@
     #logo-container {
       padding-top: 1rem;
       padding-bottom: 1rem;
-      margin-left: 1rem;
+      padding-left: 0.7rem;
     }
 
     .v-btn {
       display: flex;
-      margin-left: 1rem;
+      padding-left: 0.2rem;
     }
 
     p {
       display: flex;
       justify-content: left;
       text-align: left;
-      margin-left: 1rem;
       padding-bottom: 1rem;
+      padding-left: 0.7rem;
     }
   }
 </style>
