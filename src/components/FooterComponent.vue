@@ -49,6 +49,7 @@
 
   #logo-container {
     padding-top: 0.2rem;
+    margin-left: 1rem;
   }
 
   @media screen and (max-width: 850px) {
@@ -64,12 +65,12 @@
     #logo-container {
       padding-top: 1rem;
       padding-bottom: 1rem;
-      padding-left: 0.7rem;
+      margin-left: 0.7rem;
     }
 
     .v-btn {
       display: flex;
-      padding-left: 0.2rem;
+      padding-left: 0.1rem;
     }
 
     p {
@@ -77,7 +78,7 @@
       justify-content: left;
       text-align: left;
       padding-bottom: 1rem;
-      padding-left: 0.7rem;
+      margin-left: 0.6rem;
     }
   }
 </style>
