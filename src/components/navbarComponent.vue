@@ -420,5 +420,4 @@ export default {
       display: none;
     }
   }
-}
 </style>
