@@ -231,7 +231,7 @@ export default {
       >
         <img
           style="width: 100%"
-          src="../assets/images/testlogo.png"
+          src="../assets/images/Logo_NEW.png"
           alt=""
         /></div
     ></router-link>
@@ -374,12 +374,51 @@ export default {
   }
 }
 
-@media (max-width: 380px) {
-  #brand {
-    font-size: 1.5rem;
+  @media (max-width: 601px) {
+    #brand {
+      font-size: 1.75rem;
+      margin-left: 10px;
+    }
+    .navigation-link {
+      text-decoration: none;
+      color: #000000;
+    }
+    .navigation-link:hover {
+      text-decoration: underline;
+    }
+    .navigation-item {
+      text-decoration: none;
+      color: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .subMenu {
+      position: absolute;
+      margin-left: 15rem;
+      margin-top: -43px;
+      background-color: #ffffff;
+      z-index: 1;
+      width: 10rem;
+    }
+
+    .desktopSearch {
+      background-color: #f5f5f5;
+    }
+
+    #logo-container img {
+      max-width: 115px;
+    }
   }
-  .dropdown-content {
-    display: none;
+
+  @media (max-width: 380px) {
+    #brand {
+      font-size: 1.5rem;
+    }
+
+    .dropdown-content {
+      display: none;
+    }
   }
 }
 </style>

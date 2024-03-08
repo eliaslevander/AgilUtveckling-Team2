@@ -3,7 +3,7 @@
     <v-row justify="center" class="text-center" no-gutters>
       <router-link :to="{ name: 'home' }" id="brand"
         ><div
-          style="width: 120px; display: flex; align-items: center"
+          style="width: 160px; display: flex; align-items: center"
           id="logo-container"
         >
           <img
@@ -56,6 +56,11 @@
       display: block;
       height: 38vh;
     }
+
+    #logo-container img {
+      max-width: 115px;
+    }
+
     #logo-container {
       padding-top: 1rem;
       padding-bottom: 1rem;
