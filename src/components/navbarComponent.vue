@@ -223,7 +223,7 @@
       >
         <img
           style="width: 100%"
-          src="../assets/images/testlogo.png"
+          src="../assets/images/Logo_NEW.png"
           alt=""
         /></div
     ></router-link>
@@ -364,12 +364,17 @@
     .desktopSearch {
       background-color: #f5f5f5;
     }
+
+    #logo-container img {
+      max-width: 115px;
+    }
   }
 
   @media (max-width: 380px) {
     #brand {
       font-size: 1.5rem;
     }
+
     .dropdown-content {
       display: none;
     }
