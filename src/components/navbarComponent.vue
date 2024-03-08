@@ -52,18 +52,25 @@ export default {
     };
   },
   watch: {
-    // Sätter autofokus på sökfält i desktop. Sökkomponentens värde =  värdet på this.searching.
-    // VÄrdet på this.searching skickas till sökkomponenten med en prop
+    // Sätter autofokus på sökfält i desktop. Om showSearchComponent = true =>  värdet
+    // på this.searching = true.
+    // Logiken för autofokus i desktop styrs alltså enbart med denna watch.
+    // Värdet på this.searching skickas till sökkomponenten med en prop
 
     showSearchComponent(newValue) {
       this.searching = newValue;
     },
 
-    // mobile sök blir svårt att hantera då användaren ska kunna öppna menyn som vanligt utan autofokus.
+    // Denna watch krävs för att sökkomponenten ska förstå att
+    // this.searching = false om menyn stängs med klick utanför. Logiken
+    // för att this.searching = true i mobile view styrs till skillnad
+    // från desktop istället med click på sökikonen
 
-    // drawer(newValue) {
-    //   this.searching = newValue;
-    // },
+    drawer(newValue) {
+      if (newValue === false) {
+        this.searching = false;
+      }
+    },
   },
   methods: {
     toggleCartVisibility() {
@@ -78,12 +85,12 @@ export default {
     },
     handleSearchComponent() {
       if (!this.isMobile) {
+        // Visa desktop sök
         this.showSearchComponent = !this.showSearchComponent;
-        console.log("Är mobil?", this.isMobile);
-        console.log("Öppna/stäng sök", this.showSearchComponent);
       } else {
+        // Öppna drawer i mobile view och säg åt sökkomponenten att autofokusera inmatningsfältet
         this.drawer = !this.drawer;
-        this.searching = !this.searching;
+        this.searching = true;
       }
     },
     checkIfMobile() {
@@ -97,33 +104,6 @@ export default {
     goToFavorites() {
       this.$router.push({ name: "favorites" });
     },
-
-    // userIsSearching() {
-    //   if (this.drawer || this.showSearchComponent) {
-    //     console.log(
-    //       "drawer " + this.drawer,
-    //       "overlay " + this.showSearchComponent
-    //     );
-    //     this.searching = !this.searching;
-    //     // console.log("User is searching");
-    //   }
-    // },
-    // userIsSearching() {
-    //   if (this.isMobile) {
-    //     this.searching = this.drawer;
-    //   } else {
-    //     this.searching = this.showSearchComponent;
-    //   }
-    // },
-    openMenu() {
-      if (this.searching) {
-        this.searching = false;
-      }
-      this.drawer = !this.drawer;
-    },
-    // test() {
-    //   alert("test");
-    // },
   },
 };
 </script>
@@ -174,7 +154,11 @@ export default {
     samt drawer för att kunna rensa sökfältet om användaren sätter drawer = true
     -->
 
-    <SearchComponent :isSearching="this.searching" :drawer="this.drawer" />
+    <SearchComponent
+      :isSearching="this.searching"
+      :drawer="this.drawer"
+      :menuClick="this.menuClick"
+    />
 
     <!-- Rendera länkarna -->
     <v-list class="navigation-list">
@@ -219,7 +203,7 @@ export default {
   </v-navigation-drawer>
 
   <v-app-bar flat>
-    <v-app-bar-nav-icon @click="openMenu()" class="d-flex d-sm-none"
+    <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
       ><svg-icon size="42" type="mdi" :path="menuPath"></svg-icon
     ></v-app-bar-nav-icon>
     <!-- Brand -->
@@ -374,50 +358,49 @@ export default {
   }
 }
 
-  @media (max-width: 601px) {
-    #brand {
-      font-size: 1.75rem;
-      margin-left: 10px;
-    }
-    .navigation-link {
-      text-decoration: none;
-      color: #000000;
-    }
-    .navigation-link:hover {
-      text-decoration: underline;
-    }
-    .navigation-item {
-      text-decoration: none;
-      color: #000000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .subMenu {
-      position: absolute;
-      margin-left: 15rem;
-      margin-top: -43px;
-      background-color: #ffffff;
-      z-index: 1;
-      width: 10rem;
-    }
-
-    .desktopSearch {
-      background-color: #f5f5f5;
-    }
-
-    #logo-container img {
-      max-width: 115px;
-    }
+@media (max-width: 601px) {
+  #brand {
+    font-size: 1.75rem;
+    margin-left: 10px;
+  }
+  .navigation-link {
+    text-decoration: none;
+    color: #000000;
+  }
+  .navigation-link:hover {
+    text-decoration: underline;
+  }
+  .navigation-item {
+    text-decoration: none;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .subMenu {
+    position: absolute;
+    margin-left: 15rem;
+    margin-top: -43px;
+    background-color: #ffffff;
+    z-index: 1;
+    width: 10rem;
   }
 
-  @media (max-width: 380px) {
-    #brand {
-      font-size: 1.5rem;
-    }
+  .desktopSearch {
+    background-color: #f5f5f5;
+  }
 
-    .dropdown-content {
-      display: none;
-    }
+  #logo-container img {
+    max-width: 115px;
+  }
+}
+
+@media (max-width: 380px) {
+  #brand {
+    font-size: 1.5rem;
+  }
+
+  .dropdown-content {
+    display: none;
   }
 </style>

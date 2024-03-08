@@ -50,16 +50,10 @@
 </template>
 
 <script setup>
-// Composition api
-
 import { productsStore } from "../stores/products";
 import BlobComponent from "./BlobComponent.vue";
 import router from "@/router";
-import { ref, watch, computed } from "vue";
-//  import { computed, ref, watch } from 'vue'
-// importera ref
-// importera computed (beräkande egenskap)
-// importera watch
+import { ref, watch } from "vue";
 
 const searchInput = ref("");
 const store = productsStore();
@@ -80,12 +74,15 @@ watch(searchInput, () => {
 });
 
 function searchResults() {
+  // Koden för sök är tillfälligt utkommenterad, osäker om den ska användas senare
+
   // filteredProducts.value = store.products.filter((product) =>
   //   product.name.toUpperCase().includes(searchInput.value.toUpperCase())
   // );
   alert(
     `Vidarebefordra användaren till SearchView med "${searchInput.value}" `
   );
+  // Töm sökfält vid sökning
   searchInput.value = "";
 }
 
@@ -98,58 +95,40 @@ const goToProduct = (id) => {
 const props = defineProps({
   isSearching: Boolean,
   drawer: Boolean,
-  showSearchComponent: Boolean,
 });
 
 // Ge en ref till v-text-field, ref="searchField". Deklarerar denna ref som null nedan
 const searchField = ref(null);
-const isUserSearching = ref(props.isSearching);
 
-//Använder watch för att kolla efter värdeändring på prop:en state
+//Använder watch för att kolla efter värdeändring på prop:en isSearching
 
 watch(
   () => props.isSearching,
   (newValue) => {
-    // isUserSearching.value = newValue;
     if (newValue === true) {
+      // Om användaren har klickat på sökikon så sätts autofokus på inmatningsfältet
       searchField.value.focus();
     } else {
+      //.blur() tar bort fokus, utan detta så är tangentbordet
+      //fortfarande synligt vid t.ex click utanför menyn
+      searchField.value.blur();
+      // Detta tömmer sökfältet i desktop view
       searchInput.value = "";
     }
   }
 );
 
-//Rensa sökfältet i mobile när menyn stängs efter click på menyknappen
+// En separat watch krävs för att tömma sökfältet i mobile view då sökfältet i mobile view ligger i drawer
 
 watch(
   () => props.drawer,
   (newValue) => {
-    // isUserSearching.value = newValue;
     if (newValue === false) {
+      // Detta tömmer sökfältet i mobile view
       searchInput.value = "";
     }
   }
 );
-
-// watch(
-//   () => props.showSearchComponent,
-//   () => {
-//     // isUserSearching.value = newValue;
-//     if (props.showSearchComponent === false) {
-//       searchInput.value = "";
-//     }
-//   }
-// );
-
-// watch(
-//   () => props.showSearchComponent,
-//   (newValue) => {
-//     isUserSearching.value = newValue;
-//     if (newValue === true) {
-//       searchInput.value = "";
-//     }
-//   }
-// );
 </script>
 
 <style scoped>
