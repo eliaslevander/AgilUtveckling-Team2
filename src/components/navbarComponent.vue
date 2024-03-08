@@ -403,4 +403,5 @@ export default {
   .dropdown-content {
     display: none;
   }
+}
 </style>
