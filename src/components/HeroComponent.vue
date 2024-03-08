@@ -69,8 +69,8 @@ onMounted(() => {
 <style scoped>
 #HeroImage {
   background-image: url(../assets/images/hero-image-vertical.jpg);
-  background-size: 66%;
-  background-position: left;
+  background-size: cover;
+  background-position: center;
   height: 80vh;
   margin-bottom: 3vh;
   width: 100%;
@@ -79,11 +79,12 @@ onMounted(() => {
 #overlay {
   width: 100%;
   height: 100%;
-  background-image: url(/src/assets/images/hero-overlay-mobile.png);
+  background-image: url(/src/assets/images/hero-overlay.png);
   background-repeat: no-repeat;
   background-size: 100% 101%;
   min-height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 #hero-overlay-inner {
@@ -138,6 +139,7 @@ onMounted(() => {
   #HeroImage {
     background-image: url(/src/assets/images/Prisma_HeroImage.jpg);
     background-size: cover;
+    background-position: left;
     height: 60vh;
   }
 
