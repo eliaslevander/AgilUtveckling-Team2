@@ -78,6 +78,7 @@
                     <h5>{{ item.product.name }}</h5>
                 </div>
                 <p>{{ item.product.price }} kr / st</p>
+                <p>{{ item.product.quantity }} </p>
             </div>
             <div id="total-cost">
                 <div id="shipping">
@@ -107,8 +108,8 @@
                     <v-list-item-title id="infotitle">
                         Erbjudande till dig:
                     </v-list-item-title>
-                    För att visa vår uppskattning, ge dig en 10% rabatt på din
-                    nästa beställning med koden "TACK10". Använd den vid
+                    För att visa vår uppskattning, ge dig en 20% rabatt på din
+                    nästa beställning med koden "PRISMA2023". Använd den vid
                     utcheckningen för att ta del av erbjudandet. Gäller fram
                     till [2024-06-04].
                 </v-list-item>
@@ -209,7 +210,7 @@
     }
     .checkout-item-container {
         margin-top: 3vh;
-        width: 50%;
+        width: 100%;
         margin-right: 5rem;
         padding: 1rem 4rem;
         height: auto;
