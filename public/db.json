@@ -170,7 +170,7 @@
     "url": "/product/13"
   },
   {
-    "id": 13,
+    "id": 14,
     "name": "Paprika",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Red/Red_Interior_Paprika.jpg",
@@ -183,7 +183,7 @@
     "url": "/product/14"
   },
   {
-    "id": 14,
+    "id": 15,
     "name": "Solen",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Yellow/Yellow_Interior_Solen.jpg",
@@ -196,10 +196,9 @@
     "url": "/product/15"
   },
   {
-    "id": 15,
+    "id": 16,
     "name": "Honung",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
-    "image": "../src/assets/images/Yellow/Yellow_Interior_Honung.jpg",
     "image": "../src/assets/images/Yellow/Yellow_Interior_Honung.jpg",
     "alt": "Gul 2-färg",
     "price": 199,
@@ -210,7 +209,7 @@
     "url": "/product/16"
   },
   {
-    "id": 16,
+    "id": 17,
     "name": "Citron",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Yellow/Yellow_Interior_Citron.jpg",

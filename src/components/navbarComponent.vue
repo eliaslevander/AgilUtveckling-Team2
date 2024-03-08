@@ -1,128 +1,131 @@
 <script>
-  import { RouterLink } from 'vue-router'
-  import { useCartStore } from '@/stores/cart'
-  /* Ikoner */
-  import SvgIcon from '@jamescoyle/vue-icon'
-  import { mdiMagnify } from '@mdi/js'
-  import { mdiHeartOutline } from '@mdi/js'
-  import { mdiShoppingOutline } from '@mdi/js'
-  import { mdiMenu } from '@mdi/js'
-  import { mdiClose } from '@mdi/js'
-  import { mdiMenuDown } from '@mdi/js'
-  import { mdiMenuRight } from '@mdi/js'
-  import SearchComponent from './SearchComponent.vue'
+import { RouterLink } from "vue-router";
+import { useCartStore } from "@/stores/cart";
+/* Ikoner */
+import SvgIcon from "@jamescoyle/vue-icon";
+import { mdiMagnify } from "@mdi/js";
+import { mdiHeartOutline } from "@mdi/js";
+import { mdiShoppingOutline } from "@mdi/js";
+import { mdiMenu } from "@mdi/js";
+import { mdiClose } from "@mdi/js";
+import { mdiMenuDown } from "@mdi/js";
+import { mdiMenuRight } from "@mdi/js";
+import SearchComponent from "./SearchComponent.vue";
 
-  //----------Funktionalitet för sök mobile/desktop--------------
+//----------Funktionalitet för sök mobile/desktop--------------
 
-  // OBS, reload av sidan krävs för att den ska kunna kolla mobile/dekstop
+// OBS, reload av sidan krävs för att den ska kunna kolla mobile/dekstop
 
-  // Hur vet den om den ska öppna mobil sök eller desktop sök?
-  // checkIfMobile kollar om bredden är under 769 px bred, om den är under så sätts
-  // this.isMobile till true, annars sätts den till false. Den körs när nav skapas under created.
+// Hur vet den om den ska öppna mobil sök eller desktop sök?
+// checkIfMobile kollar om bredden är under 769 px bred, om den är under så sätts
+// this.isMobile till true, annars sätts den till false. Den körs när nav skapas under created.
 
-  // Funktionen handleSearchComponent triggas vid click på sökikonen, den kollar värdet på isMobile.
-  // Om false (desktopläge) så aktiveras "toggle" funktionalitet på this.showSearchComponent. Annars
-  // så aktiveras den mobila menyns "toggle" funktionalitet.
+// Funktionen handleSearchComponent triggas vid click på sökikonen, den kollar värdet på isMobile.
+// Om false (desktopläge) så aktiveras "toggle" funktionalitet på this.showSearchComponent. Annars
+// så aktiveras den mobila menyns "toggle" funktionalitet.
 
-  export default {
-    components: {
-      SvgIcon,
-      SearchComponent
+export default {
+  components: {
+    SvgIcon,
+    SearchComponent,
+  },
+  created() {
+    window.addEventListener("resize", this.checkIfMobile);
+    this.checkIfMobile();
+  },
+  data() {
+    return {
+      magnifyPath: mdiMagnify,
+      heartPath: mdiHeartOutline,
+      shoppingPath: mdiShoppingOutline,
+      menuPath: mdiMenu,
+      closePath: mdiClose,
+      menuDownPath: mdiMenuDown,
+      menuRightPath: mdiMenuRight,
+      drawer: null,
+      isMobile: null,
+      search: "",
+      showDropdownMenu: false,
+      showColorsDropdown: false,
+      showSearchComponent: false,
+      searching: null,
+    };
+  },
+  watch: {
+    // Sätter autofokus på sökfält i desktop. Sökkomponentens värde =  värdet på this.searching.
+    // VÄrdet på this.searching skickas till sökkomponenten med en prop
+
+    showSearchComponent(newValue) {
+      this.searching = newValue;
     },
-    created() {
-      window.addEventListener('resize', this.checkIfMobile)
-      this.checkIfMobile()
+
+    // mobile sök blir svårt att hantera då användaren ska kunna öppna menyn som vanligt utan autofokus.
+
+    // drawer(newValue) {
+    //   this.searching = newValue;
+    // },
+  },
+  methods: {
+    toggleCartVisibility() {
+      const cartStore = useCartStore();
+      cartStore.toggleCartVisibility();
     },
-    data() {
-      return {
-        magnifyPath: mdiMagnify,
-        heartPath: mdiHeartOutline,
-        shoppingPath: mdiShoppingOutline,
-        menuPath: mdiMenu,
-        closePath: mdiClose,
-        menuDownPath: mdiMenuDown,
-        menuRightPath: mdiMenuRight,
-        drawer: null,
-        isMobile: null,
-        search: '',
-        showDropdownMenu: false,
-        showColorsDropdown: false,
-        showSearchComponent: false,
-        searching: null
+    toggleDropdownMenu() {
+      this.showDropdownMenu = !this.showDropdownMenu;
+    },
+    toggleColorsDropdown() {
+      this.showColorsDropdown = !this.showColorsDropdown;
+    },
+    handleSearchComponent() {
+      if (!this.isMobile) {
+        this.showSearchComponent = !this.showSearchComponent;
+        console.log("Är mobil?", this.isMobile);
+        console.log("Öppna/stäng sök", this.showSearchComponent);
+      } else {
+        this.drawer = !this.drawer;
+        this.searching = !this.searching;
       }
     },
-    watch: {
-      // Sätter autofokus på sökfält i desktop. Sökkomponentens värde =  värdet på this.searching.
-      // VÄrdet på this.searching skickas till sökkomponenten med en prop
-
-      showSearchComponent(newValue) {
-        this.searching = newValue
+    checkIfMobile() {
+      let width = window.innerWidth;
+      if (width < 600) {
+        this.isMobile = true; /* Mobile */
+      } else {
+        this.isMobile = false; /* Desktop */
       }
-
-      // mobile sök blir svårt att hantera då användaren ska kunna öppna menyn som vanligt utan autofokus.
-
-      // drawer(newValue) {
-      //   this.searching = newValue;
-      // },
     },
-    methods: {
-      toggleCartVisibility() {
-        const cartStore = useCartStore()
-        cartStore.toggleCartVisibility()
-      },
-      toggleDropdownMenu() {
-        this.showDropdownMenu = !this.showDropdownMenu
-      },
-      toggleColorsDropdown() {
-        this.showColorsDropdown = !this.showColorsDropdown
-      },
-      handleSearchComponent() {
-        if (!this.isMobile) {
-          this.showSearchComponent = !this.showSearchComponent
-          console.log('Är mobil?', this.isMobile)
-          console.log('Öppna/stäng sök', this.showSearchComponent)
-        } else {
-          this.drawer = !this.drawer
-          this.searching = !this.searching
-        }
-      },
-      checkIfMobile() {
-        let width = window.innerWidth
-        if (width < 600) {
-          this.isMobile = true /* Mobile */
-        } else {
-          this.isMobile = false /* Desktop */
-        }
-      },
-      goToFavorites() {
-        this.$router.push({ name: 'favorites' })
-      },
+    goToFavorites() {
+      this.$router.push({ name: "favorites" });
+    },
 
-      // userIsSearching() {
-      //   if (this.drawer || this.showSearchComponent) {
-      //     console.log(
-      //       "drawer " + this.drawer,
-      //       "overlay " + this.showSearchComponent
-      //     );
-      //     this.searching = !this.searching;
-      //     // console.log("User is searching");
-      //   }
-      // },
-      // userIsSearching() {
-      //   if (this.isMobile) {
-      //     this.searching = this.drawer;
-      //   } else {
-      //     this.searching = this.showSearchComponent;
-      //   }
-      // },
-      openMenu() {
-        if (this.searching) {
-          this.searching = false
-        }
-        this.drawer = !this.drawer
+    // userIsSearching() {
+    //   if (this.drawer || this.showSearchComponent) {
+    //     console.log(
+    //       "drawer " + this.drawer,
+    //       "overlay " + this.showSearchComponent
+    //     );
+    //     this.searching = !this.searching;
+    //     // console.log("User is searching");
+    //   }
+    // },
+    // userIsSearching() {
+    //   if (this.isMobile) {
+    //     this.searching = this.drawer;
+    //   } else {
+    //     this.searching = this.showSearchComponent;
+    //   }
+    // },
+    openMenu() {
+      if (this.searching) {
+        this.searching = false;
       }
-    }
-  }
+      this.drawer = !this.drawer;
+    },
+    // test() {
+    //   alert("test");
+    // },
+  },
+};
 </script>
 
 <template>
@@ -140,7 +143,12 @@
     temporary
     touchless
   >
-    <SearchComponent :state="this.searching" />
+    <!-- Propen state säger till sökkomponenten att den är akti.
+    Eftersom att SearchComponent för desktop inte ligger i drawer så kan dess egenskaper hanteras
+    på ett enkelt sätt med en watch
+    -->
+
+    <SearchComponent :isSearching="this.searching" />
   </v-navigation-drawer>
 
   <!-- drawer för mobile -->
@@ -153,7 +161,7 @@
     <v-toolbar flat>
       <v-toolbar-title>Meny</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click=";(drawer = !drawer), (this.searching = false)">
+      <v-btn icon @click="(drawer = !drawer), (this.searching = false)">
         <svg-icon type="mdi" :path="closePath"></svg-icon>
       </v-btn>
     </v-toolbar>
@@ -162,11 +170,11 @@
       <v-text-field v-model="search" label="Sök..." hide-details></v-text-field>
     </v-form>. -->
 
-    <SearchComponent
-      :state="this.searching"
-      :drawer="this.drawer"
-      :showSearchComponent="this.showSearchComponent"
-    />
+    <!-- SearchComponent för mobile behöver två props, isSearching som gör så att sökfältet får autofokus
+    samt drawer för att kunna rensa sökfältet om användaren sätter drawer = true
+    -->
+
+    <SearchComponent :isSearching="this.searching" :drawer="this.drawer" />
 
     <!-- Rendera länkarna -->
     <v-list class="navigation-list">
@@ -287,20 +295,56 @@
 </template>
 
 <style scoped>
-  .dropdown-content {
-    position: absolute;
-    margin-top: 64px;
-    width: 100vw;
-    height: 13rem;
-    background-color: #ffffff;
-    z-index: 1;
-  }
+.dropdown-content {
+  position: absolute;
+  margin-top: 64px;
+  width: 100vw;
+  height: 13rem;
+  background-color: #ffffff;
+  z-index: 1;
+}
+#brand {
+  color: #000000;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: 2rem;
+}
+.navigation-link {
+  text-decoration: none;
+  color: #000000;
+}
+.navigation-link:hover {
+  text-decoration: underline;
+}
+.navigation-item {
+  text-decoration: none;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.subMenu {
+  position: absolute;
+  margin-left: 15rem;
+  margin-top: -43px;
+  background-color: #ffffff;
+  z-index: 1;
+  width: 100rem;
+}
+
+.favorites-link {
+  color: #000000;
+}
+
+.desktopSearch {
+  background-color: #f5f5f5;
+}
+
+@media (max-width: 601px) {
   #brand {
-    color: #000000;
-    text-decoration: none;
-    font-size: 2rem;
-    font-weight: 500;
-    margin-left: 2rem;
+    font-size: 1.75rem;
+    margin-left: 10px;
   }
   .navigation-link {
     text-decoration: none;
@@ -322,56 +366,20 @@
     margin-top: -43px;
     background-color: #ffffff;
     z-index: 1;
-    width: 100rem;
-  }
-
-  .favorites-link {
-    color: #000000;
+    width: 10rem;
   }
 
   .desktopSearch {
     background-color: #f5f5f5;
   }
+}
 
-  @media (max-width: 601px) {
-    #brand {
-      font-size: 1.75rem;
-      margin-left: 10px;
-    }
-    .navigation-link {
-      text-decoration: none;
-      color: #000000;
-    }
-    .navigation-link:hover {
-      text-decoration: underline;
-    }
-    .navigation-item {
-      text-decoration: none;
-      color: #000000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .subMenu {
-      position: absolute;
-      margin-left: 15rem;
-      margin-top: -43px;
-      background-color: #ffffff;
-      z-index: 1;
-      width: 10rem;
-    }
-
-    .desktopSearch {
-      background-color: #f5f5f5;
-    }
+@media (max-width: 380px) {
+  #brand {
+    font-size: 1.5rem;
   }
-
-  @media (max-width: 380px) {
-    #brand {
-      font-size: 1.5rem;
-    }
-    .dropdown-content {
-      display: none;
-    }
+  .dropdown-content {
+    display: none;
   }
+}
 </style>
