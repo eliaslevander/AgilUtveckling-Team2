@@ -3,7 +3,6 @@ import { computed, onMounted } from "vue";
 import { productsStore } from "@/stores/products";
 import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import BlobComponent from "./BlobComponent.vue";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,7 +14,6 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
-    BlobComponent,
   },
   setup() {
     const store = productsStore();
@@ -49,12 +47,15 @@ export default {
       breakpoints: {
         320: {
           slidesPerView: 2,
-          spaceBetween: 10,
+          spaceBetween: -20,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
         },
-
-        376: {
+        440: {
           slidesPerView: 4,
-          spaceBetween: 250,
+          spaceBetween: 200,
           navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
@@ -74,13 +75,14 @@ export default {
 <template>
   <div class="carousel">
     <swiper
+      id="swiper"
       :modules="modules"
       :breakpoints="breakpoints"
       :autoplay="autoplay"
       :speed="speed"
       loop
     >
-      <SwiperSlide v-for="image in images" :key="image.id">
+      <SwiperSlide v-for="image in images" :key="image.id" :title="image.name">
         <router-link :to="image.url">
           <div class="swiper-slide-container">
             <img
@@ -89,19 +91,8 @@ export default {
               :alt="image.alt"
             />
             <div class="name-overlay">
-              <div
-                class="name-box"
-                :style="
-                  image.category === 'color'
-                    ? { backgroundColor: '#FFF' }
-                    : { backgroundColor: image.colorHex }
-                "
-              >
-                <!-- :color="product.category === 'color' ? product.colorHex : 'orange'" -->
+              <div class="name-box">
                 <p>{{ image.name }}</p>
-                <div v-if="image.category === 'color'" class="blob-container">
-                  <BlobComponent :color="image.colorHex" />
-                </div>
               </div>
             </div>
           </div>
@@ -115,8 +106,8 @@ export default {
 </template>
 
 <style scoped>
-.carousel {
-  margin: 0 4rem 0rem 4rem;
+#swiper {
+  padding: 1rem 0;
 }
 
 img {
@@ -124,7 +115,7 @@ img {
   object-fit: cover;
   height: 100%;
   width: 100%;
-  /* box-shadow: 1px 1px 8px rgb(0, 0, 0); */
+  box-shadow: 1px 1px 8px rgb(0, 0, 0);
   position: absolute;
 }
 
@@ -135,9 +126,6 @@ img {
 }
 
 .name-overlay {
-  /* display: flex;
-        justify-content: center;
-        align-items: center; */
   font-size: 2vh;
   color: #fff;
   font-weight: bold;
@@ -148,50 +136,52 @@ img {
 
 .name-box {
   position: absolute;
-  right: 0;
+  right: 0px;
   bottom: 40px;
   border-radius: 16px 0 0 16px;
-  display: flex;
-  flex-direction: row;
+  background-color: #fff;
 }
 
 .name-box p {
   color: #000;
-  font-size: 2rem;
+  font-size: 3vh;
   padding: 0.5rem 1rem;
 }
-
-.blob-container {
-  width: 3vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1rem;
-}
-
-/* .name-overlay p {
-        opacity: 0;
-    } */
 
 .name-overlay:hover {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
-/* .name-overlay p:hover {
-        opacity: 100%;
-    } */
-
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 440px) {
   .carousel {
-    margin: 0 2rem 0 2rem;
-    height: auto;
+    height: 40vh;
   }
 
   img {
     object-fit: cover;
-    height: 30vh;
-    width: 40vw;
+    height: 100%;
+    width: 100%;
     box-shadow: 1px 1px 8px rgb(0, 0, 0);
+  }
+
+  .swiper-slide {
+    height: 40vh;
+    width: 40vw;
+  }
+
+  .swiper-slide-container {
+    height: 100%;
+    width: 80%;
+  }
+
+  .name-box {
+    border-radius: 1vh 0 0 1vh;
+  }
+
+  .name-box p {
+    font-size: 2vh;
+    max-width: 22vw;
+    text-align: center;
   }
 }
 </style>
