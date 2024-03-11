@@ -3,7 +3,7 @@
     <v-row justify="center" class="text-center" no-gutters>
       <router-link :to="{ name: 'home' }" id="brand"
         ><div
-          style="width: 120px; display: flex; align-items: center"
+          style="width: 160px; display: flex; align-items: center"
           id="logo-container"
         >
           <img
@@ -49,6 +49,7 @@
 
   #logo-container {
     padding-top: 0.2rem;
+    margin-left: 1rem;
   }
 
   @media screen and (max-width: 850px) {
@@ -56,15 +57,20 @@
       display: block;
       height: 38vh;
     }
+
+    #logo-container img {
+      max-width: 115px;
+    }
+
     #logo-container {
       padding-top: 1rem;
       padding-bottom: 1rem;
-      padding-left: 0.7rem;
+      margin-left: 0.7rem;
     }
 
     .v-btn {
       display: flex;
-      padding-left: 0.2rem;
+      padding-left: 0.1rem;
     }
 
     p {
@@ -72,7 +78,7 @@
       justify-content: left;
       text-align: left;
       padding-bottom: 1rem;
-      padding-left: 0.7rem;
+      margin-left: 0.6rem;
     }
   }
 </style>

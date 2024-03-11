@@ -26,6 +26,7 @@
             />
             <v-btn icon flat @click="toggleFavorite" class="favorite-button">
               <v-icon>
+                <!-- Ändrar ikon baserat på ifall det är sparat eller inte i favoriter -->
                 {{
                   favoritesStore.isFavorite(product.id)
                     ? "mdi-heart"
@@ -212,6 +213,7 @@ const info = () => {
 };
 
 function toggleFavorite() {
+    /* Funktionen anropas när en användare lägger till eller tar bort en produkt från favoriter */
   favoritesStore.toggleFavorites(product.value);
 }
 </script>

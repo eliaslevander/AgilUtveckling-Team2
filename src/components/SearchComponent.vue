@@ -50,19 +50,12 @@
 </template>
 
 <script setup>
-
-// Composition api
-
 import { productsStore } from "../stores/products";
 import BlobComponent from "./BlobComponent.vue";
 import router from "@/router";
-import { ref, watch, computed } from "vue";
-//  import { computed, ref, watch } from 'vue'
-// importera ref
-// importera computed (beräkande egenskap)
-// importera watch
+import { ref, watch } from "vue";
 
-let searchInput = ref("");
+const searchInput = ref("");
 const store = productsStore();
 const filteredProducts = ref([]);
 
@@ -81,17 +74,17 @@ watch(searchInput, () => {
 });
 
 function searchResults() {
-  filteredProducts.value = store.products.filter((product) =>
-    product.name.toUpperCase().includes(searchInput.value.toUpperCase())
+  // Koden för sök är tillfälligt utkommenterad, osäker om den ska användas senare
+
+  // filteredProducts.value = store.products.filter((product) =>
+  //   product.name.toUpperCase().includes(searchInput.value.toUpperCase())
+  // );
+  alert(
+    `Vidarebefordra användaren till SearchView med "${searchInput.value}" `
   );
+  // Töm sökfält vid sökning
+  searchInput.value = "";
 }
-
-// const isSearching = computed(() => {
-//   if ((search.value = true)) {
-
-//   }
-//   return a;
-// });
 
 const goToProduct = (id) => {
   router.push({ name: "product", params: { id: id } });
@@ -100,47 +93,38 @@ const goToProduct = (id) => {
 //För att kunna sätta autofokus på sökfältet vid klick på sökikonen så måste sökkomponenten ta emot en prop:en state.
 
 const props = defineProps({
-  state: Boolean,
+  isSearching: Boolean,
   drawer: Boolean,
-  showSearchComponent: Boolean,
 });
 
 // Ge en ref till v-text-field, ref="searchField". Deklarerar denna ref som null nedan
 const searchField = ref(null);
-const searchingState = ref(props.state);
 
-//Använder watch för att kolla efter värdeändring på prop:en state
+//Använder watch för att kolla efter värdeändring på prop:en isSearching
 
 watch(
-  () => props.state,
+  () => props.isSearching,
   (newValue) => {
-    console.log("Söker...", newValue);
-    searchingState.value = newValue;
     if (newValue === true) {
+      // Om användaren har klickat på sökikon så sätts autofokus på inmatningsfältet
       searchField.value.focus();
-
-    }
-  }
-);
-
-
-//Rensa sökfältet i mobile när menyn stängs
-
-watch(
-  () => props.drawer,
-  (newValue) => {
-    searchingState.value = newValue;
-    if (newValue === false) {
+    } else {
+      //.blur() tar bort fokus, utan detta så är tangentbordet
+      //fortfarande synligt vid t.ex click utanför menyn
+      searchField.value.blur();
+      // Detta tömmer sökfältet i desktop view
       searchInput.value = "";
     }
   }
 );
 
+// En separat watch krävs för att tömma sökfältet i mobile view då sökfältet i mobile view ligger i drawer
+
 watch(
-  () => props.showSearchComponent,
+  () => props.drawer,
   (newValue) => {
-    searchingState.value = newValue;
     if (newValue === false) {
+      // Detta tömmer sökfältet i mobile view
       searchInput.value = "";
     }
   }
@@ -148,7 +132,6 @@ watch(
 </script>
 
 <style scoped>
-
 .blob-container {
   width: 35px;
 }
@@ -208,79 +191,78 @@ p {
   display: none;
 }
 
-  .blob-container {
-    width: 35px;
-  }
+.blob-container {
+  width: 35px;
+}
 
-  .image-container {
-    width: 35px;
-    aspect-ratio: 1;
-  }
+.image-container {
+  width: 35px;
+  aspect-ratio: 1;
+}
 
-  .product-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  .list-item-text {
-    font-weight: 500;
-  }
+.list-item-text {
+  font-weight: 500;
+}
 
-  .list-item-container {
-    text-decoration: none;
-    width: 100%;
-    margin: auto;
-    padding: 1vh;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    border-top: 1px solid #aaa;
-    border-bottom: 1px solid #aaa;
-  }
-  p {
-    margin: 2vh;
-  }
+.list-item-container {
+  text-decoration: none;
+  width: 100%;
+  margin: auto;
+  padding: 1vh;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+}
+p {
+  margin: 2vh;
+}
 
-  #searchbox {
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    margin: auto;
-    position: relative;
-  }
+#searchbox {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin: auto;
+  position: relative;
+}
 
+.searchResultsButton {
+  box-shadow: none;
+  font-size: 20px;
+  letter-spacing: 0.1rem;
+  width: 382px;
+  margin: 10px auto;
+  padding: 8px auto;
+  margin-left: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 1px;
+  border: 1px solid #aaa;
+}
+
+.searchResultsButton:hover {
+  text-shadow: none;
+}
+
+.searchResultsButton {
+  box-shadow: none !important; /* Tar bort skuggan */
+  background-color: #fff; /* Anger bakgrundsfärg på knapp*/
+}
+
+:deep(.v-input__details) {
+  display: none;
+}
+
+@media (max-width: 380px) {
   .searchResultsButton {
-    box-shadow: none;
-    font-size: 20px;
-    letter-spacing: 0.1rem;
-    width: 382px;
-    margin: 10px auto;
-    padding: 8px auto;
-    margin-left: 8px;
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 1px;
-    border: 1px solid #aaa;
+    width: 240px;
   }
-
-  .searchResultsButton:hover {
-    text-shadow: none;
-  }
-
-  .searchResultsButton {
-    box-shadow: none !important; /* Tar bort skuggan */
-    background-color: #fff; /* Anger bakgrundsfärg på knapp*/
-  }
-
-  :deep(.v-input__details) {
-    display: none;
-  }
-
-  @media (max-width: 380px) {
-    .searchResultsButton {
-      width: 240px;
-    }
-  }
-
+}
 </style>

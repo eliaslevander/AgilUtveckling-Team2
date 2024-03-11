@@ -1,55 +1,53 @@
 <script setup>
-    import { productsStore } from '../stores/products'
-    import router from '@/router'
-    import { computed } from 'vue'
-    import { useCartStore } from '../stores/cart'
-    import { ref, onMounted } from 'vue'
+import { productsStore } from "../stores/products";
+import router from "@/router";
+import { computed } from "vue";
+import { useCartStore } from "../stores/cart";
+import { ref, onMounted } from "vue";
 
-    //Order från varukorg
-    const cartStore = useCartStore()
-    const orderData = ref(null)
+//Order från varukorg
+const cartStore = useCartStore();
+const orderData = ref(null);
 
-    onMounted(() => {
-        const orderDataString = sessionStorage.getItem('orderData')
-        if (orderDataString) {
-            orderData.value = JSON.parse(orderDataString)
-        }
-    })
+onMounted(() => {
+  const orderDataString = sessionStorage.getItem("orderData");
+  if (orderDataString) {
+    orderData.value = JSON.parse(orderDataString);
+  }
+});
 
-    //Accessories från JSON
-    const store = productsStore()
-    const goToProduct = (id) => {
-        router.push({ name: 'product', params: { id: id } })
-    }
-    const filteredProducts = computed(() => {
-        return store.products.filter(
-            (product) => product.category === 'accessories'
-        )
-    })
+//Accessories från JSON
+const store = productsStore();
+const goToProduct = (id) => {
+  router.push({ name: "product", params: { id: id } });
+};
+const filteredProducts = computed(() => {
+  return store.products.filter((product) => product.category === "accessories");
+});
 </script>
 
 <script>
-    //Countdown 60 min
-    export default {
-        data() {
-            return {
-                countDown: 60
-            }
-        },
-        methods: {
-            countDownTimer() {
-                if (this.countDown > 0) {
-                    setTimeout(() => {
-                        this.countDown -= 1
-                        this.countDownTimer()
-                    }, 60000)
-                }
-            }
-        },
-        created() {
-            this.countDownTimer()
-        }
-    }
+//Countdown 60 min
+export default {
+  data() {
+    return {
+      countDown: 60,
+    };
+  },
+  methods: {
+    countDownTimer() {
+      if (this.countDown > 0) {
+        setTimeout(() => {
+          this.countDown -= 1;
+          this.countDownTimer();
+        }, 60000);
+      }
+    },
+  },
+  created() {
+    this.countDownTimer();
+  },
+};
 </script>
 
 <template>
@@ -162,28 +160,28 @@
         </div>
     </div>
 
-    <v-card
-        class="contactlist"
-        text="Om du har frågor eller funderingar kring din beställning, tveka inte att höra av dig till oss på:"
-    >
-        <v-list>
-            <v-list-item
-                class="contact"
-                prepend-icon="mdi-phone"
-                title="(+46) 555-6789"
-                center
-            ></v-list-item>
+  <v-card
+    class="contactlist"
+    text="Om du har frågor eller funderingar kring din beställning, tveka inte att höra av dig till oss på:"
+  >
+    <v-list>
+      <v-list-item
+        class="contact"
+        prepend-icon="mdi-phone"
+        title="(+46) 555-6789"
+        center
+      ></v-list-item>
 
-            <v-divider inset></v-divider>
+      <v-divider inset></v-divider>
 
-            <v-list-item
-                class="contact"
-                prepend-icon="mdi-email"
-                title="prisma@example.com"
-            ></v-list-item>
-            <v-divider inset></v-divider>
-        </v-list>
-    </v-card>
+      <v-list-item
+        class="contact"
+        prepend-icon="mdi-email"
+        title="prisma@example.com"
+      ></v-list-item>
+      <v-divider inset></v-divider>
+    </v-list>
+  </v-card>
 </template>
 
 <style scoped>
@@ -219,90 +217,90 @@
         overflow-y: auto;
     }
 
-    #checkout-item-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 1rem;
-    }
-    #checkout-item-header #photo-title {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
+#checkout-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+#checkout-item-header #photo-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-    #checkout-item-header #photo-title img {
-        width: 6rem;
-        height: 6rem;
-        margin-bottom: 1rem;
-        object-fit: cover;
-    }
+#checkout-item-header #photo-title img {
+  width: 6rem;
+  height: 6rem;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
 
-    #total-cost #shipping {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 1rem;
-    }
+#total-cost #shipping {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
 
-    #total-cost #total {
-        display: flex;
-        justify-content: space-between;
-    }
+#total-cost #total {
+  display: flex;
+  justify-content: space-between;
+}
 
-    #total-cost #discount {
-        margin-top: 1rem;
-    }
+#total-cost #discount {
+  margin-top: 1rem;
+}
 
-    #infotitle {
-        font-weight: 800;
-    }
-    #dontForget {
-        text-align: center;
-        margin: 1vh;
-        padding-bottom: 5vh;
-    }
-    .product-grid {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        padding: 8px;
-    }
-    .card {
-        width: 30%;
-        display: flex;
-        flex-direction: column;
-        border-radius: 8px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        cursor: pointer;
-    }
+#infotitle {
+  font-weight: 800;
+}
+#dontForget {
+  text-align: center;
+  margin: 1vh;
+  padding-bottom: 5vh;
+}
+.product-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+}
+.card {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+}
 
-    .image-container {
-        width: 100%;
-        aspect-ratio: 1;
-        padding: 16px;
-        overflow: hidden;
-    }
+.image-container {
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 16px;
+  overflow: hidden;
+}
 
-    .product-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    .name {
-        text-transform: uppercase;
-        display: block;
-        text-align: center;
-        max-width: 85%;
-        font-size: 1.125rem;
-        margin-bottom: 16px;
-    }
+.name {
+  text-transform: uppercase;
+  display: block;
+  text-align: center;
+  max-width: 85%;
+  font-size: 1.125rem;
+  margin-bottom: 16px;
+}
 
-    .name-container {
-        min-height: 70px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.name-container {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>

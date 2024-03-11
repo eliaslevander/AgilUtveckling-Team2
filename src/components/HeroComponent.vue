@@ -46,16 +46,17 @@ onMounted(() => {
       <div id="hero-overlay-inner">
         <div id="hero-overlay-inner-container">
           <h1 id="hero-title">Mer färg i ditt hem</h1>
-        <p id="hero-text">
-          Vår färggenerator hjälper dig att hitta den exakta kulören du vill ha till ditt hem
-        </p>
+          <p id="hero-text">
+            Vår färggenerator hjälper dig att hitta den exakta kulören du vill
+            ha till ditt hem
+          </p>
           <div id="button-container">
             <button
               id="read-more"
               :style="{
                 background: `linear-gradient(${deg}deg, rgba(${r},${g},${b},1) 0%, rgba(${g},${b},${r},1) 100%)`,
               }"
-              >
+            >
               LÄS MER<v-icon>mdi-chevron-right</v-icon>
             </button>
           </div>
@@ -68,21 +69,22 @@ onMounted(() => {
 <style scoped>
 #HeroImage {
   background-image: url(../assets/images/hero-image-vertical.jpg);
-  background-size: 66%;
-  background-position: left;
+  background-size: cover;
+  background-position: center;
   height: 80vh;
   margin-bottom: 3vh;
-  width: 100%; 
+  width: 100%;
 }
 
 #overlay {
   width: 100%;
   height: 100%;
-  background-image: url(/src/assets/images/hero-overlay-mobile.png);
+  background-image: url(/src/assets/images/hero-overlay.png);
   background-repeat: no-repeat;
   background-size: 100% 101%;
   min-height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 #hero-overlay-inner {
@@ -137,6 +139,7 @@ onMounted(() => {
   #HeroImage {
     background-image: url(/src/assets/images/Prisma_HeroImage.jpg);
     background-size: cover;
+    background-position: left;
     height: 60vh;
   }
 
@@ -165,6 +168,5 @@ onMounted(() => {
     padding: 1vh;
     border-radius: 2vw;
   }
-
 }
 </style>
