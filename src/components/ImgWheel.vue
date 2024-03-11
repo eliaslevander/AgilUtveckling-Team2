@@ -28,7 +28,10 @@
                 store.products.map((product) => ({
                     src: product.image,
                     alt: product.alt,
-                    url: product.url
+                    url: product.url,
+                    id: product.id,
+                    name: product.name,
+                    colorHex: product.colorHex
                 }))
             )
 
@@ -56,6 +59,11 @@
                     }
                 }
             }
+        },
+        methods: {
+            displayName(id) {
+                console.log(id)
+            }
         }
     }
 </script>
@@ -71,7 +79,15 @@
         >
             <SwiperSlide v-for="image in images" :key="image.id">
                 <router-link :to="image.url">
-                    <img :src="image.src" :alt="image.alt" />
+                    <div class="swiper-slide-container">
+                        <img @mouseover="displayName(image.id)" :src="image.src" :alt="image.alt" />
+                        <div class="name-overlay">
+                            <div class="name-box" :style="{backgroundColor: image.colorHex}">
+                                <!-- :color="product.category === 'color' ? product.colorHex : 'orange'" -->
+                                <p>{{ image.name }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </router-link>
             </SwiperSlide>
             <div class="swiper-pagination"></div>
@@ -89,13 +105,59 @@
     img {
         display: block;
         object-fit: cover;
+        height: 100%;
+        width: 100%;
+        /* box-shadow: 1px 1px 8px rgb(0, 0, 0); */
+        position: absolute;
+    }
+    
+
+    .swiper-slide-container {
+        position: relative;
         height: 50vh;
         width: 25vw;
-        box-shadow: 1px 1px 8px rgb(0, 0, 0);
+        
     }
-    img:hover {
-        opacity: 50%;
+
+    .name-overlay {
+        /* display: flex;
+        justify-content: center;
+        align-items: center; */
+        font-size: 2vh;
+        color: #FFF;
+        font-weight: bold;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        
     }
+
+    .name-box  {
+        position: absolute;
+        right: 0;
+        bottom: 40px;
+        border-radius: 16px 0 0 16px;
+    }
+
+    .name-box p {
+        color: #000;
+        font-size: 2rem;
+        padding: 0.5rem 1rem;
+    }
+
+    /* .name-overlay p {
+        opacity: 0;
+    } */
+
+    .name-overlay:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    /* .name-overlay p:hover {
+        opacity: 100%;
+    } */
+
+
 
     @media screen and (max-width: 375px) {
         .carousel {
