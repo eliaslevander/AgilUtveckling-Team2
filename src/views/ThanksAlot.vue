@@ -78,7 +78,9 @@
                     <h5>{{ item.product.name }}</h5>
                 </div>
                 <p>{{ item.product.price }} kr / st</p>
-                <p>{{ item.product.quantity }} </p>
+                <p>{{ item.colorType}} </p>
+                <p>{{ cartStore.quantity }} </p>
+                
             </div>
             <div id="total-cost">
                 <div id="shipping">
