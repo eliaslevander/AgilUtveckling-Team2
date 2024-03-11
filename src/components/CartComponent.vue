@@ -1,15 +1,17 @@
 <script setup>
+// Importerar allt som behövs för att carten ska funka
 import { computed } from "vue";
 import { useCartStore } from "../stores/cart";
 import { RouterLink } from "vue-router";
 import BlobComponent from "./BlobComponent.vue";
 
+// Hämtar cartStore från cart.js för att hantera cartens data
 const cartStore = useCartStore();
 
+// Funktioner för att öka, minska och ta bort produkter från carten baserat på priductId och colorType
 function increment(productId, colorType) {
   cartStore.incrementQuantity(productId, colorType);
 }
-
 function decrement(productId, colorType) {
   let quantity = cartStore.getItemQuantity(productId, colorType);
   if (quantity > 1) {
@@ -18,7 +20,6 @@ function decrement(productId, colorType) {
     removeFromCart(productId, colorType);
   }
 }
-
 function removeFromCart(productId, colorType) {
   if (
     window.confirm(
@@ -29,45 +30,53 @@ function removeFromCart(productId, colorType) {
   }
 }
 
+// Skapar en computed property som räknar ut totalsumman av produkterna i carten.
 const totalSum = computed(() => {
   let sum = cartStore.items.reduce((sum, item) => {
     let price = item.product.price;
 
-    // Adjust price based on colorType
+    // Pris justering beroende på färgtyp
     switch (item.colorType) {
       case "helmatt":
-        price *= 1; // No change
+        price *= 1; // Ingen ökniong
         break;
       case "halvmatt":
-        price *= 1.1; // Increase by 10%
+        price *= 1.1; // Ökning 10%
         break;
       case "hogglans":
-        price *= 1.2; // Increase by 20%
+        price *= 1.2; // Ökning 20%
         break;
       default:
-        price *= 1; // No change
+        price *= 1; // Default ingen ökning
         break;
     }
+
 
     return sum + price * item.quantity;
   }, 0);
 
+  // Om totalsumman är över 499 så är frakten gratis annars kostar frakten 49kr
   sum = sum > 499 ? sum : sum + 49;
 
-  return Math.round(sum); // Round to nearest integer
+  // Avrundar totalsumman för att slippa decimaler
+  return Math.round(sum);
 });
 
+// Skapar en computed property som räknar ut fraktkostnaden
 const shippingCost = computed(() => {
   return totalSum.value > 499 ? 0 : 49;
 });
 </script>
 
 <template>
+    <!-- Backdrop för carten -->
     <div
         class="backdrop"
         v-show="cartStore.isCartVisible"
         @click="cartStore.closeCart"
     ></div>
+
+    <!-- Carten -->
     <div class="cart-container">
         <div
             class="cart-modal"
@@ -77,6 +86,8 @@ const shippingCost = computed(() => {
                 <h3>Din Kundvagn</h3>
                 <button @click="cartStore.closeCart">X</button>
             </div>
+
+            <!-- Produktlist i carten -->
             <div class="cart-main" v-if="cartStore.items.length > 0">
                 <ul
                     v-for="(item, index) in cartStore.items"
@@ -142,6 +153,8 @@ const shippingCost = computed(() => {
                         </div>
                     </li>
                 </ul>
+
+                <!-- Totalsumma och frakt -->
                 <hr id="total-line" />
                 <p id="shipping-note">Fri frakt över 499 kr</p>
                 <div id="cart-shipping">
@@ -174,7 +187,7 @@ const shippingCost = computed(() => {
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .backdrop {
   position: fixed;
   top: 0;
@@ -188,194 +201,175 @@ const shippingCost = computed(() => {
 .empty-cart {
   margin-top: -2rem;
   padding: 1rem;
-}
 
-.empty-cart p {
-  margin-bottom: 2rem;
+  p {
+    margin-bottom: 2rem;
+  }
 }
 
 .cart-container {
   display: flex;
   justify-content: flex-end;
   z-index: 109;
-}
-.cart-modal {
-  margin-right: 0rem;
-  width: 25rem;
-  height: 93vh;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid black;
-  position: fixed;
-  top: 4rem;
-  right: 0rem;
-  z-index: 1050;
-  transition: transform 0.3s ease-in-out;
-  transform: translateX(100%);
-  overflow: scroll;
-  padding: 1rem;
-}
 
-.cart-main ul {
-  list-style: none;
-}
+  .cart-modal {
+    margin-right: 0rem;
+    width: 25rem;
+    height: 93vh;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    position: fixed;
+    top: 4rem;
+    right: 0rem;
+    z-index: 1050;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+    overflow: scroll;
+    padding: 1rem;
 
-.cart-modal h3 {
-  font-weight: bold;
-}
+    &.cart-visible {
+      transform: translateX(0);
+    }
 
-.cart-modal h4 {
-  padding: 0;
-  margin: 0;
-  font-weight: bold;
-}
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      margin-bottom: 1rem;
 
-.cart-visible {
-  transform: translateX(0);
-}
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    }
 
-hr {
-  width: 93%;
-  margin: auto;
-  opacity: 0.3;
-}
+    .cart-main {
+      ul {
+        list-style: none;
 
-#title-quantity-price {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-}
+        li {
+          hr {
+            width: 93%;
+            margin: auto;
+            opacity: 0.3;
+          }
 
-#price-and-quantity {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
+          #item-header {
+            margin: 1rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+          }
 
-.cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
+          #cart-content {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
 
-.cart-modal .cart-header a {
-  text-decoration: none;
-  color: black;
-}
+            img {
+              width: 6rem;
+              height: 6rem;
+            }
 
-#item-header {
-  margin: 1rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
+            #price-and-quantity {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: center;
 
-#quantity-container {
-  /* margin-top: 2rem; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-}
+              #quantity-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
 
-.quantity-selector {
-  background-color: whitesmoke;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* margin-left: 6rem; */
-}
+                .quantity-selector {
+                  background-color: whitesmoke;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  button {
+                    background-color: rgb(176, 176, 176);
+                    width: 2rem;
+                    margin: 0;
+                  }
+                  input {
+                    margin: 0;
+                    width: 2rem;
+                    text-align: center;
+                  }
+                }
+              }
 
-.quantity-selector button {
-  background-color: rgb(176, 176, 176);
-  width: 2rem;
-  margin: 0;
-  /* border: .5px solid black; */
-}
+              #item-price {
+                padding: 0;
+              }
+            }
+          }
+        }
+      }
 
-.quantity-selector input {
-  margin: 0;
-  width: 2rem;
-  text-align: center;
-}
+      #total-line {
+        width: 93%;
+        margin: auto;
+        opacity: 0.3;
+      }
 
-#item-price {
-  /* margin-left: 6rem; */
-  padding: 0;
-}
+      #shipping-note {
+        padding: 1rem;
+      }
 
-#cart-content {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-}
+      #cart-shipping, #cart-total {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+        margin-top: -1rem;
 
-#preview-photo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+        #total-price {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+        }
+      }
 
-#cart-content img {
-  width: 6rem;
-  height: 6rem;
-}
+      #cart-checkout {
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
 
-#cart-total {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  margin-top: -1.5rem;
-}
+        #to-checkout-btn {
+          font-size: 20px;
+          letter-spacing: 0.1rem;
+          width: 100%;
+          margin: auto;
+          margin-bottom: 1rem;
+          margin-top: -1rem;
+          padding: 1rem;
+          background-color: rgba(0, 0, 0, 0);
+          color: black;
+          border: 1px solid black;
+        }
+      }
+    }
 
-#total-price {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-#shipping-note {
-  padding: 1rem;
-}
-
-#cart-shipping {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  margin-top: -1rem;
-}
-
-#cart-checkout {
-  display: flex;
-  justify-content: center;
-  padding: 1rem;
-}
-
-#to-checkout-btn {
-  font-size: 20px;
-  letter-spacing: 0.1rem;
-  width: 100%;
-  margin: auto;
-  margin-bottom: 1rem;
-  margin-top: -1rem;
-  padding: 1rem;
-  background-color: rgba(0, 0, 0, 0);
-  color: black;
-  border: 1px solid black;
+    .empty-cart {
+      p {
+        margin-bottom: 2rem;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 375px) {
   .cart-modal {
     width: 20rem;
-  }
 
-  #cart-content img {
-    width: 5rem;
-    height: 5rem;
+    #cart-content img {
+      width: 5rem;
+      height: 5rem;
+    }
   }
 }
 </style>
