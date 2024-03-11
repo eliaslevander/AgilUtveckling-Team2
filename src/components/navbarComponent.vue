@@ -13,6 +13,7 @@
         mdiMenuRight
     } from '@mdi/js'
     import SearchComponent from './SearchComponent.vue'
+    import { useFavoritesStore } from '../stores/favorit'
 
     //----------Funktionalitet för sök mobile/desktop--------------
 
@@ -81,6 +82,12 @@
                 if (newValue === false) {
                     this.searching = false
                 }
+            }
+        },
+        computed: {
+            numberOfFavorites() {
+                const favoritesStore = useFavoritesStore()
+                return favoritesStore.items.length
             }
         },
         methods: {
@@ -301,7 +308,18 @@
         </v-btn>
         <!-- Favorit -->
         <v-btn icon @click="goToFavorites">
-            <v-icon><svg-icon type="mdi" :path="heartPath"></svg-icon></v-icon>
+            <template v-if="numberOfFavorites > 0">
+                <v-badge :content="numberOfFavorites" color="error">
+                    <v-icon
+                        ><svg-icon type="mdi" :path="heartPath"></svg-icon
+                    ></v-icon>
+                </v-badge>
+            </template>
+            <template v-else>
+                <v-icon
+                    ><svg-icon type="mdi" :path="heartPath"></svg-icon
+                ></v-icon>
+            </template>
         </v-btn>
         <!-- Varukorg-->
         <v-btn icon @click="toggleCartVisibility">
