@@ -153,6 +153,15 @@ export default {
     Eftersom att SearchComponent för desktop inte ligger i drawer så kan dess egenskaper hanteras
     på ett enkelt sätt med en watch
     -->
+    <div id="close-button-container">
+      <v-btn
+        title="Stäng sökfältet"
+        icon
+        @click="this.showSearchComponent = false"
+        ><v-icon>mdi-close</v-icon></v-btn
+      >
+    </div>
+    <v-divider id="search-divider"></v-divider>
 
     <SearchComponent :isSearching="this.searching" />
   </v-navigation-drawer>
@@ -181,11 +190,7 @@ export default {
     samt drawer för att kunna rensa sökfältet om användaren sätter drawer = true
     -->
 
-    <SearchComponent
-      :isSearching="this.searching"
-      :drawer="this.drawer"
-      :menuClick="this.menuClick"
-    />
+    <SearchComponent :isSearching="this.searching" :drawer="this.drawer" />
 
     <!-- Rendera länkarna -->
     <v-list class="navigation-list">
@@ -361,6 +366,17 @@ export default {
 
 .desktopSearch {
   background-color: #f5f5f5;
+}
+
+#close-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+}
+
+#search-divider {
+  margin-bottom: 2vh;
 }
 
 @media (max-width: 601px) {
