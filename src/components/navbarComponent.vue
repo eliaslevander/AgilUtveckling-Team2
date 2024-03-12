@@ -210,11 +210,7 @@
 
         <!-- Rendera länkarna -->
         <v-list class="navigation-list">
-            <v-list-item
-                class="navigation-item"
-                @click="toggleDropdownMenu"
-                ref="dropdownMenu"
-            >
+            <v-list-item class="navigation-item" @click="toggleDropdownMenu">
                 Måla
                 <v-icon
                     ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
