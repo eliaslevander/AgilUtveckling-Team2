@@ -11,9 +11,12 @@
     const cryptoIcons = ref([])
     const paymentMethods = ref([])
     const otherIcons = ref([])
+
+    // För att hålla koll på vilken betalningsmetod och fraktmetod som är vald
     const selectedPaymentOption = ref('credit-card')
     const selectedShippingOption = ref('same-address')
 
+    // Initiala datan som sedan sparas vid submit
     const customerOrder = reactive({
         orderId: '',
         mailOrPhone: '',
@@ -39,10 +42,12 @@
         isBillingAddressSameAsShipping: true
     })
 
+    // Sätter fakturaadressen till samma som leveransadressen om användaren väljer det
     const isBillingAddressSameAsShipping = computed(
         () => selectedShippingOption.value === 'same-address'
     )
 
+    // Kollar om användaren har fyllt i alla fält för leveransadressen för att sedan kunna visa fraktalternativ
     const isAddressComplete = computed(() => {
         return (
             customerOrder.address.trim() &&
@@ -51,6 +56,7 @@
         )
     })
 
+    // Kollar om användaren valt "Samma som leveransadress" eller "Annan adress" för fakturaadressen
     watch(isBillingAddressSameAsShipping, (newValue) => {
         if (newValue) {
             // Användaren valde "Samma som leveransadress"
@@ -65,12 +71,14 @@
         }
     })
 
+    // mer refferenser till värden som för rabbater.
     const userVoucher = ref('')
     const voucherCode = 'PRISMA2023'
     const discountPercentage = 20
     const isDiscountApplied = ref(false)
     const voucherMessage = ref('')
 
+    // Hämtar data som behöcs ifrån json (bilder/ikoner/betalningsätt)
     async function fetchIcons() {
         try {
             const response = await fetch('./checkout.json')
@@ -88,6 +96,7 @@
         }
     }
 
+    // Räknar ut totala summan av varukorgen
     const totalSumWithoutDiscount = computed(() => {
         let sum = cartStore.items.reduce(
             (sum, item) => sum + item.product.price * item.quantity,
@@ -96,7 +105,9 @@
         return sum > 499 ? sum : sum + 49
     })
 
+    // Räknar ut rabattbeloppet
     const discountAmount = computed(() => {
+        // Om rabattkoden är giltig och användaren har angett den
         if (
             isDiscountApplied.value &&
             userVoucher.value.toUpperCase() === voucherCode
@@ -106,15 +117,20 @@
         return 0
     })
 
+    // Räknar ut totala summan efter rabatt
     const totalSum = computed(() => {
         return totalSumWithoutDiscount.value - discountAmount.value
     })
 
+    // Räknar ut fraktkostnaden
     const shippingCost = computed(() => {
+        // Om totala summan är över 499 kr, är frakten gratis
         return totalSum.value > 499 ? 0 : 49
     })
 
+    // Applicerar rabattkoden (till använd rabattkod-knappen)
     function applyVoucher() {
+        // Om användaren har angett en rabattkod så sätts isDiscountApplied till true och ett meddelande visas
         if (userVoucher.value.toUpperCase() === voucherCode) {
             isDiscountApplied.value = true
             voucherMessage.value = `En rabatt på ${discountPercentage}% har tillämpats!`
@@ -124,18 +140,23 @@
         }
     }
 
+    // Tömmer varukorgen (används vid submitCheckout)
     function clearCart() {
         cartStore.items = [] // Töm varukorgen
     }
 
+    // Sparar orderdata i sessionStorage (local verkade dumt) och skickar användaren till thanksalot
     function submitCheckout() {
+        // Om användaren valt "Samma som leveransadress" så sätts fakturaadressen till samma som leveransadressen
         if (isBillingAddressSameAsShipping.value) {
             customerOrder.billingAddress.address = customerOrder.address
             customerOrder.billingAddress.postalCode = customerOrder.postalCode
             customerOrder.billingAddress.city = customerOrder.city
         }
 
+        // skapar ett random orderid baserat på new Date().getTime()
         const orderId = `order_${new Date().getTime()}`
+        // Binder varukorgens innehåll till customerOrder
         customerOrder.orderId = orderId
 
         customerOrder.shipping = 'PostNord'
