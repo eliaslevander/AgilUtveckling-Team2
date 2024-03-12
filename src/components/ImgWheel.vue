@@ -1,5 +1,4 @@
 <script>
-
 // Importering av det som behövs till komponenten
 import { computed, onMounted } from "vue";
 import { productsStore } from "@/stores/products";
@@ -25,7 +24,7 @@ export default {
 
     // Kör fetchData när komponenten mounta
     onMounted(() => {
-    // Om det inte finns några produkter i store.products så hämtas produkterna med fetchData som också ligger i products.js
+      // Om det inte finns några produkter i store.products så hämtas produkterna med fetchData som också ligger i products.js
       if (store.products.length === 0) {
         store.fetchData();
       }
@@ -33,7 +32,7 @@ export default {
 
     // Skapar en computed property som hämtar produkterna från store.products och skapar en array med objekt som innehåller datan till src, alt och länk till href/router-link
     const images = computed(() =>
-    // För varje produkt i store.products så skapas ett objekt med src, alt, url, id, name, colorHex och category som kan nås med images
+      // För varje produkt i store.products så skapas ett objekt med src, alt, url, id, name, colorHex och category som kan nås med images
       store.products.map((product) => ({
         src: product.image,
         alt: product.alt,
@@ -62,16 +61,18 @@ export default {
       // Breakpoints för att karusellen ska vara responsiv
       breakpoints: {
         320: {
-          // När skärmen är mindre än 320px så visas 2 slides
-          slidesPerView: 2,
-          spaceBetween: -20,
+          // När skärmen är mindre än 320px så visas 2.1 slides
+          // 2.1 krävs för att undvika en bugg där nästkommande bild inte renderar som den ska
+          // efter ett tag
+          slidesPerView: 2.1,
+          spaceBetween: -30,
           navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           },
         },
         440: {
-        // När skärmen är över 440 så visas 4 slides
+          // När skärmen är över 440 så visas 4 slides
           slidesPerView: 4,
           spaceBetween: 200,
           navigation: {
@@ -91,9 +92,9 @@ export default {
 </script>
 
 <template>
-<!-- Container för karusellen -->
+  <!-- Container för karusellen -->
   <div class="carousel">
-  <!-- Swiper komponenten med dynamisk konfig.  -->
+    <!-- Swiper komponenten med dynamisk konfig.  -->
     <swiper
       id="swiper"
       :modules="modules"
@@ -102,7 +103,7 @@ export default {
       :speed="speed"
       loop
     >
-    <!-- SwiperSlide som loopar igenom images och skapar en router-link till varje bild -->
+      <!-- SwiperSlide som loopar igenom images och skapar en router-link till varje bild -->
       <SwiperSlide v-for="image in images" :key="image.id" :title="image.name">
         <router-link :to="image.url">
           <div class="swiper-slide-container">
@@ -206,7 +207,6 @@ img {
     text-align: center;
   }
 }
-
 </style>
 <!-- <style lang="scss" scoped>
     /* Styling för karusellen */
@@ -244,6 +244,3 @@ img {
         }
     }
 </style> -->
-
-
-
