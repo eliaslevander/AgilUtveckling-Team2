@@ -43,9 +43,10 @@ const router = createRouter({
       component: ThanksAlot,
     },
     {
-        path: "/color/:color",
-        name: "filteredColor",
+        path: "/colors/:colorType",
+        name: "ColorFiltered",
         component: ColorFilteredView,
+        props: true,
     }
   ],
   scrollBehavior() {
