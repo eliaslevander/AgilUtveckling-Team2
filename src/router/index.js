@@ -4,6 +4,7 @@ import ProductView from "@/views/ProductView.vue";
 import FavoritesView from "@/views/FavoritesView.vue";
 import CheckoutView from "@/views/CheckoutView.vue";
 import ThanksAlot from "../views/ThanksAlot.vue";
+import AllColorView from "@/views/AllColorView.vue";
 import ColorFilteredView from "@/views/ColorFilteredView.vue";
 
 const router = createRouter({
@@ -41,6 +42,11 @@ const router = createRouter({
       path: "/ThanksAlot",
       name: "ThanksAlot",
       component: ThanksAlot,
+    },
+    {
+        path: "/colors",
+        name: "AllColors",
+        component: AllColorView,
     },
     {
       path: "/colors/:colorType",
