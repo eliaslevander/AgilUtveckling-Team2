@@ -97,6 +97,10 @@ export const useCartStore = defineStore('cart', {
             )
             // returnerar produktens antal eller 0 om den inte finns
             return item ? item.quantity : 0
-        }
+        },
+        clearCart() {
+    this.items = [];
+    this.saveCart();
+}
     }
 })

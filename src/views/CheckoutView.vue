@@ -141,35 +141,40 @@
     }
 
     // Tömmer varukorgen (används vid submitCheckout)
-    function clearCart() {
-        cartStore.items = [] // Töm varukorgen
-    }
+    // function clearCart() {
+    //     cartStore.items = [] // Töm varukorgen
+    // }
 
     // Sparar orderdata i sessionStorage (local verkade dumt) och skickar användaren till thanksalot
     function submitCheckout() {
-        // Om användaren valt "Samma som leveransadress" så sätts fakturaadressen till samma som leveransadressen
-        if (isBillingAddressSameAsShipping.value) {
-            customerOrder.billingAddress.address = customerOrder.address
-            customerOrder.billingAddress.postalCode = customerOrder.postalCode
-            customerOrder.billingAddress.city = customerOrder.city
-        }
+    // Inkludera kundvagnens artiklar i customerOrder objektet
+    customerOrder.items = cartStore.items.map(item => ({
+        product: item.product,
+        quantity: item.quantity,
+        colorType: item.colorType,
+        category: item.category,
+        pricePerProduct: item.product.price
+    }));
 
-        // skapar ett random orderid baserat på new Date().getTime()
-        const orderId = `order_${new Date().getTime()}`
-        // Binder varukorgens innehåll till customerOrder
-        customerOrder.orderId = orderId
+    // Skapar ett random orderid baserat på new Date().getTime()
+    const orderId = `order_${new Date().getTime()}`;
+    customerOrder.orderId = orderId;
 
-        customerOrder.shipping = 'PostNord'
-        customerOrder.discountAmount = discountAmount.value
-        customerOrder.totalSum = totalSum.value
-        customerOrder.shippingCost = shippingCost.value
+    customerOrder.shipping = 'PostNord';
+    customerOrder.discountAmount = discountAmount.value;
+    customerOrder.totalSum = totalSum.value;
+    customerOrder.shippingCost = shippingCost.value;
 
-        const orderDataAsString = JSON.stringify(customerOrder)
-        sessionStorage.setItem('orderData', orderDataAsString)
-        console.log('Orderdata sparad i sessionStorage:', customerOrder)
-        router.push('/thanksAlot')
-        clearCart()
-    }
+    const orderDataAsString = JSON.stringify(customerOrder);
+    sessionStorage.setItem('orderData', orderDataAsString);
+    console.log('Orderdata sparad i sessionStorage:', customerOrder);
+
+    // Rensa kundvagnen HÄR om du vill
+    cartStore.clearCart(); // Se till att du har en action för detta i din store
+
+    router.push('/thanksAlot');
+}
+
 
     onMounted(() => {
         fetchIcons()
@@ -500,12 +505,21 @@
                 :key="index"
             >
                 <div id="photo-title">
-                    <BlobComponent
-                        id="blob"
-                        :color="item.product.colorHex"
-                        :width="'6rem'"
-                        :margin="'0 1rem 0 0'"
-                    />
+                    <div v-if="item.product.category === 'color'">
+                        <BlobComponent
+                            id="blob"
+                            :color="item.product.colorHex"
+                            :width="'6rem'"
+                            :margin="'0 1rem 0 0'"
+                        />
+                    </div>
+                    <div v-else>
+                        <img
+                            :src="item.product.image"
+                            :alt="item.product.alt"
+                            width="96"
+                        />
+                    </div>
                     <h5>{{ item.product.name }}</h5>
                 </div>
                     <p>{{ item.quantity }}st</p>
@@ -596,12 +610,14 @@
         height: 6rem;
         margin-bottom: 1rem;
         object-fit: cover;
+        border-radius: 30%;
+        margin-right: 1.2rem;
     }
 
     #checkout-item-mid {
         display: flex;
         width: 100%;
-        margin-top: 0.5rem;
+        margin-top: 1.6rem;
         gap: 1rem;
     }
 
