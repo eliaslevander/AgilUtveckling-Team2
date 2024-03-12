@@ -51,108 +51,114 @@ export default {
 </script>
 
 <template>
-  <div>
-    <v-card class="Thanks">
-      <h1>Tack för att du handlar hos PRISMA</h1>
-      <h3>Ditt ordernummer är: {{ orderData?.orderId }}</h3>
-      <h4>Vi är otroligt tacksamma för att du har valt att handla hos oss.</h4>
-      <h4>
-        Din beställning har nu behandlats och är på väg att bli packad med
-        omsorg för att snart nå fram till dig.
-      </h4>
-    </v-card>
-    <div class="checkout-item-container">
-      <!-- Bild och styckpris -->
-      <h2>Din order:</h2>
-      <div
-        id="checkout-item-header"
-        v-for="(item, index) in cartStore.items"
-        :key="index"
-      >
-        <div id="photo-title">
-          <img :src="item.product.image" alt="" />
-          <h5>{{ item.product.name }}</h5>
+    <div>
+        <v-card class="Thanks">
+            <h1>Tack för att du handlar hos PRISMA</h1>
+            <h3>Ditt ordernummer är: {{ orderData?.orderId }}</h3>
+            <h4>
+                Vi är otroligt tacksamma för att du har valt att handla hos oss.
+            </h4>
+            <h4>
+                Din beställning har nu behandlats och är på väg att bli packad
+                med omsorg för att snart nå fram till dig.
+            </h4>
+        </v-card>
+        <div class="checkout-item-container">
+            <!-- Bild och styckpris -->
+            <h2>Din order:</h2>
+            <div
+                id="checkout-item-header"
+                v-for="(item, index) in cartStore.items"
+                :key="index"
+            >
+                <div id="photo-title">
+                    <img :src="item.product.image" alt="" />
+                    <h5>{{ item.product.name }}</h5>
+                </div>
+                <p>{{ item.product.price }} kr / st</p>
+                <p>{{ item.colorType}} </p>
+                <p>{{ cartStore.quantity }} </p>
+                
+            </div>
+            <div id="total-cost">
+                <div id="shipping">
+                    <h4>Frakt</h4>
+                    <p>{{ orderData?.shippingCost }} kr</p>
+                </div>
+                <p id="discount" v-if="orderData?.discountAmount > 0">
+                    Rabatt: -{{ orderData?.discountAmount }}kr
+                </p>
+                <div id="total">
+                    <h3>Totalsumma:</h3>
+                    <h4>{{ orderData?.totalSum }} kr</h4>
+                </div>
+            </div>
         </div>
-        <p>{{ item.product.price }} kr / st</p>
-      </div>
-      <div id="total-cost">
-        <div id="shipping">
-          <h4>Frakt</h4>
-          <p>{{ orderData?.shippingCost }} kr</p>
-        </div>
-        <p id="discount" v-if="orderData?.discountAmount > 0">
-          Rabatt: -{{ orderData?.discountAmount }}kr
-        </p>
-        <div id="total">
-          <h3>Totalsumma:</h3>
-          <h4>{{ orderData?.totalSum }} kr</h4>
-        </div>
-      </div>
+        <v-card class="info">
+            <v-list>
+                <v-list-item>
+                    <v-list-item-title id="infotitle">
+                        Leveransinformation:
+                    </v-list-item-title>
+                    Förväntad leveranstid är 2024-02-04. Du kommer att få ett
+                    bekräftelsemeddelande med spårningsinformation så snart din
+                    beställning har skickats.
+                </v-list-item>
+                <v-list-item>
+                    <v-list-item-title id="infotitle">
+                        Erbjudande till dig:
+                    </v-list-item-title>
+                    För att visa vår uppskattning, ge dig en 20% rabatt på din
+                    nästa beställning med koden "PRISMA2023". Använd den vid
+                    utcheckningen för att ta del av erbjudandet. Gäller fram
+                    till [2024-06-04].
+                </v-list-item>
+                <v-list-item>
+                    <v-list-item-title id="infotitle">
+                        Följ oss för uppdateringar:
+                    </v-list-item-title>
+                    Håll dig uppdaterad om våra senaste produkter, kampanjer och
+                    nyheter genom att följa oss på @prismastore eller
+                    prenumerera på vårt nyhetsbrev.
+                </v-list-item>
+                <v-list-item>
+                    <v-list-item-title id="infotitle">
+                        Ditt åsikter är värdefulla:
+                    </v-list-item-title>
+                    Vi uppmuntrar dig att lämna feedback eller recensioner. Dina
+                    åsikter hjälper oss att förbättra och ger andra kunder
+                    insikt i din upplevelse. Tack igen för att du har valt
+                    PRISMA. Vi ser fram emot att ha dig som kund och hoppas att
+                    du kommer att njuta av dina nya produkter!
+                </v-list-item>
+            </v-list>
+        </v-card>
     </div>
-    <v-card class="info">
-      <v-list>
-        <v-list-item>
-          <v-list-item-title id="infotitle">
-            Leveransinformation:
-          </v-list-item-title>
-          Förväntad leveranstid är 2024-02-04. Du kommer att få ett
-          bekräftelsemeddelande med spårningsinformation så snart din
-          beställning har skickats.
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-title id="infotitle">
-            Erbjudande till dig:
-          </v-list-item-title>
-          För att visa vår uppskattning, ge dig en 10% rabatt på din nästa
-          beställning med koden "TACK10". Använd den vid utcheckningen för att
-          ta del av erbjudandet. Gäller fram till [2024-06-04].
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-title id="infotitle">
-            Följ oss för uppdateringar:
-          </v-list-item-title>
-          Håll dig uppdaterad om våra senaste produkter, kampanjer och nyheter
-          genom att följa oss på @prismastore eller prenumerera på vårt
-          nyhetsbrev.
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-title id="infotitle">
-            Ditt åsikter är värdefulla:
-          </v-list-item-title>
-          Vi uppmuntrar dig att lämna feedback eller recensioner. Dina åsikter
-          hjälper oss att förbättra och ger andra kunder insikt i din
-          upplevelse. Tack igen för att du har valt PRISMA. Vi ser fram emot att
-          ha dig som kund och hoppas att du kommer att njuta av dina nya
-          produkter!
-        </v-list-item>
-      </v-list>
-    </v-card>
-  </div>
-  <div id="dontForget">
-    <h2>Har du glömt något?</h2>
-    <h4>Det är inte försent!</h4>
-    <h4>
-      Gör en till beställning inom {{ countDown }} min för att lägga till det i
-      samma order
-    </h4>
-    <h5>(De flesta glömmer verktygen)</h5>
-  </div>
-  <div class="product-grid">
-    <div
-      class="card"
-      v-for="item in filteredProducts"
-      :key="item.id"
-      :title="item.name"
-      @click="goToProduct(item.id)"
-    >
-      <div class="image-container">
-        <img class="product-image" :src="item.image" :alt="item.alt" />
-      </div>
-      <div class="name-container">
-        <h2 class="name">{{ item.name }}</h2>
-      </div>
+    <div id="dontForget">
+        <h2>Har du glömt något?</h2>
+        <h4>Det är inte försent!</h4>
+        <h4>
+            Gör en till beställning inom {{ countDown }} min för att lägga till
+            det i samma order
+        </h4>
+        <h5>(De flesta glömmer verktygen)</h5>
     </div>
-  </div>
+    <div class="product-grid">
+        <div
+            class="card"
+            v-for="item in filteredProducts"
+            :key="item.id"
+            :title="item.name"
+            @click="goToProduct(item.id)"
+        >
+            <div class="image-container">
+                <img class="product-image" :src="item.image" :alt="item.alt" />
+            </div>
+            <div class="name-container">
+                <h2 class="name">{{ item.name }}</h2>
+            </div>
+        </div>
+    </div>
 
   <v-card
     class="contactlist"
@@ -179,37 +185,37 @@ export default {
 </template>
 
 <style scoped>
-.Thanks {
-  width: 100%;
-  padding-top: 5vh;
-  padding-bottom: 3vh;
-  padding-left: 1vh;
-  padding-right: 1vh;
-  margin: auto;
-  text-align: center;
-  border-bottom: solid 1px;
-}
-.info {
-  padding-left: 4vh;
-  padding-top: 4vh;
-  padding-bottom: 5vh;
-}
-.contactlist {
-  text-align: center;
-  margin: auto;
-  margin-bottom: 2vh;
-  margin-top: 4vh;
-  padding: 2vh;
-  width: 80%;
-}
-.checkout-item-container {
-  margin-top: 3vh;
-  width: 50%;
-  margin-right: 5rem;
-  padding: 1rem 4rem;
-  height: auto;
-  overflow-y: auto;
-}
+    .Thanks {
+        width: 100%;
+        padding-top: 5vh;
+        padding-bottom: 3vh;
+        padding-left: 1vh;
+        padding-right: 1vh;
+        margin: auto;
+        text-align: center;
+        border-bottom: solid 1px;
+    }
+    .info {
+        padding-left: 4vh;
+        padding-top: 4vh;
+        padding-bottom: 5vh;
+    }
+    .contactlist {
+        text-align: center;
+        margin: auto;
+        margin-bottom: 2vh;
+        margin-top: 4vh;
+        padding: 2vh;
+        width: 80%;
+    }
+    .checkout-item-container {
+        margin-top: 3vh;
+        width: 100%;
+        margin-right: 5rem;
+        padding: 1rem 4rem;
+        height: auto;
+        overflow-y: auto;
+    }
 
 #checkout-item-header {
   display: flex;
