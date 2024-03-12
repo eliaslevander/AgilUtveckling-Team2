@@ -2,7 +2,8 @@
 
 <template>
   <div id="About">
-    <v-card title="Det här är PRISMA" variant="tonal">
+    <v-card class="about-container" variant="tonal">
+      <h1>Det här är PRISMA</h1>
       <v-card-text
         class="text"
         style="
@@ -35,7 +36,13 @@
     padding: 2vh;
   }
 
+  .about-container h1 {
+    margin-left: 1rem;
+    padding-top: 0.2rem;
+  }
+
   .v-card .text {
+    padding-top: 0.2rem;
     font-size: 1.1rem;
     width: 75%;
   }
@@ -55,6 +62,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .v-card .text {
+      width: 60%;
+    }
+
+    .about-container h1 {
+      font-size: 1.5rem;
+    }
   }
 
   @media screen and (max-width: 850px) {
