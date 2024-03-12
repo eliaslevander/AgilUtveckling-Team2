@@ -138,7 +138,7 @@ img {
   object-fit: cover;
   height: 100%;
   width: 100%;
-  box-shadow: 1px 1px 8px rgb(0, 0, 0);
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.415);
   position: absolute;
 }
 
@@ -208,39 +208,3 @@ img {
   }
 }
 </style>
-<!-- <style lang="scss" scoped>
-    /* Styling för karusellen */
-    /* Container styles */
-    .carousel {
-        margin: 0 4rem 0rem 4rem;
-
-        /* Image styles */
-        img {
-            display: block;
-            object-fit: cover;
-            height: 50vh;
-            width: 25vw;
-            box-shadow: 1px 1px 8px rgb(0, 0, 0);
-
-            /* Hover effekt */
-            &hover {
-                opacity: 50%;
-            }
-        }
-    }
-
-    /* Responsiv styling för karusellen */
-    @media screen and (max-width: 375px) {
-        .carousel {
-            margin: 0 2rem 0 2rem;
-            height: auto;
-
-            img {
-                object-fit: cover;
-                height: 30vh;
-                width: 40vw;
-                box-shadow: 1px 1px 8px rgb(0, 0, 0);
-            }
-        }
-    }
-</style> -->

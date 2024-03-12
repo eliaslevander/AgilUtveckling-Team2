@@ -3,7 +3,6 @@ import { defineStore } from "pinia";
 export const productsStore = defineStore("products", {
   state: () => ({
     products: JSON.parse(localStorage.getItem("products")) || [],
-    // products: [],
   }),
   actions: {
     async fetchData() {
