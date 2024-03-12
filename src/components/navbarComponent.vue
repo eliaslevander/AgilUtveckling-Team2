@@ -307,9 +307,10 @@
             ></v-icon>
         </v-btn>
         <!-- Favorit -->
+        <!-- v-badge syns hela tiden så gjorde en if-sats kändes onödigt att ha en badge för att visa 0 -->
         <v-btn icon @click="goToFavorites">
             <template v-if="numberOfFavorites > 0">
-                <v-badge :content="numberOfFavorites" color="error">
+                <v-badge :content="numberOfFavorites" color="orange">
                     <v-icon
                         ><svg-icon type="mdi" :path="heartPath"></svg-icon
                     ></v-icon>
