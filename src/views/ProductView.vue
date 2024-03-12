@@ -207,13 +207,8 @@ const addToCartHandler = () => {
   );
 };
 
-const info = () => {
-  //Används för att logga aktiva värden vid tryck på "Lägg till i varukorgen"
-  console.log(amount.value, toggle.value, product.value.name);
-};
-
 function toggleFavorite() {
-    /* Funktionen anropas när en användare lägger till eller tar bort en produkt från favoriter */
+  /* Funktionen anropas när en användare lägger till eller tar bort en produkt från favoriter */
   favoritesStore.toggleFavorites(product.value);
 }
 </script>
