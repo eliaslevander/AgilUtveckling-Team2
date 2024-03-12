@@ -90,14 +90,14 @@ const goToProduct = (id) => {
   router.push({ name: "product", params: { id: id } });
 };
 
-//För att kunna sätta autofokus på sökfältet vid klick på sökikonen så måste sökkomponenten ta emot en prop:en state.
+//För att kunna sätta autofokus på sökfältet vid klick på sökikonen så måste sökkomponenten ta emot en prop:en isSearching.
 
 const props = defineProps({
   isSearching: Boolean,
   drawer: Boolean,
 });
 
-// Ge en ref till v-text-field, ref="searchField". Deklarerar denna ref som null nedan
+// Ge en ref till v-text-field, ref="searchField" för att kunna ge den fokus med watch nedan.
 const searchField = ref(null);
 
 //Använder watch för att kolla efter värdeändring på prop:en isSearching
