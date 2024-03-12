@@ -129,6 +129,12 @@
                     //döljer dropdown för undermenyn Färger
                     this.showColorsDropdown = false
                 }
+            },
+            selectColor(colorType) {
+                this.$router.push({
+                    name: 'ColorFiltered',
+                    params: { colorType: colorType }
+                })
             }
         }
     }
@@ -212,27 +218,27 @@
                 </v-list-item>
                 <div v-if="showColorsDropdown">
                     <!-- La till plain, den tar bort den skumma hover effekt som vuetify la till. Funka dock inte på dropdown menyerna vet inte riktigt hur jag ska ta bort den från dem -->
-                    <v-list-item plain>
+                    <v-list-item plain @click="selectColor('Gråskala')">
                         <router-link to="#" class="navigation-link"
                             >Gråskala</router-link
                         >
                     </v-list-item>
-                    <v-list-item plain>
+                    <v-list-item plain @click="selectColor('Röd')">
                         <router-link to="#" class="navigation-link"
                             >Röd</router-link
                         >
                     </v-list-item>
-                    <v-list-item plain>
+                    <v-list-item plain @click="selectColor('Blå')">
                         <router-link to="#" class="navigation-link"
                             >Blå</router-link
                         >
                     </v-list-item>
-                    <v-list-item plain>
+                    <v-list-item plain @click="selectColor('Grön')">
                         <router-link to="#" class="navigation-link"
                             >Grön</router-link
                         >
                     </v-list-item>
-                    <v-list-item plain>
+                    <v-list-item plain @click="selectColor('Gul')">
                         <router-link to="#" class="navigation-link"
                             >Gul</router-link
                         >
@@ -325,21 +331,21 @@
             ></v-icon>
         </v-list-item>
         <div v-if="showColorsDropdown" class="subMenu">
-            <v-list-item plain>
+            <v-list-item plain @click="selectColor('Gråskala')">
                 <router-link to="#" class="navigation-link"
                     >Gråskala</router-link
                 >
             </v-list-item>
-            <v-list-item plain>
+            <v-list-item plain @click="selectColor('Röd')">
                 <router-link to="#" class="navigation-link">Röd</router-link>
             </v-list-item>
-            <v-list-item plain>
+            <v-list-item plain @click="selectColor('Blå')">
                 <router-link to="#" class="navigation-link">Blå</router-link>
             </v-list-item>
-            <v-list-item plain>
+            <v-list-item plain @click="selectColor('Grön')">
                 <router-link to="#" class="navigation-link">Grön</router-link>
             </v-list-item>
-            <v-list-item plain>
+            <v-list-item plain @click="selectColor('Gul')">
                 <router-link to="#" class="navigation-link">Gul</router-link>
             </v-list-item>
         </div>

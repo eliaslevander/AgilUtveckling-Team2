@@ -4,6 +4,7 @@ import ProductView from '@/views/ProductView.vue'
 import FavoritesView from '@/views/FavoritesView.vue'
 import CheckoutView from '@/views/CheckoutView.vue'
 import ThanksAlot from '../views/ThanksAlot.vue'
+import ColorFilteredView from '@/views/ColorFilteredView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +41,12 @@ const router = createRouter({
             path: '/ThanksAlot',
             name: 'ThanksAlot',
             component: ThanksAlot
+        },
+        {
+            path: '/colors/:colorType',
+            name: 'ColorFiltered',
+            component: ColorFilteredView,
+            props: true
         }
     ]
 })
