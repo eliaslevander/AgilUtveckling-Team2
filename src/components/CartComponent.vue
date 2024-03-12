@@ -112,11 +112,21 @@ const shippingCost = computed(() => {
                             </button>
                         </div>
                         <div id="cart-content">
-                            <BlobComponent
-                                :color="item.product.colorHex"
-                                :width="'6rem'"
-                                :margin="'0 1rem 0 0'"
-                            />
+                            <div v-if="item.product.category === 'color'">
+                                <BlobComponent
+                                    :color="item.product.colorHex"
+                                    :width="'6rem'"
+                                    :margin="'0 1rem 0 0'"
+                                />
+                            </div>
+                            <div v-else>
+                                <img
+                                    id="cart-else-img"
+                                    :src="item.product.image"
+                                    :alt="item.product.alt"
+
+                                 />
+                            </div>
                             <div id="price-and-quantity">
                                 <div id="quantity-container">
                                     <div class="quantity-selector">
@@ -271,7 +281,12 @@ const shippingCost = computed(() => {
             img {
               width: 6rem;
               height: 6rem;
+              object-fit: cover;
+              margin-right: .9rem;
+              border-radius: 30%;
             }
+
+
 
             #price-and-quantity {
               display: flex;

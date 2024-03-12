@@ -1,53 +1,57 @@
 <script setup>
-import { productsStore } from "../stores/products";
-import router from "@/router";
-import { computed } from "vue";
-import { useCartStore } from "../stores/cart";
-import { ref, onMounted } from "vue";
+    import { productsStore } from '../stores/products'
+    import router from '@/router'
+    import { computed } from 'vue'
+    import { useCartStore } from '../stores/cart'
+    import { ref, onMounted } from 'vue'
+    import BlobComponent from '@/components/BlobComponent.vue'
 
-//Order från varukorg
-const cartStore = useCartStore();
-const orderData = ref(null);
+    //Order från varukorg
+    const cartStore = useCartStore()
+    const orderData = ref(null)
 
-onMounted(() => {
-  const orderDataString = sessionStorage.getItem("orderData");
-  if (orderDataString) {
-    orderData.value = JSON.parse(orderDataString);
-  }
-});
+    onMounted(() => {
+        const orderDataString = sessionStorage.getItem('orderData');
+    if (orderDataString) {
+        orderData.value = JSON.parse(orderDataString);
+        // Använd orderData.items för att visa upp produkterna
+    }
+    })
 
-//Accessories från JSON
-const store = productsStore();
-const goToProduct = (id) => {
-  router.push({ name: "product", params: { id: id } });
-};
-const filteredProducts = computed(() => {
-  return store.products.filter((product) => product.category === "accessories");
-});
+    //Accessories från JSON
+    const store = productsStore()
+    const goToProduct = (id) => {
+        router.push({ name: 'product', params: { id: id } })
+    }
+    const filteredProducts = computed(() => {
+        return store.products.filter(
+            (product) => product.category === 'accessories'
+        )
+    })
 </script>
 
 <script>
-//Countdown 60 min
-export default {
-  data() {
-    return {
-      countDown: 60,
-    };
-  },
-  methods: {
-    countDownTimer() {
-      if (this.countDown > 0) {
-        setTimeout(() => {
-          this.countDown -= 1;
-          this.countDownTimer();
-        }, 60000);
-      }
-    },
-  },
-  created() {
-    this.countDownTimer();
-  },
-};
+    //Countdown 60 min
+    export default {
+        data() {
+            return {
+                countDown: 60
+            }
+        },
+        methods: {
+            countDownTimer() {
+                if (this.countDown > 0) {
+                    setTimeout(() => {
+                        this.countDown -= 1
+                        this.countDownTimer()
+                    }, 60000)
+                }
+            }
+        },
+        created() {
+            this.countDownTimer()
+        }
+    }
 </script>
 
 <template>
@@ -68,17 +72,31 @@ export default {
             <h2>Din order:</h2>
             <div
                 id="checkout-item-header"
-                v-for="(item, index) in cartStore.items"
+                v-for="(item, index) in orderData?.items"
                 :key="index"
             >
                 <div id="photo-title">
-                    <img :src="item.product.image" alt="" />
-                    <h5>{{ item.product.name }}</h5>
+                    <div v-if="item.product.category === 'color'">
+                        <BlobComponent
+                            id="blob"
+                            :color="item.product.colorHex"
+                            :width="'6rem'"
+                            :margin="'0 1rem 0 0'"
+                        />
+                    </div>
+                    <div v-else>
+                        <img
+                            id="else-img"
+                            :src="item.product.image"
+                            :alt="item.product.alt"
+                            width="96"
+                        />
+                    </div>
+                    <h5>{{ item.product.name }} ({{ item.quantity }} st)</h5>
                 </div>
-                <p>{{ item.product.price }} kr / st</p>
-                <p>{{ item.colorType}} </p>
-                <p>{{ cartStore.quantity }} </p>
-                
+                <p id="price-paragraph">{{ item.product.price }} kr / st</p>
+                <p>{{ item.product.category !== 'color' ? 'Utrustning' : item.colorType }}</p>
+                <p>{{ cartStore.quantity }}</p>
             </div>
             <div id="total-cost">
                 <div id="shipping">
@@ -160,28 +178,28 @@ export default {
         </div>
     </div>
 
-  <v-card
-    class="contactlist"
-    text="Om du har frågor eller funderingar kring din beställning, tveka inte att höra av dig till oss på:"
-  >
-    <v-list>
-      <v-list-item
-        class="contact"
-        prepend-icon="mdi-phone"
-        title="(+46) 555-6789"
-        center
-      ></v-list-item>
+    <v-card
+        class="contactlist"
+        text="Om du har frågor eller funderingar kring din beställning, tveka inte att höra av dig till oss på:"
+    >
+        <v-list>
+            <v-list-item
+                class="contact"
+                prepend-icon="mdi-phone"
+                title="(+46) 555-6789"
+                center
+            ></v-list-item>
 
-      <v-divider inset></v-divider>
+            <v-divider inset></v-divider>
 
-      <v-list-item
-        class="contact"
-        prepend-icon="mdi-email"
-        title="prisma@example.com"
-      ></v-list-item>
-      <v-divider inset></v-divider>
-    </v-list>
-  </v-card>
+            <v-list-item
+                class="contact"
+                prepend-icon="mdi-email"
+                title="prisma@example.com"
+            ></v-list-item>
+            <v-divider inset></v-divider>
+        </v-list>
+    </v-card>
 </template>
 
 <style scoped>
@@ -217,90 +235,96 @@ export default {
         overflow-y: auto;
     }
 
-#checkout-item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-}
-#checkout-item-header #photo-title {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
+    #checkout-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+    }
+    #checkout-item-header #photo-title {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
 
-#checkout-item-header #photo-title img {
-  width: 6rem;
-  height: 6rem;
-  margin-bottom: 1rem;
-  object-fit: cover;
-}
+    #checkout-item-header #photo-title img {
+        width: 6rem;
+        height: 6rem;
+        margin-bottom: 1rem;
+        object-fit: cover;
+        margin-right: 1.2rem;
+    }
 
-#total-cost #shipping {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
-}
+    #else-img {
+        border-radius: 30%;
+    }
 
-#total-cost #total {
-  display: flex;
-  justify-content: space-between;
-}
 
-#total-cost #discount {
-  margin-top: 1rem;
-}
+    #total-cost #shipping {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+    }
 
-#infotitle {
-  font-weight: 800;
-}
-#dontForget {
-  text-align: center;
-  margin: 1vh;
-  padding-bottom: 5vh;
-}
-.product-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  padding: 8px;
-}
-.card {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  cursor: pointer;
-}
+    #total-cost #total {
+        display: flex;
+        justify-content: space-between;
+    }
 
-.image-container {
-  width: 100%;
-  aspect-ratio: 1;
-  padding: 16px;
-  overflow: hidden;
-}
+    #total-cost #discount {
+        margin-top: 1rem;
+    }
 
-.product-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+    #infotitle {
+        font-weight: 800;
+    }
+    #dontForget {
+        text-align: center;
+        margin: 1vh;
+        padding-bottom: 5vh;
+    }
+    .product-grid {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+    }
+    .card {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        cursor: pointer;
+    }
 
-.name {
-  text-transform: uppercase;
-  display: block;
-  text-align: center;
-  max-width: 85%;
-  font-size: 1.125rem;
-  margin-bottom: 16px;
-}
+    .image-container {
+        width: 100%;
+        aspect-ratio: 1;
+        padding: 16px;
+        overflow: hidden;
+    }
 
-.name-container {
-  min-height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .name {
+        text-transform: uppercase;
+        display: block;
+        text-align: center;
+        max-width: 85%;
+        font-size: 1.125rem;
+        margin-bottom: 16px;
+    }
+
+    .name-container {
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 </style>
