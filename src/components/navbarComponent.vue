@@ -1,20 +1,18 @@
 <script>
-
-    import { RouterLink } from 'vue-router'
-    import { useCartStore } from '@/stores/cart'
-    /* Ikoner */
-    import SvgIcon from '@jamescoyle/vue-icon'
-    import {
-        mdiMagnify,
-        mdiHeartOutline,
-        mdiShoppingOutline,
-        mdiMenu,
-        mdiClose,
-        mdiMenuDown,
-        mdiMenuRight
-    } from '@mdi/js'
-    import SearchComponent from './SearchComponent.vue'
-
+import { RouterLink } from "vue-router";
+import { useCartStore } from "@/stores/cart";
+/* Ikoner */
+import SvgIcon from "@jamescoyle/vue-icon";
+import {
+  mdiMagnify,
+  mdiHeartOutline,
+  mdiShoppingOutline,
+  mdiMenu,
+  mdiClose,
+  mdiMenuDown,
+  mdiMenuRight,
+} from "@mdi/js";
+import SearchComponent from "./SearchComponent.vue";
 
 //----------Funktionalitet för sök mobile/desktop--------------
 
@@ -28,7 +26,6 @@
 // Om false (desktopläge) så aktiveras "toggle" funktionalitet på this.showSearchComponent. Annars
 // så aktiveras den mobila menyns "toggle" funktionalitet.
 
-
 export default {
   components: {
     SvgIcon,
@@ -39,13 +36,14 @@ export default {
     this.checkIfMobile();
   },
   mounted() {
-            /* La till en global event listener så att den fångar upp när användar klickar vart som helst på sidan förutom i dropdown */
-            document.addEventListener('click', this.handleClickOutside, true)
-        },
-        beforeUnmount() {
-            /* Tar bort från DOM när det inte längre används så att det inte ska bli några problem senare */
-            document.removeEventListener('click', this.handleClickOutside, true)
-        },
+    /* La till en global event listener så att den fångar upp när användar klickar vart som helst på sidan förutom i dropdown */
+    document.addEventListener("click", this.handleClickOutside, true);
+  },
+  beforeUnmount() {
+    /* Tar bort från DOM när det inte längre används så att det inte ska bli några problem senare */
+    document.removeEventListener("click", this.handleClickOutside, true);
+    window.removeEventListener("resize", this.checkIfMobile);
+  },
   data() {
     return {
       magnifyPath: mdiMagnify,
@@ -70,7 +68,6 @@ export default {
     // Logiken för autofokus i desktop styrs alltså enbart med denna watch.
     // Värdet på this.searching skickas till sökkomponenten med en prop
 
-
     showSearchComponent(newValue) {
       this.searching = newValue;
     },
@@ -92,13 +89,13 @@ export default {
       cartStore.toggleCartVisibility();
     },
     toggleDropdownMenu() {
-                /* Växlar ifall dropdown menyn är synlig eller inte om den är false är menyn dåld annars så visas den */
-                this.showDropdownMenu = !this.showDropdownMenu
-            },
-            toggleColorsDropdown() {
-                /* Liknande toggle till den över men hanterar dropdown menyn för undermenyn "Färger" och funkar då på samma sätt */
-                this.showColorsDropdown = !this.showColorsDropdown
-            },
+      /* Växlar ifall dropdown menyn är synlig eller inte om den är false är menyn dåld annars så visas den */
+      this.showDropdownMenu = !this.showDropdownMenu;
+    },
+    toggleColorsDropdown() {
+      /* Liknande toggle till den över men hanterar dropdown menyn för undermenyn "Färger" och funkar då på samma sätt */
+      this.showColorsDropdown = !this.showColorsDropdown;
+    },
     handleSearchComponent() {
       if (!this.isMobile) {
         // Visa desktop sök
@@ -118,24 +115,23 @@ export default {
       }
     },
     goToFavorites() {
-    /* Navigerar användaren till favoriter utan att ladda om hela sidan */
+      /* Navigerar användaren till favoriter utan att ladda om hela sidan */
       this.$router.push({ name: "favorites" });
     },
     handleClickOutside(event) {
-                /* Kontrollerar ifall det finns en referens till dropdown menyn och om dte man klickar på inte är inom dropdown menyns DOM-träd */
-                if (
-                    this.$refs.dropdownMenu &&
-                    !this.$refs.dropdownMenu.contains(event.target)
-                ) {
-                    //döljer huvud dropdown menyn
-                    this.showDropdownMenu = false
-                    //döljer dropdown för undermenyn Färger
-                    this.showColorsDropdown = false
-                }
-            }
+      /* Kontrollerar ifall det finns en referens till dropdown menyn och om dte man klickar på inte är inom dropdown menyns DOM-träd */
+      if (
+        this.$refs.dropdownMenu &&
+        !this.$refs.dropdownMenu.contains(event.target)
+      ) {
+        //döljer huvud dropdown menyn
+        this.showDropdownMenu = false;
+        //döljer dropdown för undermenyn Färger
+        this.showColorsDropdown = false;
+      }
+    },
   },
 };
-
 </script>
 
 <template>
@@ -161,100 +157,82 @@ export default {
     <SearchComponent :isSearching="this.searching" />
   </v-navigation-drawer>
 
-
-    <!-- drawer för mobile -->
-    <v-navigation-drawer
-        v-model="drawer"
-        touchless
-        temporary
-        class="d-flex d-sm-none"
-    >
+  <!-- drawer för mobile -->
+  <v-navigation-drawer
+    v-model="drawer"
+    touchless
+    temporary
+    class="d-flex d-sm-none"
+  >
     <!-- flat tar bort skuggorna som vuetify la till -->
-        <v-toolbar flat>
-            <v-toolbar-title>Meny</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn icon @click="(drawer = !drawer), (this.searching = false)">
-                <svg-icon type="mdi" :path="closePath"></svg-icon>
-            </v-btn>
-        </v-toolbar>
-        <!-- Search -->
-        <!-- <v-form>
+    <v-toolbar flat>
+      <v-toolbar-title>Meny</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon @click="(drawer = !drawer), (this.searching = false)">
+        <svg-icon type="mdi" :path="closePath"></svg-icon>
+      </v-btn>
+    </v-toolbar>
+    <!-- Search -->
+    <!-- <v-form>
       <v-text-field v-model="search" label="Sök..." hide-details></v-text-field>
     </v-form>. -->
 
-         <!-- SearchComponent för mobile behöver två props, isSearching som gör så att sökfältet får autofokus
+    <!-- SearchComponent för mobile behöver två props, isSearching som gör så att sökfältet får autofokus
     samt drawer för att kunna rensa sökfältet om användaren sätter drawer = true
     -->
-  
-        <SearchComponent
-            :isSearching="this.searching"
-            :drawer="this.drawer"
-            :menuClick="this.menuClick"
-        />
 
-        <!-- Rendera länkarna -->
-        <v-list class="navigation-list">
-            <v-list-item class="navigation-item" @click="toggleDropdownMenu">
-                Måla
-                <v-icon
-                    ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
-                ></v-icon>
-            </v-list-item>
-            <!-- Dold div som visas när 'showDropdownMenu' är true -->
-            <div v-if="showDropdownMenu">
-                <v-list-item
-                    class="navigation-link"
-                    @click="toggleColorsDropdown"
-                >
-                    Färger
-                    <v-icon
-                        ><svg-icon type="mdi" :path="menuDownPath"></svg-icon
-                    ></v-icon>
-                </v-list-item>
-                <div v-if="showColorsDropdown">
-                    <!-- La till plain, den tar bort den skumma hover effekt som vuetify la till. Funka dock inte på dropdown menyerna vet inte riktigt hur jag ska ta bort den från dem -->
-                    <v-list-item plain>
-                        <router-link to="#" class="navigation-link"
-                            >Gråskala</router-link
-                        >
-                    </v-list-item>
-                    <v-list-item plain>
-                        <router-link to="#" class="navigation-link"
-                            >Röd</router-link
-                        >
-                    </v-list-item>
-                    <v-list-item plain>
-                        <router-link to="#" class="navigation-link"
-                            >Blå</router-link
-                        >
-                    </v-list-item>
-                    <v-list-item plain>
-                        <router-link to="#" class="navigation-link"
-                            >Grön</router-link
-                        >
-                    </v-list-item>
-                    <v-list-item plain>
-                        <router-link to="#" class="navigation-link"
-                            >Gul</router-link
-                        >
-                    </v-list-item>
-                </div>
-                <v-list-item plain>
-                    <router-link to="#" class="navigation-link"
-                        >Utrustning</router-link
-                    >
-                </v-list-item>
-            </div>
-            <v-list-item class="navigation-item" plain>
-                <router-link to="#" class="navigation-link"
-                    >Inspiration</router-link
-                >
-            </v-list-item>
-            <v-list-item class="navigation-item" plain>
-                <router-link to="#" class="navigation-link">Guide</router-link>
-            </v-list-item>
-        </v-list>
-    </v-navigation-drawer>
+    <SearchComponent
+      :isSearching="this.searching"
+      :drawer="this.drawer"
+      :menuClick="this.menuClick"
+    />
+
+    <!-- Rendera länkarna -->
+    <v-list class="navigation-list">
+      <v-list-item
+        class="navigation-item"
+        @click="toggleDropdownMenu"
+        ref="dropdownMenu"
+      >
+        Måla
+        <v-icon><svg-icon type="mdi" :path="menuDownPath"></svg-icon></v-icon>
+      </v-list-item>
+      <!-- Dold div som visas när 'showDropdownMenu' är true -->
+      <div v-if="showDropdownMenu">
+        <v-list-item class="navigation-link" @click="toggleColorsDropdown">
+          Färger
+          <v-icon><svg-icon type="mdi" :path="menuDownPath"></svg-icon></v-icon>
+        </v-list-item>
+        <div v-if="showColorsDropdown">
+          <!-- La till plain, den tar bort den skumma hover effekt som vuetify la till. Funka dock inte på dropdown menyerna vet inte riktigt hur jag ska ta bort den från dem -->
+          <v-list-item plain>
+            <router-link to="#" class="navigation-link">Gråskala</router-link>
+          </v-list-item>
+          <v-list-item plain>
+            <router-link to="#" class="navigation-link">Röd</router-link>
+          </v-list-item>
+          <v-list-item plain>
+            <router-link to="#" class="navigation-link">Blå</router-link>
+          </v-list-item>
+          <v-list-item plain>
+            <router-link to="#" class="navigation-link">Grön</router-link>
+          </v-list-item>
+          <v-list-item plain>
+            <router-link to="#" class="navigation-link">Gul</router-link>
+          </v-list-item>
+        </div>
+        <v-list-item plain>
+          <router-link to="#" class="navigation-link">Utrustning</router-link>
+        </v-list-item>
+      </div>
+      <v-list-item class="navigation-item" plain>
+        <router-link to="#" class="navigation-link">Inspiration</router-link>
+      </v-list-item>
+      <v-list-item class="navigation-item" plain>
+        <router-link to="#" class="navigation-link">Guide</router-link>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 
   <v-app-bar flat>
     <v-app-bar-nav-icon @click="drawer = !drawer" class="d-flex d-sm-none"
@@ -305,9 +283,11 @@ export default {
   </v-app-bar>
 
   <!-- Visas när 'showDropdownMenu' är true -->
-  <div v-if="showDropdownMenu"
-        class="dropdown-content show-dropdown"
-        ref="dropdownMenu">
+  <div
+    v-if="showDropdownMenu"
+    class="dropdown-content show-dropdown"
+    ref="dropdownMenu"
+  >
     <v-list-item @click="toggleColorsDropdown">
       Färger
       <!-- ikon för att göra det tydligt på sidan att det är en dropdown meny och inte en länk som tar användaren någonstans -->

@@ -2,22 +2,29 @@
 
 <template>
   <div id="About">
-    <v-card title="PRISMA" variant="tonal">
-      <v-card-text class="text">
-        Din digitala destination för att förvandla ditt hem till en
-        färgsprakande oas. Med ett omfattande utbud av färger och nyanser, är
-        denna e-handel dedikerad till att göra färgval till en smidig och
-        inspirerande upplevelse. Teamet bakom PRISMA är inte bara experter på
-        färg, utan de delar också regelbundet tips och trender genom blogginlägg
-        och online-workshops. Detta gör det möjligt för kunder att inte bara
-        köpa färg, utan också att få inspiration och kunskap för att skapa unika
-        och personliga utrymmen. Med snabba leveranser och en kundtjänst som
-        alltid är redo att hjälpa till, strävar PRISMA efter att göra färgköp
-        online till en smidig och givande upplevelse. Så oavsett om du är en
-        inredningsentusiast eller bara letar efter att fräscha upp ditt hem, är
-        PRISMA din pålitliga partner för att ge liv åt dina visioner med ett
-        klick.
+    <v-card title="Det här är PRISMA" variant="tonal">
+      <v-card-text
+        class="text"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: left;
+          align-items: left;
+        "
+        >Oavsett om du är en inredningsentusiast eller bara vill fräscha upp,
+        har vi allt du behöver för att ge liv åt dina visioner. Upptäck vårt
+        stora utbud av färger och nyanser och hitta den perfekta looken för ditt
+        hem. Våra experter hjälper och inspirerar dig med tips, trender och
+        workshops.
+        <v-spacer></v-spacer>
+        Snabba leveranser, utmärkt kundservice och en trygg köpupplevelse gör
+        PRISMA till din perfekta partner.
+        <v-spacer></v-spacer>
+        Besök PRISMA idag och förvandla hemmet till en färgstark oas!
       </v-card-text>
+      <v-image style="width: 300px" id="img-aside">
+        <img style="width: 100%" src="../assets/images/aside-img4.jpg" alt="" />
+      </v-image>
     </v-card>
   </div>
 </template>
@@ -28,7 +35,35 @@
     padding: 2vh;
   }
 
-  .text {
+  .v-card .text {
     font-size: 1.1rem;
+    width: 75%;
+  }
+
+  #img-aside {
+    position: absolute;
+    top: 0;
+    right: 0;
+    aspect-ratio: 1;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 850px) {
+    #img-aside {
+      display: none;
+    }
+
+    .v-card .text {
+      width: 100%;
+    }
   }
 </style>
