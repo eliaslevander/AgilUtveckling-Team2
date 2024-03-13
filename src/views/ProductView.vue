@@ -202,9 +202,9 @@ const colorTypePrice = computed(() => {
 
 const addToCartHandler = () => {
   cartStore.addToCart(product.value, amount.value, toggle.value);
-  alert(
-    `${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`
-  );
+//   alert(
+//     `${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`
+//   );
 };
 
 function toggleFavorite() {
