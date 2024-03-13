@@ -12,6 +12,9 @@
     const paymentMethods = ref([])
     const otherIcons = ref([])
 
+    const showModal = ref(false);
+    const modalMessage = ref('');
+
     // För att hålla koll på vilken betalningsmetod och fraktmetod som är vald
     const selectedPaymentOption = ref('credit-card')
     const selectedShippingOption = ref('same-address')
@@ -145,8 +148,31 @@
     //     cartStore.items = [] // Töm varukorgen
     // }
 
+    function validateForm() {
+    // Exempel på enkel validering
+    return customerOrder.mailOrPhone.trim() &&
+           customerOrder.firstName.trim() &&
+           customerOrder.lastName.trim() &&
+           customerOrder.address.trim() &&
+           customerOrder.postalCode.trim() &&
+           customerOrder.city.trim() &&
+           customerOrder.payment.cardNumber.trim() && // Lägg till fler kontroller efter behov
+           customerOrder.payment.expDate.trim() &&
+           customerOrder.payment.securityCode.trim();
+}
+
+
+
     // Sparar orderdata i sessionStorage (local verkade dumt) och skickar användaren till thanksalot
     function submitCheckout() {
+        // Kontrollera först om alla krav är uppfyllda
+        if (!validateForm()) {
+        // Använd modalen istället för alert
+        modalMessage.value = 'Vänligen fyll i alla nödvändiga fält.';
+        showModal.value = true;
+        return;
+    }
+
     // Inkludera kundvagnens artiklar i customerOrder objektet
     customerOrder.items = cartStore.items.map(item => ({
         product: item.product,
@@ -176,6 +202,8 @@
 }
 
 
+
+
     onMounted(() => {
         fetchIcons()
     })
@@ -183,6 +211,13 @@
 
 <template>
     <div class="checkout-view">
+        <!-- Modal för alert -->
+        <div v-if="showModal" class="modal-overlay" @click="showModal = false">
+            <div class="modal-content" @click.stop>
+                <p>{{ modalMessage }}</p>
+                <button @click="showModal = false">Stäng</button>
+            </div>
+        </div>
         <!-- Vänster/botten vy -->
         <div class="checkout-container">
             <!-- Kontakt -->
@@ -510,6 +545,7 @@
                         <BlobComponent
                             id="blob"
                             :color="item.product.colorHex"
+                            :class="{ 'dimmed-blob': showModal }"
                             :width="'6rem'"
                             :margin="'0 1rem 0 0'"
                         />
@@ -576,6 +612,37 @@
         display: flex;
         overflow: visible;
     }
+
+    .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content p {
+    margin: .5rem 0 1.5rem 0;
+}
+
+.modal-content button {
+    float: right;
+}
+
+.dimmed-blob {
+    filter: brightness(50%);
+}
 
     /* Höger/Övre */
     .checkout-item-container {
