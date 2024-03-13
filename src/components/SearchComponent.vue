@@ -16,7 +16,7 @@
   <!-- <button @click="closeSearch">X</button> -->
   <!-- SÖKKNAPP-->
   <!-- SÖKIKON-->
-  <div>
+  <div id="search-button-container">
     <v-btn class="searchResultsButton" @click="searchResults">
       Sök
 
@@ -175,11 +175,11 @@ p {
   position: relative;
 }
 
-.searchResultsButton {
+/* .searchResultsButton {
   margin-left: 0.5rem;
   box-shadow: none;
   border: 1px solid #aaa;
-}
+} */
 
 #search-button {
   position: absolute;
@@ -234,14 +234,18 @@ p {
   position: relative;
 }
 
+#search-button-container {
+  width: 100%;
+  padding: 0 8px;
+}
+
 .searchResultsButton {
   box-shadow: none;
   font-size: 20px;
   letter-spacing: 0.1rem;
-  width: 382px;
+  width: 100%;
   margin: 10px auto;
   padding: 8px auto;
-  margin-left: 8px;
   background-color: rgba(0, 0, 0, 0);
   border-radius: 1px;
   border: 1px solid #aaa;
