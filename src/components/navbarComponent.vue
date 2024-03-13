@@ -339,25 +339,25 @@ export default {
       <v-icon><svg-icon type="mdi" :path="menuRightPath"></svg-icon></v-icon>
     </v-list-item>
     <div v-if="showColorsDropdown" class="subMenu">
-      <v-list-item plain >
-        <router-link to="/colors" class="navigation-link">Alla färger</router-link>
-      </v-list-item>
-      <v-list-item plain @click="selectColor('Röd')">
-        <router-link to="#" class="navigation-link">Röd</router-link>
-      </v-list-item>
-      <v-list-item plain @click="selectColor('Blå')">
-        <router-link to="#" class="navigation-link">Blå</router-link>
-      </v-list-item>
-      <v-list-item plain @click="selectColor('Grön')">
-        <router-link to="#" class="navigation-link">Grön</router-link>
-      </v-list-item>
-      <v-list-item plain @click="selectColor('Gul')">
-        <router-link to="#" class="navigation-link">Gul</router-link>
-      </v-list-item>
-    </div>
-    <v-list-item plain>
-      <router-link to="/accessories" class="navigation-link">Utrustning</router-link>
-    </v-list-item>
+        <v-list-item plain>
+            <router-link to="/colors" class="navigation-link">Alla färger</router-link>
+          </v-list-item>
+          <v-list-item plain @click="selectColor('Röd')">
+            <router-link to="#" class="navigation-link">Röd</router-link>
+          </v-list-item>
+          <v-list-item plain @click="selectColor('Blå')">
+            <router-link to="#" class="navigation-link">Blå</router-link>
+          </v-list-item>
+          <v-list-item plain @click="selectColor('Grön')">
+            <router-link to="#" class="navigation-link">Grön</router-link>
+          </v-list-item>
+          <v-list-item plain @click="selectColor('Gul')">
+            <router-link to="#" class="navigation-link">Gul</router-link>
+          </v-list-item>
+        </div>
+        <v-list-item plain>
+          <router-link to="/accessories" class="navigation-link">Utrustning</router-link>
+        </v-list-item>
   </div>
 </template>
 
