@@ -248,7 +248,7 @@ export default {
           </v-list-item>
         </div>
         <v-list-item plain>
-          <router-link to="#" class="navigation-link">Utrustning</router-link>
+          <router-link to="/accessories" class="navigation-link">Utrustning</router-link>
         </v-list-item>
       </div>
       <v-list-item class="navigation-item" plain>
@@ -356,7 +356,7 @@ export default {
       </v-list-item>
     </div>
     <v-list-item plain>
-      <router-link to="#" class="navigation-link">Utrustning</router-link>
+      <router-link to="/accessories" class="navigation-link">Utrustning</router-link>
     </v-list-item>
   </div>
 </template>
