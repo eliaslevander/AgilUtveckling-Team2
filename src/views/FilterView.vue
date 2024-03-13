@@ -19,14 +19,14 @@
       </div>
     </div>
   </template>
-  
+
   <script setup>
   import { productsStore } from "../stores/products";
   import BlobComponent from "@/components/BlobComponent.vue";
   import router from "@/router";
-  
+
   const store = productsStore();
-  
+
   const goToProduct = (id) => {
     router.push({ name: "product", params: { id: id } });
   };

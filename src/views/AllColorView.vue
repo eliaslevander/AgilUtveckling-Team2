@@ -43,7 +43,7 @@
     <!-- Komponentens container -->
     <div class="color-filtered-view">
         <!-- Namn på färg kategorin -->
-        <h2>Alla färger</h2>
+        <h2>Alla våra färger</h2>
         <!-- Loopar igenpm varje produkt i allColors (alla med categorin color) -->
         <div class="products">
             <!-- Uppdaterar hover ref vid mouseenter och nollställer vid mouseleave -->
