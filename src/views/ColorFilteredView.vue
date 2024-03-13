@@ -1,13 +1,15 @@
 <script setup>
     // Importerar allt som behövs
     import { computed, ref, onMounted } from 'vue'
-    import { useRoute } from 'vue-router'
+    import { useRoute, useRouter } from 'vue-router'
     import { productsStore } from '../stores/products.js'
     import { useFavoritesStore } from '../stores/favorit'
     import BlobComponent from '../components/BlobComponent.vue'
 
     // useRoute för att hämta parametrar från url
     const route = useRoute()
+    // useRouter för att kunna använda router.go(-1) för att gå tillbaka ett steg
+    const router = useRouter()
     // Pinia stores för alla produkter samt favoriter
     const store = productsStore()
     const favoritesStore = useFavoritesStore()
@@ -40,13 +42,18 @@
 </script>
 
 <template>
+    <!-- Tillbaka knapp -->
     <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
         ><v-icon>mdi-chevron-left</v-icon>
         <p>Tillbaka</p>
     </span>
+    <!-- Komponent container -->
     <div class="color-filtered-view">
+        <!-- Namn på kategorin -->
         <h2>{{ colorType }} Färg</h2>
         <div class="products">
+            <!-- Loopar igenom varje produkt i filteredProducts (alla med rätt färgtyp) -->
+            <!-- Uppdarerar hover ref vid enter och mouseleave -->
             <div
                 v-for="product in filteredProducts"
                 :key="product.id"
@@ -54,8 +61,10 @@
                 @mouseenter="hover = product.id"
                 @mouseleave="hover = null"
             >
+                <!-- Länk till produktsidan för specifik produkt -->
                 <router-link :to="`/product/${product.id}`">
                     <div>
+                        <!-- Blob som visas för alla färgtyper och försvinner vid hover -->
                         <BlobComponent
                             v-show="hover !== product.id"
                             id="blob"
@@ -63,6 +72,7 @@
                             :width="'16rem'"
                             :margin="'0 1rem 0 0'"
                         />
+                        <!-- Vid hover så visas istället product.image samt "lägg till i favoriter knappen" -->
                         <div v-show="hover === product.id">
                             <img
                                 :src="product.image"
@@ -86,6 +96,7 @@
                             </v-btn>
                         </div>
                     </div>
+                    <!-- Namn och pris -->
                     <div class="product-info">
                         <h3>{{ product.name }}</h3>
                         <h3>{{ product.price }} kr / L</h3>
@@ -133,28 +144,8 @@
                     text-decoration: none;
                     color: black;
                 }
-                .image-container {
-                    width: 14rem;
-                    height: 14rem;
-                    margin: 0 1rem 0 0;
-                    position: relative;
-                    overflow: hidden;
-                    border-radius: 10px;
-                    img,
-                    .blob-component {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 14rem;
-                        height: 14rem;
-                        transition: opacity 0.5s ease;
-                    }
-                    img {
-                        opacity: 0;
-                        &:hover {
-                            opacity: 1;
-                        }
-                    }
+                img {
+                    object-fit: cover;
                 }
                 .product-info {
                     width: 100%;

@@ -1,18 +1,11 @@
 <script setup>
-import HeroImage from "../components/HeroImage.vue";
 import HeroComponent from "../components/HeroComponent.vue";
-import SearchResults from "../components/SearchComponent.vue";
 import About from "../components/AboutText.vue";
 import Carousel from "../components/ImgWheel.vue";
-import TestFetch from "../components/TestFetch.vue";
-import CoolBlob from "@/components/CoolBlob.vue";
 </script>
 
 <template>
   <main>
-    <!-- <TestFetch /> -->
-    <!-- <CoolBlob /> -->
-    <!-- <HeroImage /> -->
     <HeroComponent />
     <Carousel />
     <About />
@@ -28,4 +21,3 @@ main {
   overflow-x: hidden;
 }
 </style>
-../components/HeroComponent.vue

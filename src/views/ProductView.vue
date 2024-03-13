@@ -232,12 +232,14 @@
         return colorTypeValue
     })
 
-    const addToCartHandler = () => {
-        cartStore.addToCart(product.value, amount.value, toggle.value)
-        //   alert(
-        //     `${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`
-        //   );
-    }
+const addToCartHandler = () => {
+  cartStore.addToCart(product.value, amount.value, toggle.value);
+  productAdded.value = true; // Uppdatera när produkt läggs till
+    setTimeout(() => productAdded.value = false, 3000);
+//   alert(
+//     `${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`
+//   );
+};
 
     function toggleFavorite() {
         /* Funktionen anropas när en användare lägger till eller tar bort en produkt från favoriter */
