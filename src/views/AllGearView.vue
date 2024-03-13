@@ -1,3 +1,27 @@
+<script setup>
+    import { ref, onMounted } from 'vue'
+    import { productsStore } from '../stores/products.js'
+    import { useFavoritesStore } from '../stores/favorit'
+
+    const store = productsStore()
+    const hover = ref(null)
+    const favoritesStore = useFavoritesStore()
+
+    onMounted(async () => {
+        if (store.products.length === 0) {
+            await store.fetchData()
+        }
+    })
+
+    const allGear = ref(
+        store.products.filter((product) => product.category === 'accessories')
+    )
+
+    function toggleFavorite(product) {
+        favoritesStore.toggleFavorites(product)
+    }
+</script>
+
 <template>
     <div class="gear-view">
         <h2>All Utrustning</h2>
@@ -16,6 +40,21 @@
                             :alt="gear.alt"
                             style="width: 14rem; height: 14rem"
                         />
+                        <v-btn
+                            icon
+                            flat
+                            @click.stop="toggleFavorite(gear)"
+                            class="favorite-button"
+                            v-show="hover === gear.id"
+                        >
+                            <v-icon>
+                                {{
+                                    favoritesStore.isFavorite(gear.id)
+                                        ? 'mdi-heart'
+                                        : 'mdi-heart-outline'
+                                }}
+                            </v-icon>
+                        </v-btn>
                     </div>
                     <div class="product-info">
                         <h3>{{ gear.name }}</h3>
@@ -26,24 +65,6 @@
         </div>
     </div>
 </template>
-
-<script setup>
-    import { ref, onMounted } from 'vue'
-    import { productsStore } from '../stores/products.js'
-
-    const store = productsStore()
-    const hover = ref(null)
-
-    onMounted(async () => {
-        if (store.products.length === 0) {
-            await store.fetchData()
-        }
-    })
-
-    const allGear = ref(
-        store.products.filter((product) => product.category === 'accessories')
-    )
-</script>
 
 <style lang="scss" scoped>
     .gear-view {
@@ -104,6 +125,16 @@
                         font-size: 1.2rem;
                         margin: 0;
                     }
+                }
+                .favorite-button {
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    visibility: hidden;
+                }
+
+                &:hover .favorite-button {
+                    visibility: visible;
                 }
             }
         }
