@@ -166,12 +166,12 @@
     // Sparar orderdata i sessionStorage (local verkade dumt) och skickar användaren till thanksalot
     function submitCheckout() {
         // Kontrollera först om alla krav är uppfyllda
-        // if (!validateForm()) {
+        if (!validateForm()) {
         // Använd modalen istället för alert
-        // modalMessage.value = 'Vänligen fyll i alla nödvändiga fält.';
-        // showModal.value = true;
-        // return;
-    // }
+        modalMessage.value = 'Vänligen fyll i alla nödvändiga fält.';
+        showModal.value = true;
+        return;
+    }
 
     // Inkludera kundvagnens artiklar i customerOrder objektet
     customerOrder.items = cartStore.items.map(item => ({
