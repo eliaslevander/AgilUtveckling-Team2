@@ -1,14 +1,17 @@
 <script setup>
     // Importerar alla nödvändiga funktioner, stores och komponenter
     import { computed, ref, onMounted } from 'vue'
+    import { useRouter } from 'vue-router'
     import { productsStore } from '../stores/products.js'
     import { useFavoritesStore } from '../stores/favorit'
     import BlobComponent from '../components/BlobComponent.vue'
 
-    // Hämtar productsStore från products.js
+    // Använder pinia stores för produkter och favoruter
     const store = productsStore()
-    // Hämtar favoritesStore från favorit.js
     const favoritesStore = useFavoritesStore()
+
+    // Anväder router från vue-router för att kunna gå tillbaka till föregående sida
+    const router = useRouter()
 
     // Här är en ref som ska hålla koll på vilken produkt som hoveras över
     const hover = ref(null)
@@ -32,6 +35,7 @@
 </script>
 
 <template>
+    <!-- Tillbaka knapp -->
     <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
         ><v-icon>mdi-chevron-left</v-icon>
         <p>Tillbaka</p>
@@ -133,28 +137,8 @@
                     text-decoration: none;
                     color: black;
                 }
-                .image-container {
-                    width: 14rem;
-                    height: 14rem;
-                    margin: 0 1rem 0 0;
-                    position: relative;
-                    overflow: hidden;
-                    border-radius: 10px;
-                    img,
-                    .blob-component {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 14rem;
-                        height: 14rem;
-                        transition: opacity 0.5s ease;
-                    }
-                    img {
-                        opacity: 0;
-                        &:hover {
-                            opacity: 1;
-                        }
-                    }
+                img {
+                    object-fit: cover;
                 }
                 .product-info {
                     width: 100%;

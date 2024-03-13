@@ -1,35 +1,51 @@
 <script setup>
+    // Importerar allt som behövs
     import { ref, onMounted } from 'vue'
+    import { useRouter } from 'vue-router'
     import { productsStore } from '../stores/products.js'
     import { useFavoritesStore } from '../stores/favorit'
 
+    // Använder useRouter för att kunna använda router.go(-1) för att gå tillbaka ett steg
+    const router = useRouter()
+
+    // Pinia stores för alla produkter samt favoriter
     const store = productsStore()
-    const hover = ref(null)
     const favoritesStore = useFavoritesStore()
 
+    // Hover ref för att hålla koll på hover
+    const hover = ref(null)
+
+    // När komponenten mountas så kollar den om det finns några produkter i store.products, om inte så hämtas produkterna med fetchData
     onMounted(async () => {
         if (store.products.length === 0) {
             await store.fetchData()
         }
     })
 
+    // Hämtar alla produkter med kategorin 'accessories'
     const allGear = ref(
         store.products.filter((product) => product.category === 'accessories')
     )
 
+    // En funktion till favoritknappen som dyker upp vid hover. Den kollar om produkten är favorit eller inte och ändrar därefter
     function toggleFavorite(product) {
         favoritesStore.toggleFavorites(product)
     }
 </script>
 
 <template>
+    <!-- Tillbaka knapp -->
     <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
         ><v-icon>mdi-chevron-left</v-icon>
         <p>Tillbaka</p>
     </span>
+    <!-- Komponent container -->
     <div class="gear-view">
+        <!-- Namn på kategorin -->
         <h2>All Utrustning</h2>
+        <!-- Loopar igenom varje produkt i allGear (alla med kategorin accessories) -->
         <div class="products">
+            <!-- Uppdaterar hover ref vid mouseenter och nollställer vid mouseleave -->
             <div
                 v-for="gear in allGear"
                 :key="gear.id"
@@ -37,8 +53,10 @@
                 @mouseenter="hover = gear.id"
                 @mouseleave="hover = null"
             >
+                <!-- Länk till produktsidan för specifik produkt -->
                 <router-link :to="`/product/${gear.id}`">
                     <div>
+                        <!-- Bild och vid hover så visas även en favorit knapp -->
                         <img
                             :src="gear.image"
                             :alt="gear.alt"
@@ -60,6 +78,7 @@
                             </v-icon>
                         </v-btn>
                     </div>
+                    <!-- namn och pris -->
                     <div class="product-info">
                         <h3>{{ gear.name }}</h3>
                         <p>{{ gear.price }} kr</p>
@@ -106,29 +125,11 @@
                     text-decoration: none;
                     color: black;
                 }
-                .image-container {
-                    width: 14rem;
-                    height: 14rem;
-                    margin: 0 1rem 0 0;
-                    position: relative;
-                    overflow: hidden;
-                    border-radius: 10px;
-                    img,
-                    .blob-component {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 14rem;
-                        height: 14rem;
-                        transition: opacity 0.5s ease;
+
+                img {
+                        object-fit: cover;
                     }
-                    img {
-                        opacity: 0;
-                        &:hover {
-                            opacity: 1;
-                        }
-                    }
-                }
+
                 .product-info {
                     width: 100%;
                     display: flex;

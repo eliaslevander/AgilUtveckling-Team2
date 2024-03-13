@@ -246,6 +246,9 @@ export default {
           <v-list-item plain @click="selectColor('Gul')">
             <router-link to="/colors/Gul" class="navigation-link">Gul</router-link>
           </v-list-item>
+          <v-list-item plain @click="selectColor('Vit')">
+            <router-link to="" class="navigation-link">Vit</router-link>
+          </v-list-item>
         </div>
         <v-list-item plain>
           <router-link to="/accessories" class="navigation-link">Utrustning</router-link>
@@ -353,6 +356,9 @@ export default {
           </v-list-item>
           <v-list-item plain @click="selectColor('Gul')">
             <router-link to="" class="navigation-link">Gul</router-link>
+          </v-list-item>
+          <v-list-item plain @click="selectColor('Vit')">
+            <router-link to="" class="navigation-link">Vit</router-link>
           </v-list-item>
         </div>
         <v-list-item plain>

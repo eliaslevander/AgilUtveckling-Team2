@@ -12,6 +12,9 @@
     const paymentMethods = ref([])
     const otherIcons = ref([])
 
+    const showModal = ref(false);
+    const modalMessage = ref('');
+
     // För att hålla koll på vilken betalningsmetod och fraktmetod som är vald
     const selectedPaymentOption = ref('credit-card')
     const selectedShippingOption = ref('same-address')
@@ -145,8 +148,31 @@
     //     cartStore.items = [] // Töm varukorgen
     // }
 
+    function validateForm() {
+    // Exempel på enkel validering
+    return customerOrder.mailOrPhone.trim() &&
+           customerOrder.firstName.trim() &&
+           customerOrder.lastName.trim() &&
+           customerOrder.address.trim() &&
+           customerOrder.postalCode.trim() &&
+           customerOrder.city.trim() &&
+           customerOrder.payment.cardNumber.trim() && // Lägg till fler kontroller efter behov
+           customerOrder.payment.expDate.trim() &&
+           customerOrder.payment.securityCode.trim();
+}
+
+
+
     // Sparar orderdata i sessionStorage (local verkade dumt) och skickar användaren till thanksalot
     function submitCheckout() {
+        // Kontrollera först om alla krav är uppfyllda
+        if (!validateForm()) {
+        // Använd modalen istället för alert
+        modalMessage.value = 'Vänligen fyll i alla nödvändiga fält.';
+        showModal.value = true;
+        return;
+    }
+
     // Inkludera kundvagnens artiklar i customerOrder objektet
     customerOrder.items = cartStore.items.map(item => ({
         product: item.product,
@@ -176,6 +202,8 @@
 }
 
 
+
+
     onMounted(() => {
         fetchIcons()
     })
@@ -183,317 +211,325 @@
 
 <template>
     <div class="checkout-view">
+        <!-- Modal för alert -->
+        <div v-if="showModal" class="modal-overlay" @click="showModal = false">
+            <div class="modal-content" @click.stop>
+                <p>{{ modalMessage }}</p>
+                <button @click="showModal = false">Stäng</button>
+            </div>
+        </div>
         <!-- Vänster/botten vy -->
         <div class="checkout-container">
             <!-- Kontakt -->
-            <div id="contact-section">
-                <h3>Kontakt</h3>
-                <input
-                    v-model="customerOrder.emailOrPhone"
-                    type="text"
-                    placeholder="E-post eller telefonnummer"
-                    required
-                />
-                <div id="sub-check">
+            <form action="">
+                <div id="contact-section">
+                    <h3>Kontakt</h3>
                     <input
-                        v-model="customerOrder.isSubscribed"
-                        type="checkbox"
-                        name="subscribe-check"
-                        id=""
-                    />
-                    <label for="subscribe-check"
-                        >Skicka mail med erbjudanden</label
-                    >
-                </div>
-            </div>
-            <!-- Leverans -->
-            <div id="delivery-section">
-                <h3>Leverans</h3>
-                <div id="name-section">
-                    <input
-                        v-model="customerOrder.firstName"
+                        v-model="customerOrder.emailOrPhone"
                         type="text"
-                        placeholder="Förnamn"
+                        placeholder="E-post eller telefonnummer"
                         required
                     />
-                    <input
-                        v-model="customerOrder.lastName"
-                        type="text"
-                        placeholder="Efternamn"
-                        required
-                    />
-                </div>
-                <input
-                    type="text"
-                    v-model="customerOrder.address"
-                    placeholder="Adress"
-                    required
-                />
-                <div id="address-section">
-                    <input
-                        type="text"
-                        v-model="customerOrder.postalCode"
-                        placeholder="Postnummer"
-                        required
-                    />
-                    <input
-                        type="text"
-                        v-model="customerOrder.city"
-                        placeholder="Stad"
-                        required
-                    />
-                </div>
-            </div>
-            <!-- Frakt -->
-            <div id="shipping-section">
-                <h3>Frakt</h3>
-                <div v-if="!isAddressComplete">
-                    <p>Ange adress för att se tillängliga alternativ</p>
-                </div>
-                <div id="postnord-option" v-else>
-                    <input
-                        v-model="customerOrder.shipping"
-                        type="radio"
-                        name="post-nord"
-                        id=""
-                    />
-                    <img
-                        id="postnord-logo"
-                        v-if="otherIcons.length > 0"
-                        :src="otherIcons[2].img"
-                        alt=""
-                    />
-                    <label for="post-nord"
-                        >| Hämta på närmaste utlämningställe</label
-                    >
-                </div>
-            </div>
-            <!-- Betalning -->
-            <div id="payment-section">
-                <h3>Betalning</h3>
-                <p>Alla transaktioner är säkra och krypterade</p>
-                <!-- Kortbetalning -->
-                <div id="payment-container">
-                    <div class="payment-option" id="credit-card-option">
-                        <div>
-                            <input
-                                type="radio"
-                                name="payment-option"
-                                id="credit-card"
-                                value="credit-card"
-                                v-model="customerOrder.payment.paymentMethod"
-                            />
-                            <label for="credit-card">Kredit kort</label>
-                        </div>
-                        <ul>
-                            <li v-for="icon in icons" :key="icon.id">
-                                <img
-                                    typeof="svg"
-                                    :src="icon.img"
-                                    :alt="icon.alt"
-                                />
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- OM kortbetalning -->
-                    <div
-                        class="payment-option"
-                        id="if-credit-card"
-                        v-if="selectedPaymentOption === 'credit-card'"
-                    >
-                        <div class="card-details" id="row-1">
-                            <input
-                                id="card-number-input"
-                                v-model="customerOrder.payment.cardNumber"
-                                placeholder="Kort nummer"
-                                type="text"
-                                required
-                            />
-                            <img
-                                v-if="otherIcons.length > 0"
-                                :src="otherIcons[0].img"
-                                alt=""
-                            />
-                        </div>
-                        <div class="card-details" id="row-2">
-                            <input
-                                v-model="customerOrder.payment.expDate"
-                                placeholder="Datum (MM / YY)"
-                                type="text"
-                                required
-                            />
-                            <div id="row-2-cvv">
-                                <input
-                                    v-model="customerOrder.payment.securityCode"
-                                    placeholder="Cvv"
-                                    type="text"
-                                    required
-                                />
-                                <img
-                                    v-if="otherIcons.length > 0"
-                                    :src="otherIcons[1].img"
-                                    alt=""
-                                />
-                            </div>
-                        </div>
-                        <div class="card-details" id="row-3">
-                            <input
-                                v-model="customerOrder.payment.nameOnCard"
-                                placeholder="Namn på kortet"
-                                type="text"
-                            />
-                        </div>
-                    </div>
-                    <!-- Applepay -->
-                    <div class="payment-option" id="applepay-option">
-                        <div id="applepay-div">
-                            <input
-                                type="radio"
-                                name="payment-option"
-                                id="apple-pay"
-                                value="apple-pay"
-                                v-model="selectedPaymentOption"
-                            />
-                            <img
-                                class="payment-logo"
-                                v-if="paymentMethods.length > 0"
-                                :src="paymentMethods[0].img"
-                                :alt="paymentMethods[0].alt"
-                            />
-                            <label for="apple-pay"> | Betala direkt</label>
-                        </div>
-                    </div>
-                    <!-- OM applepay -->
-                    <div v-if="selectedPaymentOption === 'apple-pay'">
-                        <div>
-                            <h3>Detta ska bara synas om applepay är valt</h3>
-                        </div>
-                    </div>
-                    <!-- Klarna -->
-                    <div class="payment-option" id="klarna-option">
-                        <div id="klarna-div">
-                            <input
-                                type="radio"
-                                name="payment-option"
-                                id="klarna"
-                                value="klarna"
-                                v-model="selectedPaymentOption"
-                            />
-                            <img
-                                class="payment-logo"
-                                v-if="paymentMethods.length > 0"
-                                :src="paymentMethods[1].img"
-                                :alt="paymentMethods[1].alt"
-                            />
-                            <label for="klarna-pay"> | Betala direkt</label>
-                        </div>
-                    </div>
-                    <!-- OM klarna -->
-                    <div v-if="selectedPaymentOption === 'klarna'">
-                        <div>
-                            <h3>Detta ska bara synas om klarna är valt</h3>
-                        </div>
-                    </div>
-                    <!-- Crypto betalning -->
-                    <div class="payment-option" id="crypto-option">
-                        <div>
-                            <input
-                                type="radio"
-                                name="payment-option"
-                                id="credit-card"
-                                value="coinbase"
-                                v-model="selectedPaymentOption"
-                            />
-                            <label for="credit-card">Coinbase</label>
-                        </div>
-                        <ul>
-                            <li v-for="crypto in cryptoIcons" :key="crypto.id">
-                                <div id="crypto-container">
-                                    <img
-                                        id="crypto-img"
-                                        typeof="svg"
-                                        :src="crypto.img"
-                                        :alt="crypto.alt"
-                                    />
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- OM crypto -->
-                    <div v-if="selectedPaymentOption === 'coinbase'">
-                        <div>
-                            <h3>Detta ska bara synas om coinbase är valt</h3>
-                        </div>
+                    <div id="sub-check">
+                        <input
+                            v-model="customerOrder.isSubscribed"
+                            type="checkbox"
+                            name="subscribe-check"
+                            id=""
+                        />
+                        <label for="subscribe-check"
+                            >Skicka mail med erbjudanden</label
+                        >
                     </div>
                 </div>
-            </div>
-
-            <!-- Faktura adress -->
-            <div id="billing-address-section">
-                <h3>Faktureringsadress</h3>
-                <div class="payment-option" id="same-address">
-                    <input
-                        v-model="selectedShippingOption"
-                        type="radio"
-                        value="same-address"
-                        id=""
-                    />
-                    <label for="credit-card">Samma som leverans</label>
-                </div>
-                <div class="payment-option" id="new-address">
-                    <input
-                        v-model="selectedShippingOption"
-                        type="radio"
-                        value="new-address"
-                        id=""
-                    />
-                    <label for="credit-card">Annan adress</label>
-                </div>
-                <div
-                    id="if-new-address"
-                    v-if="selectedShippingOption === 'new-address'"
-                >
+                <!-- Leverans -->
+                <div id="delivery-section">
+                    <h3>Leverans</h3>
                     <div id="name-section">
                         <input
+                            v-model="customerOrder.firstName"
                             type="text"
-                            for="newName"
                             placeholder="Förnamn"
                             required
                         />
                         <input
+                            v-model="customerOrder.lastName"
                             type="text"
-                            for="newLastname"
                             placeholder="Efternamn"
                             required
                         />
                     </div>
                     <input
                         type="text"
-                        for="newAdress"
+                        v-model="customerOrder.address"
                         placeholder="Adress"
                         required
                     />
                     <div id="address-section">
                         <input
                             type="text"
-                            for="newPostal"
+                            v-model="customerOrder.postalCode"
                             placeholder="Postnummer"
                             required
                         />
                         <input
                             type="text"
-                            for="newCity"
+                            v-model="customerOrder.city"
                             placeholder="Stad"
                             required
                         />
                     </div>
                 </div>
-            </div>
-            <div>
-                <button @click="submitCheckout" id="submit-checkout">
-                    SLUTFÖR BETALNING
-                </button>
-            </div>
+                <!-- Frakt -->
+                <div id="shipping-section">
+                    <h3>Frakt</h3>
+                    <div v-if="!isAddressComplete">
+                        <p>Ange adress för att se tillängliga alternativ</p>
+                    </div>
+                    <div id="postnord-option" v-else>
+                        <input
+                            v-model="customerOrder.shipping"
+                            type="radio"
+                            name="post-nord"
+                            id=""
+                        />
+                        <img
+                            id="postnord-logo"
+                            v-if="otherIcons.length > 0"
+                            :src="otherIcons[2].img"
+                            alt=""
+                        />
+                        <label for="post-nord"
+                            >| Hämta på närmaste utlämningställe</label
+                        >
+                    </div>
+                </div>
+                <!-- Betalning -->
+                <div id="payment-section">
+                    <h3>Betalning</h3>
+                    <p>Alla transaktioner är säkra och krypterade</p>
+                    <!-- Kortbetalning -->
+                    <div id="payment-container">
+                        <div class="payment-option" id="credit-card-option">
+                            <div>
+                                <input
+                                    type="radio"
+                                    name="payment-option"
+                                    id="credit-card"
+                                    value="credit-card"
+                                    v-model="customerOrder.payment.paymentMethod"
+                                />
+                                <label for="credit-card">Kredit kort</label>
+                            </div>
+                            <ul>
+                                <li v-for="icon in icons" :key="icon.id">
+                                    <img
+                                        typeof="svg"
+                                        :src="icon.img"
+                                        :alt="icon.alt"
+                                    />
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- OM kortbetalning -->
+                        <div
+                            class="payment-option"
+                            id="if-credit-card"
+                            v-if="selectedPaymentOption === 'credit-card'"
+                        >
+                            <div class="card-details" id="row-1">
+                                <input
+                                    id="card-number-input"
+                                    v-model="customerOrder.payment.cardNumber"
+                                    placeholder="Kort nummer"
+                                    type="text"
+                                    required
+                                />
+                                <img
+                                    v-if="otherIcons.length > 0"
+                                    :src="otherIcons[0].img"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="card-details" id="row-2">
+                                <input
+                                    v-model="customerOrder.payment.expDate"
+                                    placeholder="Datum (MM / YY)"
+                                    type="text"
+                                    required
+                                />
+                                <div id="row-2-cvv">
+                                    <input
+                                        v-model="customerOrder.payment.securityCode"
+                                        placeholder="Cvv"
+                                        type="text"
+                                        required
+                                    />
+                                    <img
+                                        v-if="otherIcons.length > 0"
+                                        :src="otherIcons[1].img"
+                                        alt=""
+                                    />
+                                </div>
+                            </div>
+                            <div class="card-details" id="row-3">
+                                <input
+                                    v-model="customerOrder.payment.nameOnCard"
+                                    placeholder="Namn på kortet"
+                                    type="text"
+                                />
+                            </div>
+                        </div>
+                        <!-- Applepay -->
+                        <div class="payment-option" id="applepay-option">
+                            <div id="applepay-div">
+                                <input
+                                    type="radio"
+                                    name="payment-option"
+                                    id="apple-pay"
+                                    value="apple-pay"
+                                    v-model="selectedPaymentOption"
+                                />
+                                <img
+                                    class="payment-logo"
+                                    v-if="paymentMethods.length > 0"
+                                    :src="paymentMethods[0].img"
+                                    :alt="paymentMethods[0].alt"
+                                />
+                                <label for="apple-pay"> | Betala direkt</label>
+                            </div>
+                        </div>
+                        <!-- OM applepay -->
+                        <div v-if="selectedPaymentOption === 'apple-pay'">
+                            <div>
+                                <h3>Detta ska bara synas om applepay är valt</h3>
+                            </div>
+                        </div>
+                        <!-- Klarna -->
+                        <div class="payment-option" id="klarna-option">
+                            <div id="klarna-div">
+                                <input
+                                    type="radio"
+                                    name="payment-option"
+                                    id="klarna"
+                                    value="klarna"
+                                    v-model="selectedPaymentOption"
+                                />
+                                <img
+                                    class="payment-logo"
+                                    v-if="paymentMethods.length > 0"
+                                    :src="paymentMethods[1].img"
+                                    :alt="paymentMethods[1].alt"
+                                />
+                                <label for="klarna-pay"> | Betala direkt</label>
+                            </div>
+                        </div>
+                        <!-- OM klarna -->
+                        <div v-if="selectedPaymentOption === 'klarna'">
+                            <div>
+                                <h3>Detta ska bara synas om klarna är valt</h3>
+                            </div>
+                        </div>
+                        <!-- Crypto betalning -->
+                        <div class="payment-option" id="crypto-option">
+                            <div>
+                                <input
+                                    type="radio"
+                                    name="payment-option"
+                                    id="credit-card"
+                                    value="coinbase"
+                                    v-model="selectedPaymentOption"
+                                />
+                                <label for="credit-card">Coinbase</label>
+                            </div>
+                            <ul>
+                                <li v-for="crypto in cryptoIcons" :key="crypto.id">
+                                    <div id="crypto-container">
+                                        <img
+                                            id="crypto-img"
+                                            typeof="svg"
+                                            :src="crypto.img"
+                                            :alt="crypto.alt"
+                                        />
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- OM crypto -->
+                        <div v-if="selectedPaymentOption === 'coinbase'">
+                            <div>
+                                <h3>Detta ska bara synas om coinbase är valt</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Faktura adress -->
+                <div id="billing-address-section">
+                    <h3>Faktureringsadress</h3>
+                    <div class="payment-option" id="same-address">
+                        <input
+                            v-model="selectedShippingOption"
+                            type="radio"
+                            value="same-address"
+                            id=""
+                        />
+                        <label for="credit-card">Samma som leverans</label>
+                    </div>
+                    <div class="payment-option" id="new-address">
+                        <input
+                            v-model="selectedShippingOption"
+                            type="radio"
+                            value="new-address"
+                            id=""
+                        />
+                        <label for="credit-card">Annan adress</label>
+                    </div>
+                    <div
+                        id="if-new-address"
+                        v-if="selectedShippingOption === 'new-address'"
+                    >
+                        <div id="name-section">
+                            <input
+                                type="text"
+                                for="newName"
+                                placeholder="Förnamn"
+                                required
+                            />
+                            <input
+                                type="text"
+                                for="newLastname"
+                                placeholder="Efternamn"
+                                required
+                            />
+                        </div>
+                        <input
+                            type="text"
+                            for="newAdress"
+                            placeholder="Adress"
+                            required
+                        />
+                        <div id="address-section">
+                            <input
+                                type="text"
+                                for="newPostal"
+                                placeholder="Postnummer"
+                                required
+                            />
+                            <input
+                                type="text"
+                                for="newCity"
+                                placeholder="Stad"
+                                required
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button @click="submitCheckout" id="submit-checkout">
+                        SLUTFÖR BETALNING
+                    </button>
+                </div>
+            </form>
         </div>
 
         <!-- Höger/Top(Produktvy) -->
@@ -509,6 +545,7 @@
                         <BlobComponent
                             id="blob"
                             :color="item.product.colorHex"
+                            :class="{ 'dimmed-blob': showModal }"
                             :width="'6rem'"
                             :margin="'0 1rem 0 0'"
                         />
@@ -575,6 +612,37 @@
         display: flex;
         overflow: visible;
     }
+
+    .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content p {
+    margin: .5rem 0 1.5rem 0;
+}
+
+.modal-content button {
+    float: right;
+}
+
+.dimmed-blob {
+    filter: brightness(50%);
+}
 
     /* Höger/Övre */
     .checkout-item-container {
@@ -950,6 +1018,7 @@
         border: 0.5px solid black;
         padding: 0.5rem 2rem;
         width: 100%;
+        margin-bottom: 2rem;
     }
 
     button#submit-checkout:hover {
@@ -972,6 +1041,10 @@
             width: 100%;
             padding: 0;
             margin-bottom: 2rem;
+        }
+
+        #photo-title{
+            margin-left: 1rem;
         }
     }
 </style>
