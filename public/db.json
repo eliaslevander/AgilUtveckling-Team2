@@ -115,7 +115,7 @@
     "value": "l",
     "colorType": "Röd",
     "colorHex": "#a01A00",
-    "url": "/product/12"
+    "url": "/product/9"
   },
   {
     "id": 10,
@@ -128,7 +128,7 @@
     "value": "l",
     "colorType": "Röd",
     "colorHex": "#B03808",
-    "url": "/product/13"
+    "url": "/product/10"
   },
   {
     "id": 11,
@@ -141,7 +141,7 @@
     "value": "l",
     "colorType": "Röd",
     "colorHex": "#ca3710",
-    "url": "/product/14"
+    "url": "/product/11"
   },
   {
     "id": 12,
@@ -154,7 +154,7 @@
     "value": "l",
     "colorType": "Gul",
     "colorHex": "#FFD508",
-    "url": "/product/15"
+    "url": "/product/12"
   },
   {
     "id": 13,
@@ -167,7 +167,7 @@
     "value": "l",
     "colorType": "Gul",
     "colorHex": "#FFCD08",
-    "url": "/product/16"
+    "url": "/product/13"
   },
   {
     "id": 14,
@@ -180,7 +180,7 @@
     "value": "l",
     "colorType": "Gul",
     "colorHex": "#FFFF08",
-    "url": "/product/17"
+    "url": "/product/14"
   },
 
   {
@@ -194,7 +194,7 @@
     "value": "st",
     "colorType": "",
     "colorHex": "",
-    "url": "/product/9"
+    "url": "/product/15"
   },
   {
     "id": 16,
@@ -207,7 +207,7 @@
     "value": "st",
     "colorType": "",
     "colorHex": "",
-    "url": "/product/10"
+    "url": "/product/16"
   },
   {
     "id": 17,
@@ -220,6 +220,6 @@
     "value": "st",
     "colorType": "",
     "colorHex": "",
-    "url": "/product/11"
+    "url": "/product/17"
   }
 ]
