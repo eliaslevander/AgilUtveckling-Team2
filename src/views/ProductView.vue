@@ -130,13 +130,15 @@
       </p>
       <div id="cart-button-container">
         <v-btn
-          @click="addToCartHandler"
-          id="cart-button"
-          :color="product.category === 'color' ? product.colorHex : 'orange'"
-          height="48"
-          :disabled="toggle === '' && isColor ? true : false"
-          >Lägg till i kundvagn
-        </v-btn>
+        @click="addToCartHandler"
+        id="cart-button"
+        :color="product.category === 'color' ? product.colorHex : 'orange'"
+        height="48"
+        :disabled="toggle === '' && isColor ? true : false"
+    >
+        <span v-if="productAdded">Produkt tillagd &#10003;</span>
+        <span v-else>Lägg till i kundvagn</span>
+    </v-btn>
       </div>
     </div>
   </div>
@@ -169,6 +171,7 @@ const product = ref({});
 const amount = ref(1);
 const toggle = ref("");
 const isColor = ref(null);
+const productAdded = ref(false);
 
 onMounted(() => {
   // Här letar funktionen efter den första produkten med det id som är == route.params.id
@@ -202,6 +205,8 @@ const colorTypePrice = computed(() => {
 
 const addToCartHandler = () => {
   cartStore.addToCart(product.value, amount.value, toggle.value);
+  productAdded.value = true; // Uppdatera när produkt läggs till
+    setTimeout(() => productAdded.value = false, 3000);
 //   alert(
 //     `${product.value.name} (Färgtyp: ${toggle.value}, Antal: ${amount.value}L) har lagts till i din kundvagn.`
 //   );
