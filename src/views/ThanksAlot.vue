@@ -94,9 +94,11 @@
                     </div>
                     <h5>{{ item.product.name }} ({{ item.quantity }} st)</h5>
                 </div>
-                <p id="price-paragraph">{{ item.product.price }} kr / st</p>
+                <div id ="checkout-item-info">
+                <p id="price-paragraph">{{ item.product.price }} kr</p>
                 <p>{{ item.product.category !== 'color' ? 'Utrustning' : item.colorType }}</p>
                 <p>{{ cartStore.quantity }}</p>
+              </div>
             </div>
             <div id="total-cost">
                 <div id="shipping">
@@ -121,9 +123,6 @@
                     Förväntad leveranstid är 2024-02-04. Du kommer att få ett
                     bekräftelsemeddelande med spårningsinformation så snart din
                     beställning har skickats.
-
-
-                    testetsetstestetstestetste
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-title id="infotitle">
@@ -244,6 +243,10 @@
         align-items: center;
         margin-top: 1rem;
     }
+    #checkout-item-info {
+      display: block;
+      align-items: center;
+    }
     #checkout-item-header #photo-title {
         display: flex;
         align-items: center;
@@ -329,5 +332,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    #price-paragraph {
+      text-align: bottom;
+      margin:2vh;
+      padding-right: 1vh;
+      width: 85%;
     }
 </style>
