@@ -65,6 +65,10 @@
   }
 
   @media screen and (max-width: 1200px) {
+    .v-card {
+      margin-top: 1.2rem;
+    }
+
     .v-card .text {
       width: 60%;
     }
