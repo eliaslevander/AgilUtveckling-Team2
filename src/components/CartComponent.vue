@@ -376,9 +376,8 @@ const shippingCost = computed(() => {
     }
   }
 }
-
 @media screen and (max-width: 375px) {
-  .cart-modal {
+    #app > div > div > div.cart-container > div{
     width: 20rem;
 
     #cart-content img {
@@ -387,4 +386,6 @@ const shippingCost = computed(() => {
     }
   }
 }
+
+
 </style>

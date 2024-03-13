@@ -23,6 +23,10 @@
 </script>
 
 <template>
+    <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
+        ><v-icon>mdi-chevron-left</v-icon>
+        <p>Tillbaka</p>
+    </span>
     <div class="gear-view">
         <h2>All Utrustning</h2>
         <div class="products">
@@ -38,7 +42,7 @@
                         <img
                             :src="gear.image"
                             :alt="gear.alt"
-                            style="width: 14rem; height: 14rem"
+                            style="width: 17rem; height: 17rem"
                         />
                         <v-btn
                             icon
@@ -67,6 +71,17 @@
 </template>
 
 <style lang="scss" scoped>
+    #go-back {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        cursor: pointer;
+
+        p {
+            text-decoration: underline;
+            font-weight: 600;
+        }
+    }
     .gear-view {
         display: flex;
         flex-direction: column;

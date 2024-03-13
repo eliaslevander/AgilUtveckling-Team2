@@ -1,24 +1,31 @@
 <script setup>
+    // Importerar allt som behövs
     import { computed, ref, onMounted } from 'vue'
     import { useRoute } from 'vue-router'
     import { productsStore } from '../stores/products.js'
     import { useFavoritesStore } from '../stores/favorit'
     import BlobComponent from '../components/BlobComponent.vue'
 
+    // useRoute för att hämta parametrar från url
     const route = useRoute()
+    // Pinia stores för alla produkter samt favoriter
     const store = productsStore()
     const favoritesStore = useFavoritesStore()
 
+    // Hover ref för att hålla koll på hove
     const hover = ref(null)
 
+    //Hämtar rätt färgtyp ifrån url parametrar
     const colorType = computed(() => route.params.colorType)
 
+    // När komponenten mountas så kollar den om det finns några produkter i store.products, om inte så hämtas produkterna med fetchData
     onMounted(async () => {
         if (productsStore.products.length === 0) {
             await store.fetchData()
         }
     })
 
+    // Hämtar alla produkter med rätt färgtyp
     const filteredProducts = computed(() => {
         const colorType = route.params.colorType
         return store.products.filter(
@@ -26,12 +33,17 @@
         )
     })
 
+    // En funktion till favoritknappen som dyker upp vid hover. Den kollar om produkten är favorit eller inte och ändrar därefter
     function toggleFavorite(product) {
         favoritesStore.toggleFavorites(product)
     }
 </script>
 
 <template>
+    <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
+        ><v-icon>mdi-chevron-left</v-icon>
+        <p>Tillbaka</p>
+    </span>
     <div class="color-filtered-view">
         <h2>{{ colorType }} Färg</h2>
         <div class="products">
@@ -48,14 +60,14 @@
                             v-show="hover !== product.id"
                             id="blob"
                             :color="product.colorHex"
-                            :width="'14rem'"
+                            :width="'16rem'"
                             :margin="'0 1rem 0 0'"
                         />
                         <div v-show="hover === product.id">
                             <img
                                 :src="product.image"
                                 :alt="product.alt"
-                                style="width: 15rem; height: 218px"
+                                style="width: 17rem; height: 250px"
                             />
                             <v-btn
                                 icon
@@ -85,6 +97,18 @@
 </template>
 
 <style lang="scss" scoped>
+    #go-back {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        cursor: pointer;
+
+        p {
+            text-decoration: underline;
+            font-weight: 600;
+        }
+    }
+
     .color-filtered-view {
         display: flex;
         flex-direction: column;

@@ -1,37 +1,48 @@
 <script setup>
+    // Importerar alla nödvändiga funktioner, stores och komponenter
     import { computed, ref, onMounted } from 'vue'
-    import { useRoute } from 'vue-router'
     import { productsStore } from '../stores/products.js'
     import { useFavoritesStore } from '../stores/favorit'
     import BlobComponent from '../components/BlobComponent.vue'
 
-    const route = useRoute()
+    // Hämtar productsStore från products.js
     const store = productsStore()
+    // Hämtar favoritesStore från favorit.js
     const favoritesStore = useFavoritesStore()
 
+    // Här är en ref som ska hålla koll på vilken produkt som hoveras över
     const hover = ref(null)
 
-    const colorType = computed(() => route.params.colorType)
-
-    const allColors = computed(() => {
-        return store.products.filter((product) => product.category === 'color')
-    })
-
+    // När komponenten mountas så kollar den om det finns några produkter i store.products, om inte så hämtas produkterna med fetchData
     onMounted(async () => {
         if (store.products.length === 0) {
             await store.fetchData()
         }
     })
 
+    // Hämtar alla produkter med kategorin 'color'
+    const allColors = computed(() => {
+        return store.products.filter((product) => product.category === 'color')
+    })
+
+    // En funktion till favoritknappen som dyker upp vid hover. Den kollar om produkten är favorit eller inte och ändrar därefter
     function toggleFavorite(product) {
         favoritesStore.toggleFavorites(product)
     }
 </script>
 
 <template>
+    <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
+        ><v-icon>mdi-chevron-left</v-icon>
+        <p>Tillbaka</p>
+    </span>
+    <!-- Komponentens container -->
     <div class="color-filtered-view">
-        <h2>{{ colorType }} Färg</h2>
+        <!-- Namn på färg kategorin -->
+        <h2>Alla färger</h2>
+        <!-- Loopar igenpm varje produkt i allColors (alla med categorin color) -->
         <div class="products">
+            <!-- Uppdaterar hover ref vid mouseenter och nollställer vid mouseleave -->
             <div
                 v-for="product in allColors"
                 :key="product.id"
@@ -39,20 +50,23 @@
                 @mouseenter="hover = product.id"
                 @mouseleave="hover = null"
             >
+                <!-- Länk till produktsidan för specifik produkt -->
                 <router-link :to="`/product/${product.id}`">
                     <div>
+                        <!-- Blob som visas för alla färgtyper och försvinner vid hover -->
                         <BlobComponent
                             v-show="hover !== product.id"
                             id="blob"
                             :color="product.colorHex"
-                            :width="'14rem'"
+                            :width="'16rem'"
                             :margin="'0 1rem 0 0'"
                         />
+                        <!-- Vid hover så visas istället product.image samt "lägg till i favoriter knappen" -->
                         <div v-show="hover === product.id">
                             <img
                                 :src="product.image"
                                 :alt="product.alt"
-                                style="width: 15rem; height: 218px"
+                                style="width: 17rem; height: 250px"
                             />
                             <v-btn
                                 icon
@@ -71,6 +85,7 @@
                             </v-btn>
                         </div>
                     </div>
+                    <!-- Produktnamn och pris -->
                     <div class="product-info">
                         <h3>{{ product.name }}</h3>
                         <h3>{{ product.price }} kr / L</h3>
@@ -82,6 +97,17 @@
 </template>
 
 <style lang="scss" scoped>
+    #go-back {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        cursor: pointer;
+
+        p {
+            text-decoration: underline;
+            font-weight: 600;
+        }
+    }
     .color-filtered-view {
         display: flex;
         flex-direction: column;
