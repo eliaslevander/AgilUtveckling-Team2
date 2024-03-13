@@ -1,44 +1,42 @@
 <script setup>
-    // Importerar allt som behövs
-    import { computed, ref, onMounted } from 'vue'
-    import { useRoute, useRouter } from 'vue-router'
-    import { productsStore } from '../stores/products.js'
-    import { useFavoritesStore } from '../stores/favorit'
-    import BlobComponent from '../components/BlobComponent.vue'
+// Importerar allt som behövs
+import { computed, ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { productsStore } from "../stores/products.js";
+import { useFavoritesStore } from "../stores/favorit";
+import BlobComponent from "../components/BlobComponent.vue";
 
-    // useRoute för att hämta parametrar från url
-    const route = useRoute()
-    // useRouter för att kunna använda router.go(-1) för att gå tillbaka ett steg
-    const router = useRouter()
-    // Pinia stores för alla produkter samt favoriter
-    const store = productsStore()
-    const favoritesStore = useFavoritesStore()
+// useRoute för att hämta parametrar från url
+const route = useRoute();
+// useRouter för att kunna använda router.go(-1) för att gå tillbaka ett steg
+const router = useRouter();
+// Pinia stores för alla produkter samt favoriter
+const store = productsStore();
+const favoritesStore = useFavoritesStore();
 
-    // Hover ref för att hålla koll på hove
-    const hover = ref(null)
+// Hover ref för att hålla koll på hove
+const hover = ref(null);
 
-    //Hämtar rätt färgtyp ifrån url parametrar
-    const colorType = computed(() => route.params.colorType)
+//Hämtar rätt färgtyp ifrån url parametrar
+const colorType = computed(() => route.params.colorType);
 
-    // När komponenten mountas så kollar den om det finns några produkter i store.products, om inte så hämtas produkterna med fetchData
-    onMounted(async () => {
-        if (productsStore.products.length === 0) {
-            await store.fetchData()
-        }
-    })
+// När komponenten mountas så kollar den om det finns några produkter i store.products, om inte så hämtas produkterna med fetchData
+onMounted(async () => {
+  if (productsStore.products.length === 0) {
+    await store.fetchData();
+  }
+});
 
-    // Hämtar alla produkter med rätt färgtyp
-    const filteredProducts = computed(() => {
-        const colorType = route.params.colorType
-        return store.products.filter(
-            (product) => product.colorType === colorType
-        )
-    })
+// Hämtar alla produkter med rätt färgtyp
+const filteredProducts = computed(() => {
+  const colorType = route.params.colorType;
+  return store.products.filter((product) => product.colorType === colorType);
+});
 
-    // En funktion till favoritknappen som dyker upp vid hover. Den kollar om produkten är favorit eller inte och ändrar därefter
-    function toggleFavorite(product) {
-        favoritesStore.toggleFavorites(product)
-    }
+// En funktion till favoritknappen som dyker upp vid hover. Den kollar om produkten är favorit eller inte och ändrar därefter
+function toggleFavorite(product) {
+  favoritesStore.toggleFavorites(product);
+}
 </script>
 
 <template>
@@ -108,17 +106,17 @@
 </template>
 
 <style lang="scss" scoped>
-    #go-back {
-        display: flex;
-        align-items: center;
-        padding: 8px;
-        cursor: pointer;
+#go-back {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
 
-        p {
-            text-decoration: underline;
-            font-weight: 600;
-        }
-    }
+  p {
+    text-decoration: underline;
+    font-weight: 600;
+  }
+}
 
     .color-filtered-view {
         display: flex;
@@ -167,10 +165,10 @@
                     visibility: hidden;
                 }
 
-                &:hover .favorite-button {
-                    visibility: visible;
-                }
-            }
-        }
+      &:hover .favorite-button {
+        visibility: visible;
+      }
     }
+  }
+}
 </style>
