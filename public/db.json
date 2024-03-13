@@ -69,7 +69,7 @@
     "name": "Salvia",
     "description": "Mjuk salviagrön ton, ger en naturlig och fridfull känsla. Skapar en lugn atmosfär med en subtil touch av elegans. Idealisk för att omfamna naturens skönhet och skapa ett harmoniskt utrymme.",
     "image": "../src/assets/images/Green/Green_interior_03_.jpg",
-    "alt": "Silvergrön-färg",
+    "alt": "Salviagrön-färg",
     "price": 149,
     "category": "color",
     "value": "l",
@@ -80,9 +80,9 @@
   {
     "id": 7,
     "name": "Kritvit",
-    "description": "Vintervit är en sval och ren nyans av vitt, inspirerad av vinterns snöiga landskap. Den har en subtil kyla och mjukhet, vilket ger en känsla av lugn och friskhet, liknande den vita snön som täcker marken under vintermånaderna.",
+    "description": "Kritvit är en sval och ren nyans av vitt, inspirerad av vinterns snöiga landskap. Den har en subtil kyla och mjukhet, vilket ger en känsla av lugn och friskhet, liknande den vita snön som täcker marken under vintermånaderna.",
     "image": "../src/assets/images/White/White_interior_01.jpg",
-    "alt": "Vintervit-färg",
+    "alt": "Kritvit-färg",
     "price": 149,
     "category": "color",
     "value": "l",
@@ -94,9 +94,9 @@
   {
     "id": 8,
     "name": "Havre",
-    "description": "En mild och varm nyans med subtila inslag av elfenbensfärg. Denna ton ger en sofistikerad och behaglig karaktär, passande för olika ändamål. Den skapar en lugn atmosfär och kan användas för att förstärka skönheten i olika material och ytor.",
+    "description": "En mild och varm nyans med subtila inslag av havrefärg. Denna ton ger en sofistikerad och behaglig karaktär, passande för olika ändamål. Den skapar en lugn atmosfär och kan användas för att förstärka skönheten i olika material och ytor.",
     "image": "../src/assets/images/White/White_interior_02.jpg",
-    "alt": "Ljus Elfenbensvit-färg",
+    "alt": "Havregul-färg",
     "price": 199,
     "category": "color",
     "value": "l",
@@ -109,7 +109,7 @@
     "name": "Passion",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Red/Red_Interior_Passion.jpg",
-    "alt": "Röd 1-färg",
+    "alt": "Passionröd-färg",
     "price": 199,
     "category": "color",
     "value": "l",
@@ -120,9 +120,9 @@
   {
     "id": 10,
     "name": "Tegel",
-    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "description": "Tegel är perfekt för dig som vill skapa en iögonfallande och personlig atmosfär i ditt hem. Den passar utmärkt som accentfärg på en vägg, eller som en elegant bakgrund. Tegel garanterat att ge en extra dimension av liv och energi.",
     "image": "../src/assets/images/Red/Red_Interior_Tegel.jpg",
-    "alt": "Röd 2-färg",
+    "alt": "Tegelröd-färg",
     "price": 199,
     "category": "color",
     "value": "l",
@@ -133,9 +133,9 @@
   {
     "id": 11,
     "name": "Paprika",
-    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "description": "Paprika är en varm och kryddig röd. Den är inspirerad av den mogna paprikans intensiva röda nyans, och ger en känsla av liv och energi.",
     "image": "../src/assets/images/Red/Red_Interior_Paprika.jpg",
-    "alt": "Röd 3-färg",
+    "alt": "Paprikaröd-färg",
     "price": 199,
     "category": "color",
     "value": "l",
@@ -146,9 +146,9 @@
   {
     "id": 12,
     "name": "Solen",
-    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "description": "Solgul är en färg som omedelbart väcker glädje och energi. Den inspireras av solens varma strålar och är en perfekt färg för dig som vill skapa en ljus och luftig känsla i ditt hem.",
     "image": "../src/assets/images/Yellow/Yellow_Interior_Solen.jpg",
-    "alt": "Gul 1-färg",
+    "alt": "Solgul-färg",
     "price": 199,
     "category": "color",
     "value": "l",
@@ -159,9 +159,9 @@
   {
     "id": 13,
     "name": "Honung",
-    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "description": "Honung är en varm och gyllene gul färg som inspireras av den söta och rika smaken av honung. Den ger en känsla av komfort och välbehag, och passar perfekt för att skapa en ombonad atmosfär i ditt hem.",
     "image": "../src/assets/images/Yellow/Yellow_Interior_Honung.jpg",
-    "alt": "Gul 2-färg",
+    "alt": "Honungsgul-färg",
     "price": 199,
     "category": "color",
     "value": "l",
@@ -172,9 +172,9 @@
   {
     "id": 14,
     "name": "Citron",
-    "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
+    "description": "Citrongul är en frisk och fräsch färg som kan användas på många olika sätt. Du kan måla en hel vägg i Citrongul för att skapa en iögonfallande effekt, eller använda som accentfärg på detaljer som dörrar, fönsterkarmar eller möbler.",
     "image": "../src/assets/images/Yellow/Yellow_Interior_Citron.jpg",
-    "alt": "Gul 3-färg",
+    "alt": "Citrongul-färg",
     "price": 199,
     "category": "color",
     "value": "l",
@@ -182,8 +182,6 @@
     "colorHex": "#FFFF08",
     "url": "/product/17"
   },
-
-
 
   {
     "id": 15,
@@ -214,7 +212,7 @@
   {
     "id": 17,
     "name": "Pensel",
-    "description": "Riktigt ball pensel",
+    "description": "Mjuk och slitstark borste av syntet.Ergonomiskt handtag för bekvämt grepp.",
     "image": "../src/assets/images/Accessories/paintbrush2.jpg",
     "alt": "Pensel-verktyg",
     "price": 199,
