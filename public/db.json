@@ -106,45 +106,6 @@
   },
   {
     "id": 9,
-    "name": "Precision Roller",
-    "description": "Den specialdesignade ytan på rullen säkerställer en smidig och jämn färgapplicering utan ränder eller skarvar. Ergonomiskt utformat handtag ger bekvämt grepp och minimerar trötthet under långa målningspass.",
-    "image": "../src/assets/images/Accessories/roller1.jpg",
-    "alt": "Precision Roller-verktyg",
-    "price": 299,
-    "category": "accessories",
-    "value": "st",
-    "colorType": "",
-    "colorHex": "",
-    "url": "/product/9"
-  },
-  {
-    "id": 10,
-    "name": "Pensel lyx",
-    "description": "Riktigt ball pensel",
-    "image": "../src/assets/images/Accessories/paintbrush1.jpg",
-    "alt": "Pensel-verktyg",
-    "price": 199,
-    "category": "accessories",
-    "value": "st",
-    "colorType": "",
-    "colorHex": "",
-    "url": "/product/10"
-  },
-  {
-    "id": 11,
-    "name": "Pensel",
-    "description": "Riktigt ball pensel",
-    "image": "../src/assets/images/Accessories/paintbrush2.jpg",
-    "alt": "Pensel-verktyg",
-    "price": 199,
-    "category": "accessories",
-    "value": "st",
-    "colorType": "",
-    "colorHex": "",
-    "url": "/product/11"
-  },
-  {
-    "id": 12,
     "name": "Passion",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Red/Red_Interior_Passion.jpg",
@@ -157,7 +118,7 @@
     "url": "/product/12"
   },
   {
-    "id": 13,
+    "id": 10,
     "name": "Tegel",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Red/Red_Interior_Tegel.jpg",
@@ -170,7 +131,7 @@
     "url": "/product/13"
   },
   {
-    "id": 14,
+    "id": 11,
     "name": "Paprika",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Red/Red_Interior_Paprika.jpg",
@@ -183,7 +144,7 @@
     "url": "/product/14"
   },
   {
-    "id": 15,
+    "id": 12,
     "name": "Solen",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Yellow/Yellow_Interior_Solen.jpg",
@@ -196,7 +157,7 @@
     "url": "/product/15"
   },
   {
-    "id": 16,
+    "id": 13,
     "name": "Honung",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Yellow/Yellow_Interior_Honung.jpg",
@@ -209,7 +170,7 @@
     "url": "/product/16"
   },
   {
-    "id": 17,
+    "id": 14,
     "name": "Citron",
     "description": "Denna produkts unika röda nyans är en perfekt blandning av passion och energi. Uppgradera din stil med denna dynamiska produkt, där varje detalj är designad för att sticka ut och göra ett starkt intryck.",
     "image": "../src/assets/images/Yellow/Yellow_Interior_Citron.jpg",
@@ -220,5 +181,47 @@
     "colorType": "Gul",
     "colorHex": "#FFFF08",
     "url": "/product/17"
+  },
+
+
+
+  {
+    "id": 15,
+    "name": "Precision Roller",
+    "description": "Den specialdesignade ytan på rullen säkerställer en smidig och jämn färgapplicering utan ränder eller skarvar. Ergonomiskt utformat handtag ger bekvämt grepp och minimerar trötthet under långa målningspass.",
+    "image": "../src/assets/images/Accessories/roller1.jpg",
+    "alt": "Precision Roller-verktyg",
+    "price": 299,
+    "category": "accessories",
+    "value": "st",
+    "colorType": "",
+    "colorHex": "",
+    "url": "/product/9"
+  },
+  {
+    "id": 16,
+    "name": "Pensel lyx",
+    "description": "Riktigt ball pensel",
+    "image": "../src/assets/images/Accessories/paintbrush1.jpg",
+    "alt": "Pensel-verktyg",
+    "price": 199,
+    "category": "accessories",
+    "value": "st",
+    "colorType": "",
+    "colorHex": "",
+    "url": "/product/10"
+  },
+  {
+    "id": 17,
+    "name": "Pensel",
+    "description": "Riktigt ball pensel",
+    "image": "../src/assets/images/Accessories/paintbrush2.jpg",
+    "alt": "Pensel-verktyg",
+    "price": 199,
+    "category": "accessories",
+    "value": "st",
+    "colorType": "",
+    "colorHex": "",
+    "url": "/product/11"
   }
 ]
