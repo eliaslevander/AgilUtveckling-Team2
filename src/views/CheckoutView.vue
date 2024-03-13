@@ -975,5 +975,9 @@
             padding: 0;
             margin-bottom: 2rem;
         }
+
+        #photo-title{
+            margin-left: 1rem;
+        }
     }
 </style>
