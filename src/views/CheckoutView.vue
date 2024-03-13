@@ -1,17 +1,22 @@
 <script setup>
+    // Importerar allt som behövs till komponenten
     import { ref, reactive, computed, watch, onMounted } from 'vue'
     import { useRouter } from 'vue-router'
     import { useCartStore } from '@/stores/cart'
     import BlobComponent from '@/components/BlobComponent.vue'
 
+    // Använder useRouter för att kunna använda router.push för att skicka användaren till thanksalot
     const router = useRouter()
+    // Pinia store för varukorgen
     const cartStore = useCartStore()
 
+    // Referenser till ikoner och betalningsmetoder
     const icons = ref([])
     const cryptoIcons = ref([])
     const paymentMethods = ref([])
     const otherIcons = ref([])
 
+    // Referenser till modal
     const showModal = ref(false);
     const modalMessage = ref('');
 
@@ -143,31 +148,34 @@
         }
     }
 
-    // Tömmer varukorgen (används vid submitCheckout)
-    // function clearCart() {
-    //     cartStore.items = [] // Töm varukorgen
-    // }
-
     function validateForm() {
-    // Exempel på enkel validering
-    return customerOrder.mailOrPhone.trim() &&
-           customerOrder.firstName.trim() &&
-           customerOrder.lastName.trim() &&
-           customerOrder.address.trim() &&
-           customerOrder.postalCode.trim() &&
-           customerOrder.city.trim() &&
-           customerOrder.payment.cardNumber.trim() && // Lägg till fler kontroller efter behov
-           customerOrder.payment.expDate.trim() &&
-           customerOrder.payment.securityCode.trim();
+    // Antar att formuläret är giltigt tills det bevisas motsatsen
+    let isValid = true;
+    // Alla nödvändiga fält
+    const requiredFields = [
+        'emailOrPhone', 'firstName', 'lastName', 'address',
+        'postalCode', 'city'
+    ];
+    // Går igenom varje fält i listan över obligatoriska fält.
+    requiredFields.forEach(field => {
+    // Kollar om fälten finns i customOrder och om de är tomma
+    if (field in customerOrder && !customerOrder[field].trim()) {
+        // Debugging för validator
+        console.log(`Validation failed for: ${field}`);
+        // Om fältet är tomt, sätt isValid till false
+        isValid = false;
+    }
+    });
+    // Returnerar isValid om allt är som det ska.
+    return isValid;
 }
-
 
 
     // Sparar orderdata i sessionStorage (local verkade dumt) och skickar användaren till thanksalot
     function submitCheckout() {
         // Kontrollera först om alla krav är uppfyllda
         if (!validateForm()) {
-        // Använd modalen istället för alert
+        // Om valideringen misslyckas, visa ett felmeddelande
         modalMessage.value = 'Vänligen fyll i alla nödvändiga fält.';
         showModal.value = true;
         return;
@@ -184,26 +192,28 @@
 
     // Skapar ett random orderid baserat på new Date().getTime()
     const orderId = `order_${new Date().getTime()}`;
-    customerOrder.orderId = orderId;
 
+    // Lägger till orderid, frakt, fraktkostnad, rabattbelopp och total summa till customerOrder
+    customerOrder.orderId = orderId;
     customerOrder.shipping = 'PostNord';
     customerOrder.discountAmount = discountAmount.value;
     customerOrder.totalSum = totalSum.value;
     customerOrder.shippingCost = shippingCost.value;
 
+    // Sparar orderdata i sessionStorage
     const orderDataAsString = JSON.stringify(customerOrder);
     sessionStorage.setItem('orderData', orderDataAsString);
+    // Loggar orderdatan som sparats i sessionStorage
     console.log('Orderdata sparad i sessionStorage:', customerOrder);
 
-    // Rensa kundvagnen HÄR om du vill
-    cartStore.clearCart(); // Se till att du har en action för detta i din store
+    // När använderen har slutfört betalningen, rensa kundvagnen
+    cartStore.clearCart();
 
+    // Skickar användaren till thanksalot
     router.push('/thanksAlot');
 }
 
-
-
-
+    // Hämtar ikoner och betalningsmetoder när komponenten mountas
     onMounted(() => {
         fetchIcons()
     })
@@ -221,7 +231,6 @@
         <!-- Vänster/botten vy -->
         <div class="checkout-container">
             <!-- Kontakt -->
-            <form action="">
                 <div id="contact-section">
                     <h3>Kontakt</h3>
                     <input
@@ -529,7 +538,7 @@
                         SLUTFÖR BETALNING
                     </button>
                 </div>
-            </form>
+
         </div>
 
         <!-- Höger/Top(Produktvy) -->
