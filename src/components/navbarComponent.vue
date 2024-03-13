@@ -235,16 +235,16 @@ export default {
             <router-link to="/colors" class="navigation-link">Alla färger</router-link>
           </v-list-item>
           <v-list-item plain @click="selectColor('Röd')">
-            <router-link to="#" class="navigation-link">Röd</router-link>
+            <router-link to="/colors/Röd" class="navigation-link">Röd</router-link>
           </v-list-item>
           <v-list-item plain @click="selectColor('Blå')">
-            <router-link to="#" class="navigation-link">Blå</router-link>
+            <router-link to="/colors/Blå" class="navigation-link">Blå</router-link>
           </v-list-item>
           <v-list-item plain @click="selectColor('Grön')">
-            <router-link to="#" class="navigation-link">Grön</router-link>
+            <router-link to="/colors/Grön" class="navigation-link">Grön</router-link>
           </v-list-item>
           <v-list-item plain @click="selectColor('Gul')">
-            <router-link to="#" class="navigation-link">Gul</router-link>
+            <router-link to="/colors/Gul" class="navigation-link">Gul</router-link>
           </v-list-item>
         </div>
         <v-list-item plain>
@@ -343,16 +343,16 @@ export default {
             <router-link to="/colors" class="navigation-link">Alla färger</router-link>
           </v-list-item>
           <v-list-item plain @click="selectColor('Röd')">
-            <router-link to="#" class="navigation-link">Röd</router-link>
+            <router-link to="" class="navigation-link">Röd</router-link>
           </v-list-item>
           <v-list-item plain @click="selectColor('Blå')">
-            <router-link to="#" class="navigation-link">Blå</router-link>
+            <router-link to="" class="navigation-link">Blå</router-link>
           </v-list-item>
           <v-list-item plain @click="selectColor('Grön')">
-            <router-link to="#" class="navigation-link">Grön</router-link>
+            <router-link to="" class="navigation-link">Grön</router-link>
           </v-list-item>
           <v-list-item plain @click="selectColor('Gul')">
-            <router-link to="#" class="navigation-link">Gul</router-link>
+            <router-link to="" class="navigation-link">Gul</router-link>
           </v-list-item>
         </div>
         <v-list-item plain>
