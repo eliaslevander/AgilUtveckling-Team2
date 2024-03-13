@@ -353,7 +353,13 @@ export default {
       <!-- ikon för att göra det tydligt på sidan att det är en dropdown meny och inte en länk som tar användaren någonstans -->
       <v-icon><svg-icon type="mdi" :path="menuRightPath"></svg-icon></v-icon>
     </v-list-item>
-    <div v-if="showColorsDropdown" class="subMenu">
+    <div
+      v-if="showColorsDropdown"
+      class="subMenu"
+      @click="
+        (this.showDropdownMenu = false), (this.showColorsDropdown = false)
+      "
+    >
       <v-list-item plain>
         <router-link to="/colors" class="navigation-link"
           >Alla färger</router-link
@@ -375,7 +381,12 @@ export default {
         <router-link to="" class="navigation-link">Vit</router-link>
       </v-list-item>
     </div>
-    <v-list-item plain>
+    <v-list-item
+      plain
+      @click="
+        (this.showDropdownMenu = false), (this.showColorsDropdown = false)
+      "
+    >
       <router-link to="/accessories" class="navigation-link"
         >Utrustning</router-link
       >
@@ -386,11 +397,13 @@ export default {
 <style scoped>
 .dropdown-content {
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   margin-top: 64px;
-  width: 100vw;
-  height: 13rem;
-  background-color: #ffffff;
-  z-index: 1;
+  width: 50vw;
+  height: 15rem;
+  background-color: #fff;
+  z-index: 2;
 }
 #brand {
   color: #000000;
@@ -419,7 +432,7 @@ export default {
   margin-top: -43px;
   background-color: #ffffff;
   z-index: 1;
-  width: 100rem;
+  /* width: 100rem; */
 }
 
 .favorites-link {
