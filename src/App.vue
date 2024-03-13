@@ -20,6 +20,7 @@ onMounted(async () => {
 
 <template>
   <v-app>
+    <h1>hejsan</h1>
     <NavbarComponent />
     <CartComponent />
     <div class="content" style="margin-top: 64px">
