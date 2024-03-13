@@ -124,7 +124,7 @@
           >
           <v-btn
             :ripple="false"
-            value="hogglans"
+            value="högglans"
             height="48"
             class="color-type-button"
             >Högglans</v-btn
@@ -209,7 +209,7 @@ const colorTypePrice = computed(() => {
     case "halvmatt":
       colorTypeValue = 1.1;
       break;
-    case "hogglans":
+    case "högglans":
       colorTypeValue = 1.2;
       break;
   }

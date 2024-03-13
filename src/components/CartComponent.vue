@@ -43,14 +43,13 @@ const totalSum = computed(() => {
       case "halvmatt":
         price *= 1.1; // Ökning 10%
         break;
-      case "hogglans":
+      case "högglans":
         price *= 1.2; // Ökning 20%
         break;
       default:
         price *= 1; // Default ingen ökning
         break;
     }
-
 
     return sum + price * item.quantity;
   }, 0);
@@ -69,132 +68,105 @@ const shippingCost = computed(() => {
 </script>
 
 <template>
-    <!-- Backdrop för carten -->
+  <!-- Backdrop för carten -->
+  <div
+    class="backdrop"
+    v-show="cartStore.isCartVisible"
+    @click="cartStore.closeCart"
+  ></div>
+
+  <!-- Carten -->
+  <div class="cart-container">
     <div
-        class="backdrop"
-        v-show="cartStore.isCartVisible"
-        @click="cartStore.closeCart"
-    ></div>
+      class="cart-modal"
+      :class="{ 'cart-visible': cartStore.isCartVisible }"
+    >
+      <div class="cart-header">
+        <h3>Din Kundvagn</h3>
+        <button @click="cartStore.closeCart">X</button>
+      </div>
 
-    <!-- Carten -->
-    <div class="cart-container">
-        <div
-            class="cart-modal"
-            :class="{ 'cart-visible': cartStore.isCartVisible }"
+      <!-- Produktlist i carten -->
+      <div class="cart-main" v-if="cartStore.items.length > 0">
+        <ul
+          v-for="(item, index) in cartStore.items"
+          :key="index"
+          class="cart-item"
         >
-            <div class="cart-header">
-                <h3>Din Kundvagn</h3>
-                <button @click="cartStore.closeCart">X</button>
+          <hr />
+          <li>
+            <div id="item-header">
+              <h4>{{ item.product.name }} {{ item.colorType }}</h4>
+              <button @click="removeFromCart(item.product.id, item.colorType)">
+                X
+              </button>
             </div>
-
-            <!-- Produktlist i carten -->
-            <div class="cart-main" v-if="cartStore.items.length > 0">
-                <ul
-                    v-for="(item, index) in cartStore.items"
-                    :key="index"
-                    class="cart-item"
-                >
-                    <hr />
-                    <li>
-                        <div id="item-header">
-                            <h4>
-                                {{ item.product.name }} {{ item.colorType }}
-                            </h4>
-                            <button
-                                @click="
-                                    removeFromCart(
-                                        item.product.id,
-                                        item.colorType
-                                    )
-                                "
-                            >
-                                X
-                            </button>
-                        </div>
-                        <div id="cart-content">
-                            <div v-if="item.product.category === 'color'">
-                                <BlobComponent
-                                    :color="item.product.colorHex"
-                                    :width="'6rem'"
-                                    :margin="'0 1rem 0 0'"
-                                />
-                            </div>
-                            <div v-else>
-                                <img
-                                    id="cart-else-img"
-                                    :src="item.product.image"
-                                    :alt="item.product.alt"
-
-                                 />
-                            </div>
-                            <div id="price-and-quantity">
-                                <div id="quantity-container">
-                                    <div class="quantity-selector">
-                                        <button
-                                            @click="
-                                                decrement(
-                                                    item.product.id,
-                                                    item.colorType
-                                                )
-                                            "
-                                        >
-                                            -
-                                        </button>
-                                        <input
-                                            :value="item.quantity"
-                                            readonly
-                                        />
-                                        <button
-                                            @click="
-                                                increment(
-                                                    item.product.id,
-                                                    item.colorType
-                                                )
-                                            "
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                </div>
-                                <p id="item-price">
-                                    {{ item.product.price }}kr / {{ item.product.value }}
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-                <!-- Totalsumma och frakt -->
-                <hr id="total-line" />
-                <p id="shipping-note">Fri frakt över 499 kr</p>
-                <div id="cart-shipping">
-                    <h3>Frakt</h3>
-                    <p>{{ shippingCost }} kr</p>
+            <div id="cart-content">
+              <div v-if="item.product.category === 'color'">
+                <BlobComponent
+                  :color="item.product.colorHex"
+                  :width="'6rem'"
+                  :margin="'0 1rem 0 0'"
+                />
+              </div>
+              <div v-else>
+                <img
+                  id="cart-else-img"
+                  :src="item.product.image"
+                  :alt="item.product.alt"
+                />
+              </div>
+              <div id="price-and-quantity">
+                <div id="quantity-container">
+                  <div class="quantity-selector">
+                    <button @click="decrement(item.product.id, item.colorType)">
+                      -
+                    </button>
+                    <input :value="item.quantity" readonly />
+                    <button @click="increment(item.product.id, item.colorType)">
+                      +
+                    </button>
+                  </div>
                 </div>
-                <div id="cart-total">
-                    <h3>Totalsumma</h3>
-                    <div id="total-price">
-                        <h3>{{ totalSum }} kr</h3>
-                        <p>ink. moms</p>
-                    </div>
-                </div>
-                <div id="cart-checkout">
-                    <router-link to="/checkout"
-                        ><button id="to-checkout-btn" @click="cartStore.closeCart">
-                            TILL KASSAN
-                        </button></router-link
-                    >
-                </div>
-                <hr />
+                <p id="item-price">
+                  {{ item.product.price }}kr / {{ item.product.value }}
+                </p>
+              </div>
             </div>
-            <div v-else class="empty-cart">
-                <p>Här var det tomt..</p>
-                <button id="to-checkout-btn" @click="cartStore.closeCart">
-                    Fortsätt shoppa
-                </button>
-            </div>
+          </li>
+        </ul>
+
+        <!-- Totalsumma och frakt -->
+        <hr id="total-line" />
+        <p id="shipping-note">Fri frakt över 499 kr</p>
+        <div id="cart-shipping">
+          <h3>Frakt</h3>
+          <p>{{ shippingCost }} kr</p>
         </div>
+        <div id="cart-total">
+          <h3>Totalsumma</h3>
+          <div id="total-price">
+            <h3>{{ totalSum }} kr</h3>
+            <p>ink. moms</p>
+          </div>
+        </div>
+        <div id="cart-checkout">
+          <router-link to="/checkout"
+            ><button id="to-checkout-btn" @click="cartStore.closeCart">
+              TILL KASSAN
+            </button></router-link
+          >
+        </div>
+        <hr />
+      </div>
+      <div v-else class="empty-cart">
+        <p>Här var det tomt..</p>
+        <button id="to-checkout-btn" @click="cartStore.closeCart">
+          Fortsätt shoppa
+        </button>
+      </div>
     </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -282,11 +254,9 @@ const shippingCost = computed(() => {
               width: 6rem;
               height: 6rem;
               object-fit: cover;
-              margin-right: .9rem;
+              margin-right: 0.9rem;
               border-radius: 30%;
             }
-
-
 
             #price-and-quantity {
               display: flex;
@@ -336,7 +306,8 @@ const shippingCost = computed(() => {
         padding: 1rem;
       }
 
-      #cart-shipping, #cart-total {
+      #cart-shipping,
+      #cart-total {
         display: flex;
         justify-content: space-between;
         padding: 1rem;
@@ -377,7 +348,7 @@ const shippingCost = computed(() => {
   }
 }
 @media screen and (max-width: 375px) {
-    #app > div > div > div.cart-container > div{
+  #app > div > div > div.cart-container > div {
     width: 22rem;
 
     #cart-content img {
@@ -386,6 +357,4 @@ const shippingCost = computed(() => {
     }
   }
 }
-
-
 </style>
