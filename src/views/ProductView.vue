@@ -124,7 +124,7 @@
           >
           <v-btn
             :ripple="false"
-            value="hogglans"
+            value="högglans"
             height="48"
             class="color-type-button"
             >Högglans</v-btn
@@ -146,13 +146,15 @@
       </p>
       <div id="cart-button-container">
         <v-btn
-          @click="addToCartHandler"
-          id="cart-button"
-          :color="product.category === 'color' ? product.colorHex : 'orange'"
-          height="48"
-          :disabled="toggle === '' && isColor ? true : false"
-          >Lägg till i kundvagn
-        </v-btn>
+        @click="addToCartHandler"
+        id="cart-button"
+        :color="product.category === 'color' ? product.colorHex : 'orange'"
+        height="48"
+        :disabled="toggle === '' && isColor ? true : false"
+    >
+        <span v-if="productAdded">Produkt tillagd ✓</span>
+        <span v-else>Lägg till i kundvagn</span>
+    </v-btn>
       </div>
     </div>
   </div>
@@ -185,6 +187,7 @@ const product = ref({});
 const amount = ref(1);
 const toggle = ref("");
 const isColor = ref(null);
+const productAdded = ref(false);
 
 onMounted(() => {
   // Här letar funktionen efter den första produkten med det id som är == route.params.id
@@ -209,7 +212,7 @@ const colorTypePrice = computed(() => {
     case "halvmatt":
       colorTypeValue = 1.1;
       break;
-    case "hogglans":
+    case "högglans":
       colorTypeValue = 1.2;
       break;
   }
