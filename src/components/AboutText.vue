@@ -12,11 +12,11 @@
           justify-content: left;
           align-items: left;
         "
-        >Oavsett om du är en inredningsentusiast eller bara vill fräscha upp,
-        har vi allt du behöver för att ge liv åt dina visioner. Upptäck vårt
-        stora utbud av färger och nyanser och hitta den perfekta looken för ditt
-        hem. Våra experter hjälper och inspirerar dig med tips, trender och
-        workshops.
+        >Oavsett om du är en inredningsentusiast eller bara vill fräscha upp
+        ditt hem, har vi allt du behöver för att ge liv åt dina visioner.
+        Upptäck vårt stora utbud av färger och nyanser och hitta den perfekta
+        looken för ditt hem. Våra experter hjälper och inspirerar dig med tips,
+        trender och workshops.
         <v-spacer></v-spacer>
         Snabba leveranser, utmärkt kundservice och en trygg köpupplevelse gör
         PRISMA till din perfekta partner.
