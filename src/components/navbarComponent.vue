@@ -231,8 +231,8 @@ export default {
         </v-list-item>
         <div v-if="showColorsDropdown">
           <!-- La till plain, den tar bort den skumma hover effekt som vuetify la till. Funka dock inte på dropdown menyerna vet inte riktigt hur jag ska ta bort den från dem -->
-          <v-list-item plain @click="selectColor('Gråskala')">
-            <router-link to="#" class="navigation-link">Gråskala</router-link>
+          <v-list-item plain>
+            <router-link to="/colors" class="navigation-link">Alla färger</router-link>
           </v-list-item>
           <v-list-item plain @click="selectColor('Röd')">
             <router-link to="#" class="navigation-link">Röd</router-link>
@@ -248,7 +248,7 @@ export default {
           </v-list-item>
         </div>
         <v-list-item plain>
-          <router-link to="#" class="navigation-link">Utrustning</router-link>
+          <router-link to="/accessories" class="navigation-link">Utrustning</router-link>
         </v-list-item>
       </div>
       <v-list-item class="navigation-item" plain>
@@ -339,8 +339,8 @@ export default {
       <v-icon><svg-icon type="mdi" :path="menuRightPath"></svg-icon></v-icon>
     </v-list-item>
     <div v-if="showColorsDropdown" class="subMenu">
-      <v-list-item plain @click="selectColor('Gråskala')">
-        <router-link to="#" class="navigation-link">Gråskala</router-link>
+      <v-list-item plain >
+        <router-link to="/colors" class="navigation-link">Alla färger</router-link>
       </v-list-item>
       <v-list-item plain @click="selectColor('Röd')">
         <router-link to="#" class="navigation-link">Röd</router-link>
@@ -356,7 +356,7 @@ export default {
       </v-list-item>
     </div>
     <v-list-item plain>
-      <router-link to="#" class="navigation-link">Utrustning</router-link>
+      <router-link to="/accessories" class="navigation-link">Utrustning</router-link>
     </v-list-item>
   </div>
 </template>

@@ -1,30 +1,21 @@
 <script setup>
-    import { computed, ref, onMounted } from 'vue'
-    import { useRoute } from 'vue-router'
+    import { ref, onMounted } from 'vue'
     import { productsStore } from '../stores/products.js'
     import { useFavoritesStore } from '../stores/favorit'
-    import BlobComponent from '../components/BlobComponent.vue'
 
-    const route = useRoute()
     const store = productsStore()
+    const hover = ref(null)
     const favoritesStore = useFavoritesStore()
 
-    const hover = ref(null)
-
-    const colorType = computed(() => route.params.colorType)
-
     onMounted(async () => {
-        if (productsStore.products.length === 0) {
+        if (store.products.length === 0) {
             await store.fetchData()
         }
     })
 
-    const filteredProducts = computed(() => {
-        const colorType = route.params.colorType
-        return store.products.filter(
-            (product) => product.colorType === colorType
-        )
-    })
+    const allGear = ref(
+        store.products.filter((product) => product.category === 'accessories')
+    )
 
     function toggleFavorite(product) {
         favoritesStore.toggleFavorites(product)
@@ -32,51 +23,42 @@
 </script>
 
 <template>
-    <div class="color-filtered-view">
-        <h2>{{ colorType }} Färg</h2>
+    <div class="gear-view">
+        <h2>All Utrustning</h2>
         <div class="products">
             <div
-                v-for="product in filteredProducts"
-                :key="product.id"
+                v-for="gear in allGear"
+                :key="gear.id"
                 class="product"
-                @mouseenter="hover = product.id"
+                @mouseenter="hover = gear.id"
                 @mouseleave="hover = null"
             >
-                <router-link :to="`/product/${product.id}`">
+                <router-link :to="`/product/${gear.id}`">
                     <div>
-                        <BlobComponent
-                            v-show="hover !== product.id"
-                            id="blob"
-                            :color="product.colorHex"
-                            :width="'14rem'"
-                            :margin="'0 1rem 0 0'"
+                        <img
+                            :src="gear.image"
+                            :alt="gear.alt"
+                            style="width: 14rem; height: 14rem"
                         />
-                        <div v-show="hover === product.id">
-                            <img
-                                :src="product.image"
-                                :alt="product.alt"
-                                style="width: 15rem; height: 218px"
-                            />
-                            <v-btn
-                                icon
-                                flat
-                                @click.stop="toggleFavorite(product)"
-                                class="favorite-button"
-                                v-show="hover === product.id"
-                            >
-                                <v-icon>
-                                    {{
-                                        favoritesStore.isFavorite(product.id)
-                                            ? 'mdi-heart'
-                                            : 'mdi-heart-outline'
-                                    }}
-                                </v-icon>
-                            </v-btn>
-                        </div>
+                        <v-btn
+                            icon
+                            flat
+                            @click.stop="toggleFavorite(gear)"
+                            class="favorite-button"
+                            v-show="hover === gear.id"
+                        >
+                            <v-icon>
+                                {{
+                                    favoritesStore.isFavorite(gear.id)
+                                        ? 'mdi-heart'
+                                        : 'mdi-heart-outline'
+                                }}
+                            </v-icon>
+                        </v-btn>
                     </div>
                     <div class="product-info">
-                        <h3>{{ product.name }}</h3>
-                        <h3>{{ product.price }} kr / L</h3>
+                        <h3>{{ gear.name }}</h3>
+                        <p>{{ gear.price }} kr</p>
                     </div>
                 </router-link>
             </div>
@@ -85,7 +67,7 @@
 </template>
 
 <style lang="scss" scoped>
-    .color-filtered-view {
+    .gear-view {
         display: flex;
         flex-direction: column;
         align-items: center;

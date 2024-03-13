@@ -13,17 +13,14 @@
 
     const colorType = computed(() => route.params.colorType)
 
-    onMounted(async () => {
-        if (productsStore.products.length === 0) {
-            await store.fetchData()
-        }
+    const allColors = computed(() => {
+        return store.products.filter((product) => product.category === 'color')
     })
 
-    const filteredProducts = computed(() => {
-        const colorType = route.params.colorType
-        return store.products.filter(
-            (product) => product.colorType === colorType
-        )
+    onMounted(async () => {
+        if (store.products.length === 0) {
+            await store.fetchData()
+        }
     })
 
     function toggleFavorite(product) {
@@ -36,7 +33,7 @@
         <h2>{{ colorType }} Färg</h2>
         <div class="products">
             <div
-                v-for="product in filteredProducts"
+                v-for="product in allColors"
                 :key="product.id"
                 class="product"
                 @mouseenter="hover = product.id"
@@ -90,6 +87,7 @@
         flex-direction: column;
         align-items: center;
         padding: 2rem 0;
+        margin: 0 7rem;
         h2 {
             font-size: 2rem;
             margin-bottom: 2rem;
