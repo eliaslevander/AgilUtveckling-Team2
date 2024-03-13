@@ -951,6 +951,7 @@
         border: 0.5px solid black;
         padding: 0.5rem 2rem;
         width: 100%;
+        margin-bottom: 2rem;
     }
 
     button#submit-checkout:hover {
