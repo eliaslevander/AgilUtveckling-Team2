@@ -87,11 +87,11 @@ onMounted(() => {
       <p id="spinner-text">Hittar din perfekta färg...</p>
       <div id="spinner-container">
         <div class="spinner"></div>
-        <div id="spinner-blob-container">
+        <!-- <div id="spinner-blob-container">
           <BlobComponent
             :background="`linear-gradient(${deg}deg, rgba(${r},${g},${b},1) 0%, rgba(${g},${b},${r},1) 100%)`"
           />
-        </div>
+        </div> -->
       </div>
     </div>
     <div id="hero-image-container"></div>
