@@ -6,7 +6,7 @@
       backgroundColor: props.color,
       width: props.width,
       margin: props.margin,
-      background: props.background,
+      // background: props.background,
       // Detta gör skuggorna responsiva, istället för pixelvärde så utgår den från bredden på parent.
       boxShadow: `
       ${parentWidth * -0.03}px

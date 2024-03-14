@@ -39,7 +39,11 @@
         <SwiperSlide v-if="isColor">
           <div id="blob-container">
             <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
-            <BlobComponent :color="product.colorHex" margin="48px" />
+            <BlobComponent
+              background="none"
+              :color="product.colorHex"
+              margin="48px"
+            />
             <v-btn
               icon
               flat
@@ -146,15 +150,15 @@
       </p>
       <div id="cart-button-container">
         <v-btn
-        @click="addToCartHandler"
-        id="cart-button"
-        :color="product.category === 'color' ? product.colorHex : 'orange'"
-        height="48"
-        :disabled="toggle === '' && isColor ? true : false"
-    >
-        <span v-if="productAdded">Produkt tillagd ✓</span>
-        <span v-else>Lägg till i kundvagn</span>
-    </v-btn>
+          @click="addToCartHandler"
+          id="cart-button"
+          :color="product.category === 'color' ? product.colorHex : 'orange'"
+          height="48"
+          :disabled="toggle === '' && isColor ? true : false"
+        >
+          <span v-if="productAdded">Produkt tillagd ✓</span>
+          <span v-else>Lägg till i kundvagn</span>
+        </v-btn>
       </div>
     </div>
   </div>
