@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 import { productsStore } from "@/stores/products";
 import { ref, onMounted } from "vue";
-import BlobComponent from "./BlobComponent.vue";
+import BlobComponentSpinner from "./BlobComponentSpinner.vue";
 
 const store = productsStore();
 const router = useRouter();
@@ -87,11 +87,11 @@ onMounted(() => {
       <p id="spinner-text">Hittar din perfekta färg...</p>
       <div id="spinner-container">
         <div class="spinner"></div>
-        <!-- <div id="spinner-blob-container">
-          <BlobComponent
+        <div id="spinner-blob-container">
+          <BlobComponentSpinner
             :background="`linear-gradient(${deg}deg, rgba(${r},${g},${b},1) 0%, rgba(${g},${b},${r},1) 100%)`"
           />
-        </div> -->
+        </div>
       </div>
     </div>
     <div id="hero-image-container"></div>
@@ -160,8 +160,9 @@ onMounted(() => {
 #spinner-blob-container {
   margin-top: 1rem;
   width: 70px;
-  aspect-ratio: 1;
+  height: 70px;
   position: absolute;
+  animation: blobsize 2s linear infinite;
 }
 
 .spinner {

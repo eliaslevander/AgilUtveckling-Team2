@@ -39,11 +39,7 @@
         <SwiperSlide v-if="isColor">
           <div id="blob-container">
             <!-- Vissa färger blir lite off här, tror det är pga en v-btn opacity som läggs på  -->
-            <BlobComponent
-              background="none"
-              :color="product.colorHex"
-              margin="48px"
-            />
+            <BlobComponent :color="product.colorHex" margin="48px" />
             <v-btn
               icon
               flat

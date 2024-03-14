@@ -3,20 +3,20 @@
     ref="blob"
     id="blob"
     :style="{
-      backgroundColor: props.color,
       width: props.width,
       margin: props.margin,
+      background: props.background,
       // Detta gör skuggorna responsiva, istället för pixelvärde så utgår den från bredden på parent.
       boxShadow: `
-      ${parentWidth * -0.03}px
-      ${parentWidth * 0.02}px
-      ${parentWidth * 0.04}px
-      rgba(0, 0, 0, 0.5),
-      inset
-      ${parentWidth * 0.04}px
-      ${parentWidth * -0.04}px
-      ${parentWidth * 0.08}px
-      rgba(0, 0, 0, 0.2)`,
+        ${parentWidth * -0.03}px
+        ${parentWidth * 0.02}px
+        ${parentWidth * 0.04}px
+        rgba(0, 0, 0, 0.5),
+        inset
+        ${parentWidth * 0.04}px
+        ${parentWidth * -0.04}px
+        ${parentWidth * 0.08}px
+        rgba(0, 0, 0, 0.2)`,
     }"
   ></div>
 </template>
@@ -24,16 +24,10 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-// const computedBackground = ref(null);
-
-// const computedBackground = computed(() => {
-//   return props.background || props.color;
-// });
-
 const props = defineProps({
-  color: String,
   width: String,
   margin: String,
+  background: String,
 });
 
 const blob = ref(null);
@@ -55,13 +49,13 @@ onMounted(() => {
   aspect-ratio: 1;
   border-radius: 60% 40% 44% 56% / 55% 43% 57% 45%;
   /* box-shadow: calc(var(--default) * -0.04) calc(var(--default) * 0.03)
-      calc(var(--default) * 0.05) rgba(0, 0, 0, 0.5),
-    inset calc(var(--default) * 0.05) calc(var(--default) * -0.05)
-      calc(var(--default) * 0.1) rgba(0, 0, 0, 0.2); */
+        calc(var(--default) * 0.05) rgba(0, 0, 0, 0.5),
+      inset calc(var(--default) * 0.05) calc(var(--default) * -0.05)
+        calc(var(--default) * 0.1) rgba(0, 0, 0, 0.2); */
   /* box-shadow: -4px 3px 5px rgba(0, 0, 0, 0.5),
-    inset 5px -5px 10px rgba(0, 0, 0, 0.2); */
+      inset 5px -5px 10px rgba(0, 0, 0, 0.2); */
   /* box-shadow: -4px 3px 5px rgba(0, 0, 0, 0.5),
-    inset 5px -5px 10px rgba(0, 0, 0, 0.2); */
+      inset 5px -5px 10px rgba(0, 0, 0, 0.2); */
   position: relative;
 }
 
