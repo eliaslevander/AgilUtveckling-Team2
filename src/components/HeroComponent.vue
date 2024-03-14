@@ -2,6 +2,7 @@
 import { useRouter } from "vue-router";
 import { productsStore } from "@/stores/products";
 import { ref, onMounted } from "vue";
+import BlobComponent from "./BlobComponent.vue";
 
 const store = productsStore();
 const router = useRouter();
@@ -34,16 +35,19 @@ const setupColorOscillation = (speed) => {
 
 // Funktion som navigerar till en slumpmässig produkt i kategorin "color"
 const navigateToRandomColorProduct = () => {
-    // Om det finns produkter i store.products så filtreras produkterna så att endast produkter i kategorin "color" finns kvar
+  // Om det finns produkter i store.products så filtreras produkterna så att endast produkter i kategorin "color" finns kvar
   if (store.products.length > 0) {
-    const colorProducts = store.products.filter(product => product.category === "color");
+    const colorProducts = store.products.filter(
+      (product) => product.category === "color"
+    );
     // Om det inte finns några produkter i kategorin "color" så loggas ett felmeddelande
     if (colorProducts.length === 0) {
       console.error("Inga produkter i kategorin 'color' finns tillgängliga");
       return;
     }
     // En slumpmässig produkt väljs från colorProducts
-    const randomProduct = colorProducts[Math.floor(Math.random() * colorProducts.length)];
+    const randomProduct =
+      colorProducts[Math.floor(Math.random() * colorProducts.length)];
 
     // Sätter till true så att loading overlay visas
     isLoading.value = true;
@@ -58,14 +62,13 @@ const navigateToRandomColorProduct = () => {
   }
 };
 
-
 onMounted(() => {
   setupColorOscillation(100);
   // Om det inte finns några produkter i store.products så hämtas produkterna med fetchData som också ligger i products.js
   if (store.products.length === 0) {
-        store.fetchData();
-      }
-    });
+    store.fetchData();
+  }
+});
 
 const setupDegreeOscillation = (degreeRef) => {
   setInterval(() => {
@@ -81,8 +84,15 @@ onMounted(() => {
 <template>
   <div id="HeroImage">
     <div v-if="isLoading" class="loading-overlay">
-      <p>Hittar din perfekta färg...</p>
-      <div class="spinner"></div>
+      <p id="spinner-text">Hittar din perfekta färg...</p>
+      <div id="spinner-container">
+        <div class="spinner"></div>
+        <div id="spinner-blob-container">
+          <BlobComponent
+            :background="`linear-gradient(${deg}deg, rgba(${r},${g},${b},1) 0%, rgba(${g},${b},${r},1) 100%)`"
+          />
+        </div>
+      </div>
     </div>
     <div id="hero-image-container"></div>
     <div id="overlay">
@@ -95,7 +105,7 @@ onMounted(() => {
           </p>
           <div id="button-container">
             <button
-                @click="navigateToRandomColorProduct"
+              @click="navigateToRandomColorProduct"
               id="read-more"
               :style="{
                 background: `linear-gradient(${deg}deg, rgba(${r},${g},${b},1) 0%, rgba(${g},${b},${r},1) 100%)`,
@@ -134,13 +144,33 @@ onMounted(() => {
   z-index: 1000;
 }
 
+#spinner-text {
+  font-size: 1.5rem;
+}
+
+#spinner-container {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#spinner-blob-container {
+  margin-top: 1rem;
+  width: 70px;
+  aspect-ratio: 1;
+  position: absolute;
+}
+
 .spinner {
   margin-top: 1rem;
   border: 3px solid rgba(255, 255, 255, 0.2);
   border-top: 3px solid #050505;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   animation: spin 1s linear infinite;
 }
 
