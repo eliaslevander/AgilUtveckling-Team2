@@ -82,7 +82,8 @@ onMounted(() => {
   <div id="HeroImage">
     <div v-if="isLoading" class="loading-overlay">
       <p>Hittar din perfekta färg...</p>
-      <div class="spinner"></div>
+      <div class="spinner">
+      </div>
     </div>
     <div id="hero-image-container"></div>
     <div id="overlay">
