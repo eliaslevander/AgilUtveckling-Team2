@@ -43,7 +43,7 @@
     <!-- Komponentens container -->
     <div class="color-filtered-view">
         <!-- Namn på färg kategorin -->
-        <h2>Alla färger</h2>
+        <h2>Alla våra färger</h2>
         <!-- Loopar igenpm varje produkt i allColors (alla med categorin color) -->
         <div class="products">
             <!-- Uppdaterar hover ref vid mouseenter och nollställer vid mouseleave -->
@@ -92,7 +92,7 @@
                     <!-- Produktnamn och pris -->
                     <div class="product-info">
                         <h3>{{ product.name }}</h3>
-                        <h3>{{ product.price }} kr / L</h3>
+                        <h3>fr {{ product.price }} kr</h3>
                     </div>
                 </router-link>
             </div>
@@ -142,14 +142,15 @@
                 }
                 .product-info {
                     width: 100%;
-                    display: flex;
+                    display: block;
                     align-items: center;
                     margin-top: 1rem;
-                    justify-content: space-between;
+                    justify-content: center;
                     h3 {
                         color: black;
                         font-size: 1.2rem;
                         margin: 0;
+                        margin-left: 30%;
                     }
                 }
                 .favorite-button {

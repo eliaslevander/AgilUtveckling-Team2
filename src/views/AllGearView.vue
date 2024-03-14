@@ -81,7 +81,7 @@
                     <!-- namn och pris -->
                     <div class="product-info">
                         <h3>{{ gear.name }}</h3>
-                        <p>{{ gear.price }} kr</p>
+                        <h3>{{ gear.price }} kr</h3>
                     </div>
                 </router-link>
             </div>
@@ -130,16 +130,17 @@
                         object-fit: cover;
                     }
 
-                .product-info {
+                    .product-info {
                     width: 100%;
-                    display: flex;
+                    display: block;
                     align-items: center;
                     margin-top: 1rem;
-                    justify-content: space-between;
+                    justify-content: center;
                     h3 {
                         color: black;
                         font-size: 1.2rem;
                         margin: 0;
+                        margin-left: 30%;
                     }
                 }
                 .favorite-button {
