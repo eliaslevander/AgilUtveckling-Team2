@@ -40,69 +40,69 @@ function toggleFavorite(product) {
 </script>
 
 <template>
-  <!-- Tillbaka knapp -->
-  <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
-    ><v-icon>mdi-chevron-left</v-icon>
-    <p>Tillbaka</p>
-  </span>
-  <!-- Komponent container -->
-  <div class="color-filtered-view">
-    <!-- Namn på kategorin -->
-    <h2>{{ colorType }} Färg</h2>
-    <div class="products">
-      <!-- Loopar igenom varje produkt i filteredProducts (alla med rätt färgtyp) -->
-      <!-- Uppdarerar hover ref vid enter och mouseleave -->
-      <div
-        v-for="product in filteredProducts"
-        :key="product.id"
-        class="product"
-        @mouseenter="hover = product.id"
-        @mouseleave="hover = null"
-      >
-        <!-- Länk till produktsidan för specifik produkt -->
-        <router-link :to="`/product/${product.id}`">
-          <div>
-            <!-- Blob som visas för alla färgtyper och försvinner vid hover -->
-            <BlobComponent
-              v-show="hover !== product.id"
-              id="blob"
-              :color="product.colorHex"
-              :width="'16rem'"
-              :margin="'0 1rem 0 0'"
-            />
-            <!-- Vid hover så visas istället product.image samt "lägg till i favoriter knappen" -->
-            <div v-show="hover === product.id">
-              <img
-                :src="product.image"
-                :alt="product.alt"
-                style="width: 17rem; height: 250px"
-              />
-              <v-btn
-                icon
-                flat
-                @click.stop="toggleFavorite(product)"
-                class="favorite-button"
-                v-show="hover === product.id"
-              >
-                <v-icon>
-                  {{
-                    favoritesStore.isFavorite(product.id)
-                      ? "mdi-heart"
-                      : "mdi-heart-outline"
-                  }}
-                </v-icon>
-              </v-btn>
+    <!-- Tillbaka knapp -->
+    <span id="go-back" @click="router.go(-1)" title="Gå tillbaka ett steg"
+        ><v-icon>mdi-chevron-left</v-icon>
+        <p>Tillbaka</p>
+    </span>
+    <!-- Komponent container -->
+    <div class="color-filtered-view">
+        <!-- Namn på kategorin -->
+        <h2>{{ colorType }}a nyanser</h2>
+        <div class="products">
+            <!-- Loopar igenom varje produkt i filteredProducts (alla med rätt färgtyp) -->
+            <!-- Uppdarerar hover ref vid enter och mouseleave -->
+            <div
+                v-for="product in filteredProducts"
+                :key="product.id"
+                class="product"
+                @mouseenter="hover = product.id"
+                @mouseleave="hover = null"
+            >
+                <!-- Länk till produktsidan för specifik produkt -->
+                <router-link :to="`/product/${product.id}`">
+                    <div>
+                        <!-- Blob som visas för alla färgtyper och försvinner vid hover -->
+                        <BlobComponent
+                            v-show="hover !== product.id"
+                            id="blob"
+                            :color="product.colorHex"
+                            :width="'16rem'"
+                            :margin="'0 1rem 0 0'"
+                        />
+                        <!-- Vid hover så visas istället product.image samt "lägg till i favoriter knappen" -->
+                        <div v-show="hover === product.id">
+                            <img
+                                :src="product.image"
+                                :alt="product.alt"
+                                style="width: 17rem; height: 250px"
+                            />
+                            <v-btn
+                                icon
+                                flat
+                                @click.stop="toggleFavorite(product)"
+                                class="favorite-button"
+                                v-show="hover === product.id"
+                            >
+                                <v-icon>
+                                    {{
+                                        favoritesStore.isFavorite(product.id)
+                                            ? 'mdi-heart'
+                                            : 'mdi-heart-outline'
+                                    }}
+                                </v-icon>
+                            </v-btn>
+                        </div>
+                    </div>
+                    <!-- Namn och pris -->
+                    <div class="product-info">
+                        <h3>{{ product.name }}</h3>
+                        <h3>fr {{ product.price }} kr / L</h3>
+                    </div>
+                </router-link>
             </div>
-          </div>
-          <!-- Namn och pris -->
-          <div class="product-info">
-            <h3>{{ product.name }}</h3>
-            <h3>{{ product.price }} kr / L</h3>
-          </div>
-        </router-link>
-      </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -118,51 +118,52 @@ function toggleFavorite(product) {
   }
 }
 
-.color-filtered-view {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 0;
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-  .products {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    .product {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      a {
-        text-decoration: none;
-        color: black;
-      }
-      img {
-        object-fit: cover;
-      }
-      .product-info {
-        width: 100%;
+    .color-filtered-view {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        margin-top: 1rem;
-        justify-content: space-between;
-        h3 {
-          color: black;
-          font-size: 1.2rem;
-          margin: 0;
+        padding: 2rem 0;
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
         }
-      }
-      .favorite-button {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        visibility: hidden;
-      }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            .product {
+                padding: 1rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                a {
+                    text-decoration: none;
+                    color: black;
+                }
+                img {
+                    object-fit: cover;
+                }
+                .product-info {
+                    width: 100%;
+                    display: block;
+                    align-items: center;
+                    margin-top: 1rem;
+                    justify-content: center;
+                    h3 {
+                        color: black;
+                        font-size: 1.2rem;
+                        margin: 0;
+                        margin-left: 30%;
+                    }
+                }
+                .favorite-button {
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    visibility: hidden;
+                }
 
       &:hover .favorite-button {
         visibility: visible;

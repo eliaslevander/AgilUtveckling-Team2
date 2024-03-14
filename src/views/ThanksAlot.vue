@@ -143,7 +143,7 @@
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-title id="infotitle">
-                        Ditt åsikter är värdefulla:
+                        Dina åsikter är värdefulla för oss:
                     </v-list-item-title>
                     Vi uppmuntrar dig att lämna feedback eller recensioner. Dina
                     åsikter hjälper oss att förbättra och ger andra kunder
