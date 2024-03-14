@@ -1,10 +1,18 @@
 <script setup>
+import { useRouter } from "vue-router";
+import { productsStore } from "@/stores/products";
 import { ref, onMounted } from "vue";
+
+const store = productsStore();
+const router = useRouter();
 
 const r = ref(0);
 const g = ref(0);
 const b = ref(0);
 const deg = ref(0);
+
+// isLoadiing sätts initialt till false
+const isLoading = ref(false);
 
 const setupColorOscillation = (speed) => {
   let phase = 0;
@@ -24,9 +32,40 @@ const setupColorOscillation = (speed) => {
   }, 50);
 };
 
+// Funktion som navigerar till en slumpmässig produkt i kategorin "color"
+const navigateToRandomColorProduct = () => {
+    // Om det finns produkter i store.products så filtreras produkterna så att endast produkter i kategorin "color" finns kvar
+  if (store.products.length > 0) {
+    const colorProducts = store.products.filter(product => product.category === "color");
+    // Om det inte finns några produkter i kategorin "color" så loggas ett felmeddelande
+    if (colorProducts.length === 0) {
+      console.error("Inga produkter i kategorin 'color' finns tillgängliga");
+      return;
+    }
+    // En slumpmässig produkt väljs från colorProducts
+    const randomProduct = colorProducts[Math.floor(Math.random() * colorProducts.length)];
+
+    // Sätter till true så att loading overlay visas
+    isLoading.value = true;
+
+    // Timeout för att det ska verka som att våran super funktion måste ladda.
+    setTimeout(() => {
+      isLoading.value = false;
+      router.push(`/product/${randomProduct.id}`);
+    }, 2000);
+  } else {
+    console.error("Inga produkter tillgängliga");
+  }
+};
+
+
 onMounted(() => {
   setupColorOscillation(100);
-});
+  // Om det inte finns några produkter i store.products så hämtas produkterna med fetchData som också ligger i products.js
+  if (store.products.length === 0) {
+        store.fetchData();
+      }
+    });
 
 const setupDegreeOscillation = (degreeRef) => {
   setInterval(() => {
@@ -41,6 +80,10 @@ onMounted(() => {
 
 <template>
   <div id="HeroImage">
+    <div v-if="isLoading" class="loading-overlay">
+      <p>Hittar din perfekta färg...</p>
+      <div class="spinner"></div>
+    </div>
     <div id="hero-image-container"></div>
     <div id="overlay">
       <div id="hero-overlay-inner">
@@ -52,12 +95,13 @@ onMounted(() => {
           </p>
           <div id="button-container">
             <button
+                @click="navigateToRandomColorProduct"
               id="read-more"
               :style="{
                 background: `linear-gradient(${deg}deg, rgba(${r},${g},${b},1) 0%, rgba(${g},${b},${r},1) 100%)`,
               }"
             >
-              LÄS MER<v-icon>mdi-chevron-right</v-icon>
+              TESTA HÄR<v-icon>mdi-chevron-right</v-icon>
             </button>
           </div>
         </div>
@@ -74,6 +118,39 @@ onMounted(() => {
   height: 80vh;
   margin-bottom: 3vh;
   width: 100%;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.spinner {
+  margin-top: 1rem;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top: 3px solid #050505;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 #overlay {
