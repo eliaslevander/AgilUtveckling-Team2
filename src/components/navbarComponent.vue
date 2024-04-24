@@ -288,7 +288,7 @@ export default {
       >
         <img
           style="width: 100%"
-          src="../assets/images/Logo_NEW.png"
+          src="../assets/images/logo_new.png"
           alt=""
         /></div
     ></router-link>
