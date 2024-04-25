@@ -342,9 +342,9 @@ export default {
     </v-btn>
   </v-app-bar>
 
-  <!-- Visas när 'showDropdownMenu' är true -->
+  <!-- Visas när 'showDropdownMenu' är true och i desktopläge (this.isMobile === false) -->
   <div
-    v-if="showDropdownMenu"
+    v-if="showDropdownMenu && this.isMobile === false"
     class="dropdown-content show-dropdown"
     ref="dropdownMenu"
   >
