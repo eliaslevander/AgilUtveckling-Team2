@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Skiffer",
     "description": "Elegant gråblå nyans, lugnande atmosfär, högkvalitativ färg för tidlös skönhet.",
-    "image": "./assets/images/Blue/Blue_interior_01.jpg",
+    "image": "/public/assets/images/Blue/Blue_interior_01.jpg",
     "alt": "Stenblågrå-färg",
     "price": 199,
     "category": "color",
