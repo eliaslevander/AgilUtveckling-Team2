@@ -16,7 +16,7 @@
     "id": 2,
     "name": "Midnatt",
     "description": "Djupt havsblå nyans, inspirerande och lugnande. Perfekt för att skapa en kreativ och fokuserad atmosfär.",
-    "image": "../src/assets/images/Blue/Blue_interior_02.jpg",
+    "image": "../src/assets/images/Blue/Blue_Interior_02.jpg",
     "alt": "Midnattshav-färg",
     "price": 149,
     "category": "color",
